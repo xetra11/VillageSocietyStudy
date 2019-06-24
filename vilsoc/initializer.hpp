@@ -8,7 +8,14 @@
 #include <SFML/Graphics.hpp>
 
 namespace X11 {
+  struct Position {
+    int x, y;
+    Position(int, int);
+  };
+
   class Initializer {
+  private:
+    std::vector<Position> getRandomPositions(int amount);
   public:
     Initializer();
     virtual ~Initializer();
@@ -18,6 +25,5 @@ namespace X11 {
     void initVillagers();
     void initWorkspaces();
     void initCommunityAreas();
- 
   };
 }
