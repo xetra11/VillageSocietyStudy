@@ -29,7 +29,7 @@ namespace X11 {
       cout << "creating estate no " << i << endl;
       sf::CircleShape* estate = new sf::CircleShape(ESTATE_SHAPE_SIZE);
       cout << "estate is " << estate << endl;
-      estate->setFillColor(sf::Color::Red);
+      estate->setFillColor(sf::Color(241, 169, 160, 150));
       Position randomPos = randomPositions[i];
       cout << "random pos is " << randomPos.x << ":" << randomPos.y << endl;
       estate->setPosition(randomPos.x, randomPos.y);
