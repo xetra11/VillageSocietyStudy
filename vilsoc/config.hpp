@@ -1,0 +1,3 @@
+#define ESTATE_SHAPE_SIZE 30.f
+#define WINDOW_WIDTH 640
+#define WINDOW_HEIGHT 480

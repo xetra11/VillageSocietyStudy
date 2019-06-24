@@ -5,7 +5,10 @@
  * @author Patrick Charles H. | xetra11
  */
 
+#include <iostream>
+#include <string>
 #include <SFML/Graphics.hpp>
+#include "config.hpp"
 
 namespace X11 {
   struct Position {

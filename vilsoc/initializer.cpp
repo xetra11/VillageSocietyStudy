@@ -6,8 +6,7 @@
  */
 
 #include "initializer.hpp"
-#include <iostream>
-#include <string>
+#include <random>
 
 using namespace std;
 
@@ -28,10 +27,11 @@ namespace X11 {
 
     for ( short i = 0; i < estateSize; i++) {
       cout << "creating estate no " << i << endl;
-      sf::CircleShape* estate = new sf::CircleShape(10.f);
+      sf::CircleShape* estate = new sf::CircleShape(ESTATE_SHAPE_SIZE);
       cout << "estate is " << estate << endl;
       estate->setFillColor(sf::Color::Red);
       Position randomPos = randomPositions[i];
+      cout << "random pos is " << randomPos.x << ":" << randomPos.y << endl;
       estate->setPosition(randomPos.x, randomPos.y);
       estates[i] = estate;
     }
@@ -41,7 +41,13 @@ namespace X11 {
   std::vector<Position> Initializer::getRandomPositions(int amount) {
     std::vector<Position> randomPositions(amount, Position(0,0));
     for (int i = 0; i < amount; i++) {
-      randomPositions[i] = Position(5,10*i);
+      std::random_device seeder;
+      std::mt19937 engine(seeder());
+      std::uniform_int_distribution<int> distX(0, WINDOW_WIDTH);
+      std::uniform_int_distribution<int> distY(0, WINDOW_HEIGHT);
+      int randX = distX(engine);
+      int randY = distY(engine);
+      randomPositions[i] = Position(randX, randY);
     }
     return randomPositions;
   }

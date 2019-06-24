@@ -6,14 +6,12 @@
  */
 
 #include "vilsoc.hpp"
-#include <iostream>
-#include <string>
 
 using namespace std;
 
 namespace X11 {
   VillageSociety::VillageSociety() {
-    window = new sf::RenderWindow(sf::VideoMode(640, 480), "SFML Works");
+    window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML Works");
     initializer = new Initializer();
   }
 
@@ -32,7 +30,6 @@ namespace X11 {
       window->clear();
       for (auto estate : estates) {
         if (estate != NULL) {
-          cout << "drawing estate" << estate << endl;
           window->draw(*estate);
         } else {
           cout << "could not draw estate "<< estate << endl;
