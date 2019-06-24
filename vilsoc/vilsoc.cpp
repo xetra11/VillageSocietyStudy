@@ -6,17 +6,22 @@
  */
 
 #include "vilsoc.hpp"
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 namespace X11 {
   VillageSociety::VillageSociety() {
-    window = new sf::RenderWindow(sf::VideoMode(200, 200), "SFML Works");
-    shape = new sf::CircleShape(100.f);
-    shape->setFillColor(sf::Color::Green);
+    window = new sf::RenderWindow(sf::VideoMode(640, 480), "SFML Works");
+    initializer = new Initializer();
   }
 
   VillageSociety::~VillageSociety() {}
 
   int VillageSociety::run() {
+    std::vector<sf::CircleShape*> estates = initializer->initVillageEstates();
+
     while (window->isOpen()){
       sf::Event event;
       while (window->pollEvent(event)) {
@@ -25,7 +30,14 @@ namespace X11 {
       }
 
       window->clear();
-      window->draw(*shape);
+      for (auto estate : estates) {
+        if (estate != NULL) {
+          cout << "drawing estate" << estate << endl;
+          window->draw(*estate);
+        } else {
+          cout << "could not draw estate "<< estate << endl;
+        }
+      }
       window->display();
     }
 
