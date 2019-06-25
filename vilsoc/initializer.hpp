@@ -15,25 +15,20 @@
 #include "zone.hpp"
 
 namespace X11 {
-  struct Position {
-    int x, y;
-    Position(int, int);
-  };
 
   class Initializer {
   private:
-    std::vector<Position> getRandomPositions(int amount, int offsetSize);
+    std::vector<sf::Vector2i> getRandomPositions(int amount, int offsetSize);
 
     template <typename T>
     std::vector<Zone<T>*> initObjects(int objectAmount, int objectSize, sf::Color color) {
       std::vector<Zone<T>*> zones(objectAmount, 0) ;
-      std::vector<Position> randomPositions = this->getRandomPositions(objectAmount, objectSize);
+      std::vector<sf::Vector2i> randomPositions = this->getRandomPositions(objectAmount, objectSize);
 
       for (short i = 0; i < objectAmount; i++) {
-        Zone<T>* zone = new Zone<sf::CircleShape>(objectSize);
+        sf::Vector2i position = randomPositions[i];
+        Zone<T>* zone = new Zone<sf::CircleShape>(objectSize, position);
         zone->getShape()->setFillColor(color);
-        Position randomPos = randomPositions[i];
-        zone->getShape()->setPosition(randomPos.x, randomPos.y);
         zones[i] = zone;
       }
       return zones;

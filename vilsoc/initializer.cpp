@@ -18,17 +18,12 @@ using namespace std;
 
 namespace X11 {
 
-  Position::Position(int x, int y) {
-    this->x = x;
-    this->y = y;
-  }
-
   Initializer::Initializer() {}
   Initializer::~Initializer() {}
 
   std::vector<Zone<sf::CircleShape>*> Initializer::initVillageEstates(){
     std::vector<Zone<sf::CircleShape>*> estates(ESTATE_COUNT, 0) ;
-    std::vector<Position> randomPositions = this->getRandomPositions(ESTATE_COUNT, ESTATE_SHAPE_SIZE);
+    std::vector<sf::Vector2i> randomPositions = this->getRandomPositions(ESTATE_COUNT, ESTATE_SHAPE_SIZE);
     sf::Color color(241, 169, 160, 150);
 
     estates = this->initObjects<sf::CircleShape>(ESTATE_COUNT, ESTATE_SHAPE_SIZE, color);
@@ -38,7 +33,7 @@ namespace X11 {
   std::vector<Zone<sf::CircleShape>*> Initializer::initCommunityAreas(){
     short communityAreaCount = 2;
     std::vector<Zone<sf::CircleShape>*> communityAreas(communityAreaCount, 0) ;
-    std::vector<Position> randomPositions = this->getRandomPositions(communityAreaCount, ESTATE_SHAPE_SIZE);
+    std::vector<sf::Vector2i> randomPositions = this->getRandomPositions(communityAreaCount, ESTATE_SHAPE_SIZE);
     sf::Color color(102, 204, 153, 150);
 
     communityAreas = this->initObjects<sf::CircleShape>(communityAreaCount, COMMUNITY_SHAPE_SIZE, color);
@@ -58,8 +53,8 @@ namespace X11 {
   //   return workspaces;
   // }
 
-  std::vector<Position> Initializer::getRandomPositions(int amount, int offsetSize) {
-    std::vector<Position> randomPositions(amount, Position(0,0));
+  std::vector<sf::Vector2i> Initializer::getRandomPositions(int amount, int offsetSize) {
+    std::vector<sf::Vector2i> randomPositions(amount, sf::Vector2i(150, 150));
     for (int i = 0; i < amount; i++) {
       std::random_device seeder;
       std::mt19937 engine(seeder());
@@ -67,7 +62,7 @@ namespace X11 {
       std::uniform_int_distribution<int> distY(0 + offsetSize, WINDOW_HEIGHT - offsetSize);
       int randX = distX(engine);
       int randY = distY(engine);
-      randomPositions[i] = Position(randX, randY);
+      randomPositions[i] = sf::Vector2i(randX, randY);
     }
     return randomPositions;
   }

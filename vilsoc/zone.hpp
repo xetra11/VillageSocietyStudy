@@ -15,18 +15,25 @@ namespace X11 {
   class Zone {
   private:
     T* shape;
+    sf::IntRect rect;
   public:
-    Zone(int size) {
+    Zone(int size, sf::Vector2i position) {
       this->shape = new T(size);
+      sf::Vector2i shapeSize(size, size);
+      this->rect = sf::IntRect(position, shapeSize);
     }
     virtual ~Zone() {};
 
-    sf::FloatRect getRect();
-    bool intersects(Zone& with);
+    sf::IntRect getRect();
     T* getShape(){
       return this->shape;
     }
+
+    bool intersects(Zone<T>& with) {
+      return this->getRect()->intersects(with);
+    }
   };
+
 
 }
 
