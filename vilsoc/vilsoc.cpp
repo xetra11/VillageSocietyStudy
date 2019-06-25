@@ -5,6 +5,9 @@
  * @author Patrick Charles H. | xetra11
  */
 
+#ifndef VILSOC_CPP
+#define VILSOC_CPP
+
 #include "vilsoc.hpp"
 
 using namespace std;
@@ -21,9 +24,12 @@ namespace X11 {
     std::vector<sf::Shape*> allObjects;
     std::vector<sf::CircleShape*> estates = initializer->initVillageEstates();
     std::vector<sf::CircleShape*> communityAreas = initializer->initCommunityAreas();
+    std::vector<sf::RectangleShape*> workspaces = initializer->initWorkspaces();
 
     allObjects.insert(allObjects.end(), estates.begin(), estates.end());
     allObjects.insert(allObjects.end(), communityAreas.begin(), communityAreas.end());
+    allObjects.insert(allObjects.end(), workspaces.begin(), workspaces.end());
+
     cout << "size of drawable objects " << allObjects.size() << endl;
 
     while (window->isOpen()){
@@ -49,3 +55,5 @@ namespace X11 {
     return 0;
   }
 }
+
+#endif

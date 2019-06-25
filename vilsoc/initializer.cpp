@@ -5,8 +5,13 @@
  * @author Patrick Charles H. | xetra11
  */
 
+#ifndef INITIALIZER_CPP
+#define INITIALIZER_CPP
+
 #include "initializer.hpp"
 #include <random>
+
+#define ESTATE_COUNT 5
 
 using namespace std;
 
@@ -21,17 +26,16 @@ namespace X11 {
   Initializer::~Initializer() {}
 
   std::vector<sf::CircleShape*> Initializer::initVillageEstates(){
-    short estateSize = 5;
-    std::vector<sf::CircleShape*> estates(estateSize, 0) ;
-    std::vector<Position> randomPositions = this->getRandomPositions(estateSize, ESTATE_SHAPE_SIZE);
+    std::vector<sf::CircleShape*> estates(ESTATE_COUNT, 0) ;
+    std::vector<Position> randomPositions = this->getRandomPositions(ESTATE_COUNT, ESTATE_SHAPE_SIZE);
     sf::Color color(241, 169, 160, 150);
 
-    estates = this->initObjects<sf::CircleShape>(estateSize, ESTATE_SHAPE_SIZE, color);
+    estates = this->initObjects<sf::CircleShape>(ESTATE_COUNT, ESTATE_SHAPE_SIZE, color);
     return estates;
   }
 
   std::vector<sf::CircleShape*> Initializer::initCommunityAreas(){
-    short communityAreaCount = 5;
+    short communityAreaCount = 2;
     std::vector<sf::CircleShape*> communityAreas(communityAreaCount, 0) ;
     std::vector<Position> randomPositions = this->getRandomPositions(communityAreaCount, ESTATE_SHAPE_SIZE);
     sf::Color color(102, 204, 153, 150);
@@ -40,6 +44,17 @@ namespace X11 {
     //for (auto communityArea : communityAreas) {communityArea->setPointCount(5);}
 
     return communityAreas;
+  }
+
+  std::vector<sf::RectangleShape*> Initializer::initWorkspaces(){
+    short workspaceCount = ESTATE_COUNT;
+    std::vector<sf::RectangleShape*> workspaces(workspaceCount, 0) ;
+    std::vector<Position> randomPositions = this->getRandomPositions(workspaceCount, WORKSPACE_SHAPE_SIZE);
+    sf::Color color(25, 181, 254, 255);
+
+    workspaces = this->initObjects<sf::RectangleShape>(workspaceCount, WORKSPACE_SHAPE_SIZE, color);
+
+    return workspaces;
   }
 
   std::vector<Position> Initializer::getRandomPositions(int amount, int offsetSize) {
@@ -57,3 +72,5 @@ namespace X11 {
   }
 
 }
+
+#endif

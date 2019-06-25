@@ -5,6 +5,9 @@
  * @author Patrick Charles H. | xetra11
  */
 
+#ifndef VILSOC_HPP
+#define VILSOC_HPP
+
 #include <SFML/Graphics.hpp>
 #include "config.hpp"
 #include "initializer.hpp"
@@ -21,3 +24,5 @@ namespace X11 {
     int run();
   };
 }
+
+#endif

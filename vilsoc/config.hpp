@@ -1,4 +1,10 @@
+#ifndef CONFIG_HPP
+#define CONFIG_HPP
+
 #define ESTATE_SHAPE_SIZE 30.f
 #define COMMUNITY_SHAPE_SIZE 15.f
+#define WORKSPACE_SHAPE_SIZE 20.f
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
+
+#endif
