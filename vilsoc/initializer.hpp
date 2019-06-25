@@ -18,7 +18,22 @@ namespace X11 {
 
   class Initializer {
   private:
-    std::vector<Position> getRandomPositions(int amount);
+    std::vector<Position> getRandomPositions(int amount, int offsetSize);
+
+    template <class T>
+    std::vector<T*> initObjects(int objectAmount, int objectSize, sf::Color color) {
+      std::vector<T*> objects(objectAmount, 0) ;
+      std::vector<Position> randomPositions = this->getRandomPositions(objectAmount, objectSize);
+
+      for ( short i = 0; i < objectAmount; i++) {
+        T* object = new T(objectSize);
+        object->setFillColor(color);
+        Position randomPos = randomPositions[i];
+        object->setPosition(randomPos.x, randomPos.y);
+        objects[i] = object;
+      }
+      return objects;
+    }
   public:
     Initializer();
     virtual ~Initializer();

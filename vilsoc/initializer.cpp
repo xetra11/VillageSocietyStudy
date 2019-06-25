@@ -23,32 +23,25 @@ namespace X11 {
   std::vector<sf::CircleShape*> Initializer::initVillageEstates(){
     short estateSize = 5;
     std::vector<sf::CircleShape*> estates(estateSize, 0) ;
-    std::vector<Position> randomPositions = this->getRandomPositions(estateSize);
+    std::vector<Position> randomPositions = this->getRandomPositions(estateSize, ESTATE_SHAPE_SIZE);
+    sf::Color color(241, 169, 160, 150);
 
-    for ( short i = 0; i < estateSize; i++) {
-      cout << "creating estate no " << i << endl;
-      sf::CircleShape* estate = new sf::CircleShape(ESTATE_SHAPE_SIZE);
-      cout << "estate is " << estate << endl;
-      estate->setFillColor(sf::Color(241, 169, 160, 150));
-      Position randomPos = randomPositions[i];
-      cout << "random pos is " << randomPos.x << ":" << randomPos.y << endl;
-      estate->setPosition(randomPos.x, randomPos.y);
-      estates[i] = estate;
-    }
+    estates = this->initObjects<sf::CircleShape>(estateSize, ESTATE_SHAPE_SIZE, color);
     return estates;
   }
 
-  std::vector<Position> Initializer::getRandomPositions(int amount) {
+  std::vector<Position> Initializer::getRandomPositions(int amount, int offsetSize) {
     std::vector<Position> randomPositions(amount, Position(0,0));
     for (int i = 0; i < amount; i++) {
       std::random_device seeder;
       std::mt19937 engine(seeder());
-      std::uniform_int_distribution<int> distX(0, WINDOW_WIDTH);
-      std::uniform_int_distribution<int> distY(0, WINDOW_HEIGHT);
+      std::uniform_int_distribution<int> distX(0 + offsetSize, WINDOW_WIDTH - offsetSize);
+      std::uniform_int_distribution<int> distY(0 + offsetSize, WINDOW_HEIGHT - offsetSize);
       int randX = distX(engine);
       int randY = distY(engine);
       randomPositions[i] = Position(randX, randY);
     }
     return randomPositions;
   }
+
 }
