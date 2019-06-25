@@ -14,7 +14,7 @@ namespace X11 {
   template <typename T>
   class Zone {
   private:
-    T shape;
+    T* shape;
   public:
     Zone(int size) {
       this->shape = new T(size);
@@ -23,7 +23,9 @@ namespace X11 {
 
     sf::FloatRect getRect();
     bool intersects(Zone& with);
-    T getShape();
+    T* getShape(){
+      return this->shape;
+    }
   };
 
 }

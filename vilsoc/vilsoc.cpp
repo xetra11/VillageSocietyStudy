@@ -21,16 +21,16 @@ namespace X11 {
   VillageSociety::~VillageSociety() {}
 
   int VillageSociety::run() {
-    std::vector<sf::Shape*> allObjects;
-    std::vector<sf::CircleShape*> estates = initializer->initVillageEstates();
-    std::vector<sf::CircleShape*> communityAreas = initializer->initCommunityAreas();
-    std::vector<sf::RectangleShape*> workspaces = initializer->initWorkspaces();
+    std::vector<Zone<sf::CircleShape>*> allZones;
+    std::vector<Zone<sf::CircleShape>*> estates = initializer->initVillageEstates();
+    std::vector<Zone<sf::CircleShape>*> communityAreas = initializer->initCommunityAreas();
+    //std::vector<sf::RectangleShape*> workspaces = initializer->initWorkspaces();
 
-    allObjects.insert(allObjects.end(), estates.begin(), estates.end());
-    allObjects.insert(allObjects.end(), communityAreas.begin(), communityAreas.end());
-    allObjects.insert(allObjects.end(), workspaces.begin(), workspaces.end());
+    allZones.insert(allZones.end(), estates.begin(), estates.end());
+    allZones.insert(allZones.end(), communityAreas.begin(), communityAreas.end());
+    //allZones.insert(allZones.end(), workspaces.begin(), workspaces.end());
 
-    cout << "size of drawable objects " << allObjects.size() << endl;
+    cout << "size of drawable objects " << allZones.size() << endl;
 
     while (window->isOpen()){
       sf::Event event;
@@ -41,11 +41,12 @@ namespace X11 {
 
       window->clear();
 
-      for (auto object : allObjects) {
-        if (object != NULL) {
-          window->draw(*object);
+      for (auto zone : allZones) {
+        if (zone != NULL) {
+          sf::Shape* shape = zone->getShape();
+          window->draw(*shape);
         } else {
-          cout << "could not draw estate "<< object << endl;
+          cout << "could not draw estate "<< zone << endl;
         }
       }
 

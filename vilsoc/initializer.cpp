@@ -12,6 +12,7 @@
 #include <random>
 
 #define ESTATE_COUNT 5
+#define COMMUNITY_COUNT 5
 
 using namespace std;
 
@@ -25,8 +26,8 @@ namespace X11 {
   Initializer::Initializer() {}
   Initializer::~Initializer() {}
 
-  std::vector<sf::CircleShape*> Initializer::initVillageEstates(){
-    std::vector<sf::CircleShape*> estates(ESTATE_COUNT, 0) ;
+  std::vector<Zone<sf::CircleShape>*> Initializer::initVillageEstates(){
+    std::vector<Zone<sf::CircleShape>*> estates(ESTATE_COUNT, 0) ;
     std::vector<Position> randomPositions = this->getRandomPositions(ESTATE_COUNT, ESTATE_SHAPE_SIZE);
     sf::Color color(241, 169, 160, 150);
 
@@ -34,9 +35,9 @@ namespace X11 {
     return estates;
   }
 
-  std::vector<sf::CircleShape*> Initializer::initCommunityAreas(){
+  std::vector<Zone<sf::CircleShape>*> Initializer::initCommunityAreas(){
     short communityAreaCount = 2;
-    std::vector<sf::CircleShape*> communityAreas(communityAreaCount, 0) ;
+    std::vector<Zone<sf::CircleShape>*> communityAreas(communityAreaCount, 0) ;
     std::vector<Position> randomPositions = this->getRandomPositions(communityAreaCount, ESTATE_SHAPE_SIZE);
     sf::Color color(102, 204, 153, 150);
 
@@ -46,16 +47,16 @@ namespace X11 {
     return communityAreas;
   }
 
-  std::vector<sf::RectangleShape*> Initializer::initWorkspaces(){
-    short workspaceCount = ESTATE_COUNT;
-    std::vector<sf::RectangleShape*> workspaces(workspaceCount, 0) ;
-    std::vector<Position> randomPositions = this->getRandomPositions(workspaceCount, WORKSPACE_SHAPE_SIZE);
-    sf::Color color(25, 181, 254, 255);
+  // std::vector<sf::RectangleShape*> Initializer::initWorkspaces(){
+  //   short workspaceCount = ESTATE_COUNT;
+  //   std::vector<sf::RectangleShape*> workspaces(workspaceCount, 0) ;
+  //   std::vector<Position> randomPositions = this->getRandomPositions(workspaceCount, WORKSPACE_SHAPE_SIZE);
+  //   sf::Color color(25, 181, 254, 255);
 
-    workspaces = this->initObjects<sf::RectangleShape>(workspaceCount, WORKSPACE_SHAPE_SIZE, color);
+  //   workspaces = this->initObjects<sf::RectangleShape>(workspaceCount, WORKSPACE_SHAPE_SIZE, color);
 
-    return workspaces;
-  }
+  //   return workspaces;
+  // }
 
   std::vector<Position> Initializer::getRandomPositions(int amount, int offsetSize) {
     std::vector<Position> randomPositions(amount, Position(0,0));
