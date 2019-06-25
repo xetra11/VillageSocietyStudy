@@ -18,7 +18,13 @@ namespace X11 {
   VillageSociety::~VillageSociety() {}
 
   int VillageSociety::run() {
+    std::vector<sf::Shape*> allObjects;
     std::vector<sf::CircleShape*> estates = initializer->initVillageEstates();
+    std::vector<sf::CircleShape*> communityAreas = initializer->initCommunityAreas();
+
+    allObjects.insert(allObjects.end(), estates.begin(), estates.end());
+    allObjects.insert(allObjects.end(), communityAreas.begin(), communityAreas.end());
+    cout << "size of drawable objects " << allObjects.size() << endl;
 
     while (window->isOpen()){
       sf::Event event;
@@ -28,13 +34,15 @@ namespace X11 {
       }
 
       window->clear();
-      for (auto estate : estates) {
-        if (estate != NULL) {
-          window->draw(*estate);
+
+      for (auto object : allObjects) {
+        if (object != NULL) {
+          window->draw(*object);
         } else {
-          cout << "could not draw estate "<< estate << endl;
+          cout << "could not draw estate "<< object << endl;
         }
       }
+
       window->display();
     }
 
