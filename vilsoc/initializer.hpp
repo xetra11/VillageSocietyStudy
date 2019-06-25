@@ -42,6 +42,6 @@ namespace X11 {
     void initHouses();
     void initVillagers();
     void initWorkspaces();
-    void initCommunityAreas();
+    std::vector<sf::ConvexShape*> initCommunityAreas();
   };
 }

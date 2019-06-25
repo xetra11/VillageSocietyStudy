@@ -30,6 +30,18 @@ namespace X11 {
     return estates;
   }
 
+  std::vector<sf::ConvexShape*> Initializer::initCommunityAreas(){
+    short communityAreaCount = 5;
+    std::vector<sf::ConvexShape*> communityAreas(communityAreaCount, 0) ;
+    std::vector<Position> randomPositions = this->getRandomPositions(communityAreaCount, ESTATE_SHAPE_SIZE);
+    sf::Color color(102, 204, 153, 150);
+
+    communityAreas = this->initObjects<sf::ConvexShape>(communityAreaCount, COMMUNITY_SHAPE_SIZE, color);
+    for (auto communityArea : communityAreas) {communityArea->setPointCount(5);}
+
+    return communityAreas;
+  }
+
   std::vector<Position> Initializer::getRandomPositions(int amount, int offsetSize) {
     std::vector<Position> randomPositions(amount, Position(0,0));
     for (int i = 0; i < amount; i++) {
