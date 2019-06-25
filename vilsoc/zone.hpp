@@ -19,6 +19,7 @@ namespace X11 {
   public:
     Zone(int size, sf::Vector2i position) {
       this->shape = new T(size);
+      this->shape->setPosition(sf::Vector2f(position.x, position.y));
       sf::Vector2i shapeSize(size, size);
       this->rect = sf::IntRect(position, shapeSize);
     }
