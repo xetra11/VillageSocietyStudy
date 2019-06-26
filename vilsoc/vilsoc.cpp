@@ -13,31 +13,16 @@
 using namespace std;
 
 namespace X11 {
-  VillageSociety::VillageSociety() {
-    window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML Works");
-    initializer = new Initializer();
-  }
-
+  VillageSociety::VillageSociety() {}
   VillageSociety::~VillageSociety() {}
 
-  int VillageSociety::run() {
-    spdlog::info("initialize zones");
-    std::vector<Zone*> allZones;
-    std::vector<Zone*> estates = initializer->initVillageEstates();
-    std::vector<Zone*> communityAreas = initializer->initCommunityAreas();
-    std::vector<Zone*> workspaces = initializer->initWorkspaces(estates);
-    std::vector<Zone*> houses = initializer->initHouses(estates);
-    spdlog::info("initialize villagers");
-    std::vector<Villager*> villagers = initializer->initVillagers();
-    spdlog::info("initialization done");
-
-    allZones.insert(allZones.end(), estates.begin(), estates.end());
-    allZones.insert(allZones.end(), communityAreas.begin(), communityAreas.end());
-    allZones.insert(allZones.end(), workspaces.begin(), workspaces.end());
-    allZones.insert(allZones.end(), houses.begin(), houses.end());
-
+  int VillageSociety::run(float delta) {
+    window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "VilSoc");
     spdlog::info("start rendering");
+    Engine engine;
+    engine.initialize();
     while (window->isOpen()){
+
       sf::Event event;
       while (window->pollEvent(event)) {
         if (event.type == sf::Event::Closed)
@@ -45,29 +30,9 @@ namespace X11 {
       }
 
       window->clear();
-
-      for (auto zone : allZones) {
-        if (zone != NULL) {
-          sf::Shape* shape = zone->getShape();
-          window->draw(*shape);
-        } else {
-          spdlog::warn("villager rendering failed");
-        }
-      }
-
-      for (auto villager : villagers) {
-        if (villager != NULL) {
-          sf::Shape* head = villager->getHeadShape();
-          sf::Shape* body = villager->getBodyShape();
-          window->draw(*head);
-          window->draw(*body);
-        } else {
-          spdlog::warn("villager rendering failed");
-        }
-      }
+      engine.draw(window);
       window->display();
     }
-
     return 0;
   }
 }

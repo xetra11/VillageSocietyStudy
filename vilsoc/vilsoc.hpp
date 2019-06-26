@@ -10,18 +10,14 @@
 
 #include <SFML/Graphics.hpp>
 #include "config.hpp"
-#include "initializer.hpp"
+#include "engine.hpp"
 
 namespace X11 {
   class VillageSociety {
-  private:
-    sf::RenderWindow* window;
-    Initializer* initializer;
-
   public:
     VillageSociety();
     virtual ~VillageSociety();
-    int run();
+    int run(float delta);
   };
 }
 
