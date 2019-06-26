@@ -21,6 +21,15 @@ namespace X11 {
   Initializer::Initializer() {}
   Initializer::~Initializer() {}
 
+  bool Initializer::isOccupied(sf::IntRect rect) {
+    for (auto occupied : this->occupiedAreas) {
+      if (occupied.intersects(rect)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   std::vector<Zone*> Initializer::initVillageEstates(){
     std::vector<Zone*> estates(ESTATE_COUNT, 0) ;
     sf::Color color(241, 169, 160, 150);
@@ -36,29 +45,34 @@ namespace X11 {
     return communityAreas;
   }
 
-  // std::vector<sf::RectangleShape*> Initializer::initWorkspaces(){
-  //   short workspaceCount = ESTATE_COUNT;
-  //   std::vector<sf::RectangleShape*> workspaces(workspaceCount, 0) ;
-  //   std::vector<Position> randomPositions = this->getRandomPositions(workspaceCount, WORKSPACE_SHAPE_SIZE);
-  //   sf::Color color(25, 181, 254, 255);
+  std::vector<Zone*> Initializer::initObjects(int objectAmount, int objectSize, sf::Color color) {
+    std::vector<Zone*> zones(objectAmount, 0) ;
 
-  //   workspaces = this->initObjects<sf::RectangleShape>(workspaceCount, WORKSPACE_SHAPE_SIZE, color);
+    for (short i = 0; i < objectAmount;) {
+      sf::Vector2i randomPosition = this->getRandomPosition(objectSize);
+      Zone* zone = new ZoneCircle(objectSize, randomPosition, color);
 
-  //   return workspaces;
-  // }
+      if(this->isOccupied(zone->getRect())) {
+        cout << "skipped because occupied position" << endl;
+        continue;
+      }
 
-  std::vector<sf::Vector2i> Initializer::getRandomPositions(int amount, int offsetSize) {
-    std::vector<sf::Vector2i> randomPositions(amount, sf::Vector2i(150, 150));
-    for (int i = 0; i < amount; i++) {
-      std::random_device seeder;
-      std::mt19937 engine(seeder());
-      std::uniform_int_distribution<int> distX(0 + offsetSize, WINDOW_WIDTH - offsetSize);
-      std::uniform_int_distribution<int> distY(0 + offsetSize, WINDOW_HEIGHT - offsetSize);
-      int randX = distX(engine);
-      int randY = distY(engine);
-      randomPositions[i] = sf::Vector2i(randX, randY);
+      this->occupiedAreas.push_back(zone->getRect());
+      zones[i] = zone;
+      i++;
     }
-    return randomPositions;
+    return zones;
+  }
+
+  sf::Vector2i Initializer::getRandomPosition(int offsetSize) {
+    std::random_device seeder;
+    std::mt19937 engine(seeder());
+    std::uniform_int_distribution<int> distX(0 + offsetSize, WINDOW_WIDTH - offsetSize);
+    std::uniform_int_distribution<int> distY(0 + offsetSize, WINDOW_HEIGHT - offsetSize);
+    int randX = distX(engine);
+    int randY = distY(engine);
+    sf::Vector2i randomPos(randX, randY);
+    return randomPos;
   }
 
 }
