@@ -24,7 +24,7 @@ namespace X11 {
     std::vector<Zone*> allZones;
     std::vector<Zone*> estates = initializer->initVillageEstates();
     std::vector<Zone*> communityAreas = initializer->initCommunityAreas();
-    std::vector<Zone*> workspaces = initializer->initWorkspaces();
+    std::vector<Zone*> workspaces = initializer->initWorkspaces(estates);
 
     allZones.insert(allZones.end(), estates.begin(), estates.end());
     allZones.insert(allZones.end(), communityAreas.begin(), communityAreas.end());

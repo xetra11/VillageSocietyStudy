@@ -45,11 +45,15 @@ namespace X11 {
     return communityAreas;
   }
 
-  std::vector<Zone*> Initializer::initWorkspaces(){
+  std::vector<Zone*> Initializer::initWorkspaces(std::vector<Zone*> parentZones){
     short workspaceCount = ESTATE_COUNT;
     std::vector<Zone*> workspaces(workspaceCount, 0) ;
     sf::Color color(35, 203, 167, 255);
-    workspaces = this->initObjects<ZoneRectangle>(workspaceCount, WORKSPACE_SHAPE_SIZE, color);
+    std::vector<sf::IntRect> rects(workspaceCount);
+    for (int i = 0; i < workspaceCount; i++) {
+      rects[i] = (parentZones[i])->getRect();
+    }
+    workspaces = this->initObjects<ZoneRectangle>(workspaceCount, WORKSPACE_SHAPE_SIZE, color, rects);
     return workspaces;
   }
 
@@ -58,6 +62,17 @@ namespace X11 {
     std::mt19937 engine(seeder());
     std::uniform_int_distribution<int> distX(0 + offsetSize, WINDOW_WIDTH - offsetSize);
     std::uniform_int_distribution<int> distY(0 + offsetSize, WINDOW_HEIGHT - offsetSize);
+    int randX = distX(engine);
+    int randY = distY(engine);
+    sf::Vector2i randomPos(randX, randY);
+    return randomPos;
+  }
+
+  sf::Vector2i Initializer::getRandomPosition(sf::IntRect boundaries) {
+    std::random_device seeder;
+    std::mt19937 engine(seeder());
+    std::uniform_int_distribution<int> distX(boundaries.left, boundaries.left + boundaries.width);
+    std::uniform_int_distribution<int> distY(boundaries.top, boundaries.top + boundaries.height);
     int randX = distX(engine);
     int randY = distY(engine);
     sf::Vector2i randomPos(randX, randY);
