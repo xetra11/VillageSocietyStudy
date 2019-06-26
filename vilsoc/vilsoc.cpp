@@ -25,10 +25,12 @@ namespace X11 {
     std::vector<Zone*> estates = initializer->initVillageEstates();
     std::vector<Zone*> communityAreas = initializer->initCommunityAreas();
     std::vector<Zone*> workspaces = initializer->initWorkspaces(estates);
+    std::vector<Zone*> houses = initializer->initHouses(estates);
 
     allZones.insert(allZones.end(), estates.begin(), estates.end());
     allZones.insert(allZones.end(), communityAreas.begin(), communityAreas.end());
     allZones.insert(allZones.end(), workspaces.begin(), workspaces.end());
+    allZones.insert(allZones.end(), houses.begin(), houses.end());
 
     cout << "size of drawable objects " << allZones.size() << endl;
 

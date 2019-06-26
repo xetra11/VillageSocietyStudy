@@ -37,6 +37,13 @@ namespace X11 {
     return estates;
   }
 
+  std::vector<Zone*> Initializer::initVillagers(){
+    std::vector<Zone*> villagers(ESTATE_COUNT, 0) ;
+    sf::Color color(241, 169, 160, 150);
+    estates = this->initObjects<ZoneRectangle>(ESTATE_COUNT, VILLAGER_SHAPE_SIZE, color);
+    return estates;
+  }
+
   std::vector<Zone*> Initializer::initCommunityAreas(){
     short communityAreaCount = 2;
     std::vector<Zone*> communityAreas(communityAreaCount, 0) ;
@@ -48,12 +55,24 @@ namespace X11 {
   std::vector<Zone*> Initializer::initWorkspaces(std::vector<Zone*> parentZones){
     short workspaceCount = ESTATE_COUNT;
     std::vector<Zone*> workspaces(workspaceCount, 0) ;
-    sf::Color color(35, 203, 167, 255);
+    sf::Color color(25, 181, 254, 255);
     std::vector<sf::IntRect> rects(workspaceCount);
     for (int i = 0; i < workspaceCount; i++) {
       rects[i] = (parentZones[i])->getRect();
     }
     workspaces = this->initObjects<ZoneRectangle>(workspaceCount, WORKSPACE_SHAPE_SIZE, color, rects);
+    return workspaces;
+  }
+
+  std::vector<Zone*> Initializer::initHouses(std::vector<Zone*> parentZones) {
+    short workspaceCount = ESTATE_COUNT;
+    std::vector<Zone*> workspaces(workspaceCount, 0) ;
+    sf::Color color(245, 230, 83, 255);
+    std::vector<sf::IntRect> rects(workspaceCount);
+    for (int i = 0; i < workspaceCount; i++) {
+      rects[i] = (parentZones[i])->getRect();
+    }
+    workspaces = this->initObjects<ZoneCircle>(workspaceCount, HOUSE_SHAPE_SIZE, color, rects);
     return workspaces;
   }
 

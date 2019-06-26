@@ -51,6 +51,7 @@ namespace X11 {
       for (short i = 0; i < objectAmount;) {
         sf::Vector2i randomPosition = this->getRandomPosition(rects[i]);
         Zone* zone = new T(objectSize, randomPosition, color);
+        this->occupiedAreas.push_back(zone->getRect());
         zones[i] = zone;
         i++;
       }
@@ -64,8 +65,8 @@ namespace X11 {
     std::vector<Zone*> initVillageEstates();
     std::vector<Zone*> initCommunityAreas();
     std::vector<Zone*> initWorkspaces(std::vector<Zone*> parentZones);
-    void initHouses();
-    void initVillagers();
+    std::vector<Zone*> initHouses(std::vector<Zone*> parentZones);
+    std::vector<Zone*> initVillagers();
   };
 }
 
