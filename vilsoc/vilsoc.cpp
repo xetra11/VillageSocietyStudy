@@ -21,9 +21,9 @@ namespace X11 {
   VillageSociety::~VillageSociety() {}
 
   int VillageSociety::run() {
-    std::vector<Zone<sf::CircleShape>*> allZones;
-    std::vector<Zone<sf::CircleShape>*> estates = initializer->initVillageEstates();
-    std::vector<Zone<sf::CircleShape>*> communityAreas = initializer->initCommunityAreas();
+    std::vector<Zone*> allZones;
+    std::vector<Zone*> estates = initializer->initVillageEstates();
+    std::vector<Zone*> communityAreas = initializer->initCommunityAreas();
     //std::vector<sf::RectangleShape*> workspaces = initializer->initWorkspaces();
 
     allZones.insert(allZones.end(), estates.begin(), estates.end());

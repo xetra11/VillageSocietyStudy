@@ -20,15 +20,13 @@ namespace X11 {
   private:
     std::vector<sf::Vector2i> getRandomPositions(int amount, int offsetSize);
 
-    template <typename T>
-    std::vector<Zone<T>*> initObjects(int objectAmount, int objectSize, sf::Color color) {
-      std::vector<Zone<T>*> zones(objectAmount, 0) ;
+    std::vector<Zone*> initObjects(int objectAmount, int objectSize, sf::Color color) {
+      std::vector<Zone*> zones(objectAmount, 0) ;
       std::vector<sf::Vector2i> randomPositions = this->getRandomPositions(objectAmount, objectSize);
 
       for (short i = 0; i < objectAmount; i++) {
         sf::Vector2i position = randomPositions[i];
-        Zone<T>* zone = new Zone<sf::CircleShape>(objectSize, position);
-        zone->getShape()->setFillColor(color);
+        Zone* zone = new ZoneCircle(objectSize, position, color);
         zones[i] = zone;
       }
       return zones;
@@ -38,11 +36,11 @@ namespace X11 {
     Initializer();
     virtual ~Initializer();
 
-    std::vector<Zone<sf::CircleShape>*> initVillageEstates();
+    std::vector<Zone*> initVillageEstates();
+    std::vector<Zone*> initCommunityAreas();
     void initHouses();
     void initVillagers();
     // std::vector<sf::RectangleShape*> initWorkspaces();
-    std::vector<Zone<sf::CircleShape>*> initCommunityAreas();
   };
 }
 

@@ -11,32 +11,35 @@
 #include <SFML/Graphics.hpp>
 
 namespace X11 {
-  template <typename T>
+
   class Zone {
-  private:
-    T* shape;
+  protected:
+    sf::Shape* shape;
     sf::IntRect rect;
   public:
-    Zone(int size, sf::Vector2i position) {
-      this->shape = new T(size);
-      this->shape->setPosition(sf::Vector2f(position.x, position.y));
-      sf::Vector2i shapeSize(size, size);
-      this->rect = sf::IntRect(position, shapeSize);
-    }
-    virtual ~Zone() {};
+    Zone();
+    virtual ~Zone();
 
+    sf::Shape* getShape();
     sf::IntRect getRect();
-    T* getShape(){
-      return this->shape;
-    }
 
-    bool intersects(Zone<T>& with) {
-      return this->getRect()->intersects(with);
-    }
+    bool intersects(Zone* with);
   };
 
+  class ZoneCircle : public Zone {
+  public:
+    ZoneCircle(int size, sf::Vector2i position, sf::Color color);
+    virtual ~ZoneCircle();
+  };
 
-}
+  class ZoneRectangle : public Zone {
+  public:
+    ZoneRectangle(int size, sf::Vector2i position, sf::Color color);
+    virtual ~ZoneRectangle();
+  };
+};
+
+
 
 
 #endif
