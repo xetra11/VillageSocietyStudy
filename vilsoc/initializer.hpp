@@ -21,7 +21,25 @@ namespace X11 {
     std::vector<sf::IntRect> occupiedAreas;
     bool isOccupied(sf::IntRect areaRect);
     sf::Vector2i getRandomPosition(int offsetSize);
-    std::vector<Zone*> initObjects(int objectAmount, int objectSize, sf::Color color);
+
+    template <typename T>
+    std::vector<Zone*> initObjects(int objectAmount, int objectSize, sf::Color color) {
+      std::vector<Zone*> zones(objectAmount, 0) ;
+
+      for (short i = 0; i < objectAmount;) {
+        sf::Vector2i randomPosition = this->getRandomPosition(objectSize);
+        Zone* zone = new T(objectSize, randomPosition, color);
+
+        if(this->isOccupied(zone->getRect())) {
+          continue;
+        }
+
+        this->occupiedAreas.push_back(zone->getRect());
+        zones[i] = zone;
+        i++;
+      }
+      return zones;
+    }
 
   public:
     Initializer();
@@ -29,9 +47,9 @@ namespace X11 {
 
     std::vector<Zone*> initVillageEstates();
     std::vector<Zone*> initCommunityAreas();
+    std::vector<Zone*> initWorkspaces();
     void initHouses();
     void initVillagers();
-    // std::vector<sf::RectangleShape*> initWorkspaces();
   };
 }
 

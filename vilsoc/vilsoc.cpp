@@ -24,11 +24,11 @@ namespace X11 {
     std::vector<Zone*> allZones;
     std::vector<Zone*> estates = initializer->initVillageEstates();
     std::vector<Zone*> communityAreas = initializer->initCommunityAreas();
-    //std::vector<sf::RectangleShape*> workspaces = initializer->initWorkspaces();
+    std::vector<Zone*> workspaces = initializer->initWorkspaces();
 
     allZones.insert(allZones.end(), estates.begin(), estates.end());
     allZones.insert(allZones.end(), communityAreas.begin(), communityAreas.end());
-    //allZones.insert(allZones.end(), workspaces.begin(), workspaces.end());
+    allZones.insert(allZones.end(), workspaces.begin(), workspaces.end());
 
     cout << "size of drawable objects " << allZones.size() << endl;
 

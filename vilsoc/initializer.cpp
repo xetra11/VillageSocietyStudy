@@ -33,7 +33,7 @@ namespace X11 {
   std::vector<Zone*> Initializer::initVillageEstates(){
     std::vector<Zone*> estates(ESTATE_COUNT, 0) ;
     sf::Color color(241, 169, 160, 150);
-    estates = this->initObjects(ESTATE_COUNT, ESTATE_SHAPE_SIZE, color);
+    estates = this->initObjects<ZoneCircle>(ESTATE_COUNT, ESTATE_SHAPE_SIZE, color);
     return estates;
   }
 
@@ -41,27 +41,16 @@ namespace X11 {
     short communityAreaCount = 2;
     std::vector<Zone*> communityAreas(communityAreaCount, 0) ;
     sf::Color color(102, 204, 153, 150);
-    communityAreas = this->initObjects(communityAreaCount, COMMUNITY_SHAPE_SIZE, color);
+    communityAreas = this->initObjects<ZoneCircle>(communityAreaCount, COMMUNITY_SHAPE_SIZE, color);
     return communityAreas;
   }
 
-  std::vector<Zone*> Initializer::initObjects(int objectAmount, int objectSize, sf::Color color) {
-    std::vector<Zone*> zones(objectAmount, 0) ;
-
-    for (short i = 0; i < objectAmount;) {
-      sf::Vector2i randomPosition = this->getRandomPosition(objectSize);
-      Zone* zone = new ZoneCircle(objectSize, randomPosition, color);
-
-      if(this->isOccupied(zone->getRect())) {
-        cout << "skipped because occupied position" << endl;
-        continue;
-      }
-
-      this->occupiedAreas.push_back(zone->getRect());
-      zones[i] = zone;
-      i++;
-    }
-    return zones;
+  std::vector<Zone*> Initializer::initWorkspaces(){
+    short workspaceCount = ESTATE_COUNT;
+    std::vector<Zone*> workspaces(workspaceCount, 0) ;
+    sf::Color color(35, 203, 167, 255);
+    workspaces = this->initObjects<ZoneRectangle>(workspaceCount, WORKSPACE_SHAPE_SIZE, color);
+    return workspaces;
   }
 
   sf::Vector2i Initializer::getRandomPosition(int offsetSize) {
