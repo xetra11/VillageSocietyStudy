@@ -1,6 +1,9 @@
 #ifndef CONFIG_HPP
 #define CONFIG_HPP
 
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>
+
 #define ESTATE_SHAPE_SIZE 30.f
 #define COMMUNITY_SHAPE_SIZE 15.f
 #define WORKSPACE_SHAPE_SIZE 20.f

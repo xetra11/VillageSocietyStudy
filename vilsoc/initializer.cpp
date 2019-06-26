@@ -8,6 +8,8 @@
 #ifndef INITIALIZER_CPP
 #define INITIALIZER_CPP
 
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>
 #include "initializer.hpp"
 #include <random>
 
@@ -34,13 +36,6 @@ namespace X11 {
     std::vector<Zone*> estates(ESTATE_COUNT, 0) ;
     sf::Color color(241, 169, 160, 150);
     estates = this->initObjects<ZoneCircle>(ESTATE_COUNT, ESTATE_SHAPE_SIZE, color);
-    return estates;
-  }
-
-  std::vector<Zone*> Initializer::initVillagers(){
-    std::vector<Zone*> villagers(ESTATE_COUNT, 0) ;
-    sf::Color color(241, 169, 160, 150);
-    estates = this->initObjects<ZoneRectangle>(ESTATE_COUNT, VILLAGER_SHAPE_SIZE, color);
     return estates;
   }
 
@@ -74,6 +69,14 @@ namespace X11 {
     }
     workspaces = this->initObjects<ZoneCircle>(workspaceCount, HOUSE_SHAPE_SIZE, color, rects);
     return workspaces;
+  }
+
+  std::vector<Villager*> Initializer::initVillagers() {
+    std::vector<Villager*> villagers(ESTATE_COUNT, 0);
+    for (int i = 0; i < ESTATE_COUNT; i++) {
+      villagers[i] = new Villager();
+    }
+    return villagers;
   }
 
   sf::Vector2i Initializer::getRandomPosition(int offsetSize) {

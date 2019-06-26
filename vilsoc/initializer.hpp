@@ -13,6 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include "config.hpp"
 #include "zone.hpp"
+#include "villager.hpp"
 
 using namespace std;
 
@@ -66,7 +67,7 @@ namespace X11 {
     std::vector<Zone*> initCommunityAreas();
     std::vector<Zone*> initWorkspaces(std::vector<Zone*> parentZones);
     std::vector<Zone*> initHouses(std::vector<Zone*> parentZones);
-    std::vector<Zone*> initVillagers();
+    std::vector<Villager*> initVillagers();
   };
 }
 

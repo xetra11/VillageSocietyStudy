@@ -21,19 +21,22 @@ namespace X11 {
   VillageSociety::~VillageSociety() {}
 
   int VillageSociety::run() {
+    spdlog::info("initialize zones");
     std::vector<Zone*> allZones;
     std::vector<Zone*> estates = initializer->initVillageEstates();
     std::vector<Zone*> communityAreas = initializer->initCommunityAreas();
     std::vector<Zone*> workspaces = initializer->initWorkspaces(estates);
     std::vector<Zone*> houses = initializer->initHouses(estates);
+    spdlog::info("initialize villagers");
+    std::vector<Villager*> villagers = initializer->initVillagers();
+    spdlog::info("initialization done");
 
     allZones.insert(allZones.end(), estates.begin(), estates.end());
     allZones.insert(allZones.end(), communityAreas.begin(), communityAreas.end());
     allZones.insert(allZones.end(), workspaces.begin(), workspaces.end());
     allZones.insert(allZones.end(), houses.begin(), houses.end());
 
-    cout << "size of drawable objects " << allZones.size() << endl;
-
+    spdlog::info("start rendering");
     while (window->isOpen()){
       sf::Event event;
       while (window->pollEvent(event)) {
@@ -48,10 +51,20 @@ namespace X11 {
           sf::Shape* shape = zone->getShape();
           window->draw(*shape);
         } else {
-          cout << "could not draw estate "<< zone << endl;
+          spdlog::warn("villager rendering failed");
         }
       }
 
+      for (auto villager : villagers) {
+        if (villager != NULL) {
+          sf::Shape* head = villager->getHeadShape();
+          sf::Shape* body = villager->getBodyShape();
+          window->draw(*head);
+          window->draw(*body);
+        } else {
+          spdlog::warn("villager rendering failed");
+        }
+      }
       window->display();
     }
 
