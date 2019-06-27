@@ -22,13 +22,13 @@ namespace X11 {
     Tile();
     Tile(sf::Vector2f position);
     virtual ~Tile();
-    sf::RectangleShape getTileShape();
+    sf::RectangleShape* getTileShape();
     sf::IntRect getBoundaries();
   };
 
   class World {
   private:
-    std::vector<Tile> grid;
+    std::vector<Tile*> grid;
     std::vector<Zone*> zones;
     std::vector<Villager*> villagers;
     void drawGrid(sf::RenderWindow& window);
@@ -40,7 +40,7 @@ namespace X11 {
     void drawAssets(sf::RenderWindow& window);
     void setZones(std::vector<Zone*> zones);
     void setVillagers(std::vector<Villager*> villagers);
-    void setWorldGrid(std::vector<Tile> grid);
+    void setWorldGrid(std::vector<Tile*> grid);
   };
 }
 

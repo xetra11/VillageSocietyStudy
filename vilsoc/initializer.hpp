@@ -1,4 +1,4 @@
-/**
+/*
  * Initializes VilSoc assets
  *
  * @file initializer.hpp
@@ -69,7 +69,7 @@ namespace X11 {
     std::vector<Zone*> initWorkspaces(std::vector<Zone*> parentZones);
     std::vector<Zone*> initHouses(std::vector<Zone*> parentZones);
     std::vector<Villager*> initVillagers();
-    std::vector<Tile> initWorldGrid();
+    std::vector<Tile*> initWorldGrid();
   };
 }
 

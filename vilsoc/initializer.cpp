@@ -79,16 +79,16 @@ namespace X11 {
     return villagers;
   }
 
-  std::vector<Tile> Initializer::initWorldGrid() {
+  std::vector<Tile*> Initializer::initWorldGrid() {
     spdlog::info("build grid");
     spdlog::info("grid width: {}", GRID_WIDTH);
     spdlog::info("grid height: {}", GRID_HEIGHT);
 
-    std::vector<Tile> worldGrid(GRID_WIDTH * GRID_HEIGHT);
+    std::vector<Tile*> worldGrid(GRID_WIDTH * GRID_HEIGHT);
     for (int height = 0; height < GRID_HEIGHT; height++) {
       for (int width = 0; width < GRID_WIDTH; width++) {
         sf::Vector2f position(width * TILE_SIZE, height * TILE_SIZE);
-        Tile newTile(position);
+        auto newTile = new Tile(position);
         worldGrid[width + (height * GRID_WIDTH)] = newTile;
       }
     }
