@@ -25,6 +25,7 @@ namespace X11 {
     bool isOccupied(sf::IntRect areaRect);
     sf::Vector2i getRandomPosition();
     sf::Vector2i getRandomPosition(sf::IntRect boundaries);
+    void affectFillColorRadius(std::vector<Tile*>& grid, sf::Vector2i& center, int radius, sf::Color color);
 
   public:
     Initializer();

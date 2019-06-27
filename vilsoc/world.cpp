@@ -16,8 +16,8 @@ namespace X11 {
   Tile::Tile(sf::Vector2f position){
     sf::Vector2f size(TILE_SIZE, TILE_SIZE);
     this->tileShape = sf::RectangleShape(size);
-    this->tileShape.setOutlineColor(sf::Color(255, 255, 255, 100));
-    this->tileShape.setOutlineThickness(0.8f);
+    // this->tileShape.setOutlineColor(sf::Color(255, 255, 255, 50));
+    // this->tileShape.setOutlineThickness(0.5f);
     this->tileShape.setFillColor(sf::Color::Transparent);
     this->tileShape.setPosition(position);
 
