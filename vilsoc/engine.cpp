@@ -40,7 +40,7 @@ namespace X11 {
 
   void Engine::update() {}
   void Engine::run() {
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "VilSoc");
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
     while (window.isOpen()){
       sf::Event event;
 

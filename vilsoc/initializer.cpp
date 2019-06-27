@@ -33,7 +33,7 @@ namespace X11 {
   }
 
   std::vector<Zone*> Initializer::initVillageEstates(){
-    std::vector<Zone*> estates(ESTATE_COUNT, 0) ;
+    std::vector<Zone*> estates(ESTATE_COUNT, 0);
     sf::Color color(241, 169, 160, 150);
     estates = this->initObjects<ZoneCircle>(ESTATE_COUNT, ESTATE_SHAPE_SIZE, color);
     return estates;
@@ -80,6 +80,10 @@ namespace X11 {
   }
 
   std::vector<Tile> Initializer::initWorldGrid() {
+    spdlog::info("build grid");
+    spdlog::info("grid width: {}", GRID_WIDTH);
+    spdlog::info("grid height: {}", GRID_HEIGHT);
+
     std::vector<Tile> worldGrid(GRID_WIDTH * GRID_HEIGHT);
     for (int height = 0; height < GRID_HEIGHT; height++) {
       for (int width = 0; width < GRID_WIDTH; width++) {

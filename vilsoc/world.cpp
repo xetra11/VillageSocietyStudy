@@ -14,14 +14,14 @@ namespace X11 {
 
   Tile::Tile(){}
   Tile::Tile(sf::Vector2f position){
-    sf::Vector2f size(10,10);
+    sf::Vector2f size(TILE_SIZE, TILE_SIZE);
     this->tileShape = sf::RectangleShape(size);
-    this->tileShape.setOutlineColor(sf::Color::White);
-    this->tileShape.setOutlineThickness(1.f);
+    this->tileShape.setOutlineColor(sf::Color(255, 255, 255, 100));
+    this->tileShape.setOutlineThickness(0.8f);
     this->tileShape.setFillColor(sf::Color::Transparent);
     this->tileShape.setPosition(position);
 
-    sf::Vector2i rectSize(10,10);
+    sf::Vector2i rectSize(TILE_SIZE, TILE_SIZE);
     sf::Vector2i rectPos(this->tileShape.getPosition().x, this->tileShape.getPosition().y);
     this->boundaries = sf::IntRect(rectPos, rectSize);
   }
@@ -36,8 +36,8 @@ namespace X11 {
 
   void World::drawAssets(sf::RenderWindow& window) {
     this->drawGrid(window);
-    this->drawZones(window);
-    this->drawVillagers(window);
+    // this->drawZones(window);
+    // this->drawVillagers(window);
   }
 
   void World::drawGrid(sf::RenderWindow& window) {
