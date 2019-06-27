@@ -11,7 +11,9 @@
 #include "engine.hpp"
 
 namespace X11 {
-  Engine::Engine() : villagers{std::vector<Villager*>(ESTATE_COUNT, 0)} {}
+  Engine::Engine() : world{new World()} {
+    spdlog::info("setup engine");
+  }
   Engine::~Engine() {}
 
   void Engine::initialize() {
@@ -23,47 +25,18 @@ namespace X11 {
     std::vector<Zone*> workspaces = initializer.initWorkspaces(estates);
     std::vector<Zone*> houses = initializer.initHouses(estates);
     spdlog::info("initialize villagers");
-    this->villagers = initializer.initVillagers();
+    this->world->setVillagers(initializer.initVillagers());
     spdlog::info("initialization done");
 
     allZones.insert(allZones.end(), estates.begin(), estates.end());
     allZones.insert(allZones.end(), communityAreas.begin(), communityAreas.end());
     allZones.insert(allZones.end(), workspaces.begin(), workspaces.end());
     allZones.insert(allZones.end(), houses.begin(), houses.end());
-    this->zones = allZones;
+    this->world->setZones(allZones);
   }
 
   void Engine::update() {}
-
-  void Engine::draw(sf::RenderWindow* window) {
-    this->drawZones(window);
-    this->drawVillagers(window);
-  }
-
-  void Engine::drawZones(sf::RenderWindow* window) {
-    for (auto zone : this->zones) {
-      if (zone != NULL) {
-        sf::Shape* shape = zone->getShape();
-        window->draw(*shape);
-      } else {
-        spdlog::warn("villager rendering failed");
-      }
-    }
-  }
-
-  void Engine::drawVillagers(sf::RenderWindow* window) {
-    for (auto villager : this->villagers) {
-      if (villager != NULL) {
-        sf::Shape* head = villager->getHeadShape();
-        sf::Shape* body = villager->getBodyShape();
-        window->draw(*head);
-        window->draw(*body);
-      } else {
-        spdlog::warn("villager rendering failed");
-      }
-    }
-
-  };
+  World* Engine::getWorld() {return this->world;}
 }
 
 #endif

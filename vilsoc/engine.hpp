@@ -10,22 +10,18 @@
 
 #include "config.hpp"
 #include "initializer.hpp"
-#include "villager.hpp"
-#include "zone.hpp"
+#include "world.hpp"
 
 namespace X11 {
   class Engine {
   private:
-    std::vector<Zone*> zones;
-    std::vector<Villager*> villagers;
-    void drawZones(sf::RenderWindow* window);
-    void drawVillagers(sf::RenderWindow* window);
+    World* world;
   public:
     Engine();
     virtual ~Engine();
     void initialize();
     void update();
-    void draw(sf::RenderWindow* window);
+    World* getWorld();
   };
 
 };

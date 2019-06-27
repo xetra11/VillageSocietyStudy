@@ -17,7 +17,7 @@ namespace X11 {
   VillageSociety::~VillageSociety() {}
 
   int VillageSociety::run(float delta) {
-    window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "VilSoc");
+    auto window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "VilSoc");
     spdlog::info("start rendering");
     Engine engine;
     engine.initialize();
@@ -30,7 +30,7 @@ namespace X11 {
       }
 
       window->clear();
-      engine.draw(window);
+      engine.getWorld()->drawAssets(window);
       window->display();
     }
     return 0;
