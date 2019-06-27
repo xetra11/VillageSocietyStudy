@@ -11,14 +11,40 @@
 #include "world.hpp"
 
 namespace X11 {
+
+  Tile::Tile(){}
+  Tile::Tile(sf::Vector2f position){
+    sf::Vector2f size(10,10);
+    this->tileShape = sf::RectangleShape(size);
+    this->tileShape.setOutlineColor(sf::Color::White);
+    this->tileShape.setOutlineThickness(1.f);
+    this->tileShape.setFillColor(sf::Color::Transparent);
+    this->tileShape.setPosition(position);
+
+    sf::Vector2i rectSize(10,10);
+    sf::Vector2i rectPos(this->tileShape.getPosition().x, this->tileShape.getPosition().y);
+    this->boundaries = sf::IntRect(rectPos, rectSize);
+  }
+  Tile::~Tile(){}
+  sf::RectangleShape Tile::getTileShape(){return this->tileShape;}
+  sf::IntRect Tile::getBoundaries(){return this->boundaries;}
+
   World::World() : villagers{std::vector<Villager*>(ESTATE_COUNT, 0)} {
     spdlog::info("create world");
   }
   World::~World(){}
 
   void World::drawAssets(sf::RenderWindow& window) {
+    this->drawGrid(window);
     this->drawZones(window);
     this->drawVillagers(window);
+  }
+
+  void World::drawGrid(sf::RenderWindow& window) {
+    for (auto tile : this->grid) {
+      sf::RectangleShape shape = tile.getTileShape();
+      window.draw(shape);
+    }
   }
 
   void World::drawZones(sf::RenderWindow& window) {
@@ -47,6 +73,7 @@ namespace X11 {
 
   void World::setZones(std::vector<Zone*> zones){this->zones = zones;}
   void World::setVillagers(std::vector<Villager*> villagers) {this->villagers = villagers;}
+  void World::setWorldGrid(std::vector<Tile> grid) {this->grid = grid;}
 
 };
 

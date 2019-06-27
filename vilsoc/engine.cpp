@@ -26,6 +26,8 @@ namespace X11 {
     std::vector<Zone*> houses = initializer.initHouses(estates);
     spdlog::info("initialize villagers");
     this->world->setVillagers(initializer.initVillagers());
+    spdlog::info("initialize world grid");
+    this->world->setWorldGrid(initializer.initWorldGrid());
     spdlog::info("initialization done");
 
     allZones.insert(allZones.end(), estates.begin(), estates.end());
@@ -33,6 +35,7 @@ namespace X11 {
     allZones.insert(allZones.end(), workspaces.begin(), workspaces.end());
     allZones.insert(allZones.end(), houses.begin(), houses.end());
     this->world->setZones(allZones);
+
   }
 
   void Engine::update() {}

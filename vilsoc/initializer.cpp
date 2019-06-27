@@ -79,6 +79,18 @@ namespace X11 {
     return villagers;
   }
 
+  std::vector<Tile> Initializer::initWorldGrid() {
+    std::vector<Tile> worldGrid(GRID_WIDTH * GRID_HEIGHT);
+    for (int height = 0; height < GRID_HEIGHT; height++) {
+      for (int width = 0; width < GRID_WIDTH; width++) {
+        sf::Vector2f position(width * TILE_SIZE, height * TILE_SIZE);
+        Tile newTile(position);
+        worldGrid[width + (height * GRID_WIDTH)] = newTile;
+      }
+    }
+    return worldGrid;
+  }
+
   sf::Vector2i Initializer::getRandomPosition(int offsetSize) {
     std::random_device seeder;
     std::mt19937 engine(seeder());

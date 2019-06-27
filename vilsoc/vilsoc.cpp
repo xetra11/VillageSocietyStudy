@@ -17,7 +17,6 @@ namespace X11 {
   int VillageSociety::start() {
     spdlog::info("start vilsoc");
     Engine engine;
-    spdlog::info("initialize engine");
     engine.initialize();
     engine.run();
     return 0;

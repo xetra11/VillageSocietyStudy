@@ -14,6 +14,7 @@
 #include "config.hpp"
 #include "zone.hpp"
 #include "villager.hpp"
+#include "world.hpp"
 
 using namespace std;
 
@@ -68,6 +69,7 @@ namespace X11 {
     std::vector<Zone*> initWorkspaces(std::vector<Zone*> parentZones);
     std::vector<Zone*> initHouses(std::vector<Zone*> parentZones);
     std::vector<Villager*> initVillagers();
+    std::vector<Tile> initWorldGrid();
   };
 }
 
