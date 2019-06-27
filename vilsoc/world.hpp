@@ -10,7 +10,6 @@
 
 #include "config.hpp"
 #include "villager.hpp"
-#include "zone.hpp"
 
 namespace X11 {
 
@@ -29,18 +28,13 @@ namespace X11 {
   class World {
   private:
     std::vector<Tile*> grid;
-    std::vector<Zone*> zones;
-    std::vector<Villager*> villagers;
     void drawGrid(sf::RenderWindow& window);
-    void drawZones(sf::RenderWindow& window);
-    void drawVillagers(sf::RenderWindow& window);
   public:
     World();
     virtual ~World();
     void drawAssets(sf::RenderWindow& window);
-    void setZones(std::vector<Zone*> zones);
-    void setVillagers(std::vector<Villager*> villagers);
     void setWorldGrid(std::vector<Tile*> grid);
+    std::vector<Tile*>&  getWorldGrid();
   };
 }
 

@@ -32,51 +32,9 @@ namespace X11 {
     return false;
   }
 
-  std::vector<Zone*> Initializer::initVillageEstates(){
-    std::vector<Zone*> estates(ESTATE_COUNT, 0);
-    sf::Color color(241, 169, 160, 150);
-    estates = this->initObjects<ZoneCircle>(ESTATE_COUNT, ESTATE_SHAPE_SIZE, color);
-    return estates;
-  }
-
-  std::vector<Zone*> Initializer::initCommunityAreas(){
-    short communityAreaCount = 2;
-    std::vector<Zone*> communityAreas(communityAreaCount, 0) ;
-    sf::Color color(102, 204, 153, 150);
-    communityAreas = this->initObjects<ZoneCircle>(communityAreaCount, COMMUNITY_SHAPE_SIZE, color);
-    return communityAreas;
-  }
-
-  std::vector<Zone*> Initializer::initWorkspaces(std::vector<Zone*> parentZones){
-    short workspaceCount = ESTATE_COUNT;
-    std::vector<Zone*> workspaces(workspaceCount, 0) ;
-    sf::Color color(25, 181, 254, 255);
-    std::vector<sf::IntRect> rects(workspaceCount);
-    for (int i = 0; i < workspaceCount; i++) {
-      rects[i] = (parentZones[i])->getRect();
-    }
-    workspaces = this->initObjects<ZoneRectangle>(workspaceCount, WORKSPACE_SHAPE_SIZE, color, rects);
-    return workspaces;
-  }
-
-  std::vector<Zone*> Initializer::initHouses(std::vector<Zone*> parentZones) {
-    short workspaceCount = ESTATE_COUNT;
-    std::vector<Zone*> workspaces(workspaceCount, 0) ;
-    sf::Color color(245, 230, 83, 255);
-    std::vector<sf::IntRect> rects(workspaceCount);
-    for (int i = 0; i < workspaceCount; i++) {
-      rects[i] = (parentZones[i])->getRect();
-    }
-    workspaces = this->initObjects<ZoneCircle>(workspaceCount, HOUSE_SHAPE_SIZE, color, rects);
-    return workspaces;
-  }
-
-  std::vector<Villager*> Initializer::initVillagers() {
-    std::vector<Villager*> villagers(ESTATE_COUNT, 0);
-    for (int i = 0; i < ESTATE_COUNT; i++) {
-      villagers[i] = new Villager();
-    }
-    return villagers;
+  void Initializer::initEstates(std::vector<Tile*>& grid) {
+    sf::Vector2i randomPos = this->getRandomPosition();
+    grid[randomPos.x * randomPos.y]->getTileShape().setFillColor(sf::Color::Red);
   }
 
   std::vector<Tile*> Initializer::initWorldGrid() {
@@ -95,11 +53,11 @@ namespace X11 {
     return worldGrid;
   }
 
-  sf::Vector2i Initializer::getRandomPosition(int offsetSize) {
+  sf::Vector2i Initializer::getRandomPosition() {
     std::random_device seeder;
     std::mt19937 engine(seeder());
-    std::uniform_int_distribution<int> distX(0 + offsetSize, WINDOW_WIDTH - offsetSize);
-    std::uniform_int_distribution<int> distY(0 + offsetSize, WINDOW_HEIGHT - offsetSize);
+    std::uniform_int_distribution<int> distX(0, GRID_WIDTH);
+    std::uniform_int_distribution<int> distY(0, GRID_HEIGHT);
     int randX = distX(engine);
     int randY = distY(engine);
     sf::Vector2i randomPos(randX, randY);

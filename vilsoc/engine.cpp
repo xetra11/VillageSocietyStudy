@@ -18,24 +18,13 @@ namespace X11 {
 
   void Engine::initialize() {
     Initializer initializer = Initializer();
-    spdlog::info("initialize zones");
-    std::vector<Zone*> allZones;
-    std::vector<Zone*> estates = initializer.initVillageEstates();
-    std::vector<Zone*> communityAreas = initializer.initCommunityAreas();
-    std::vector<Zone*> workspaces = initializer.initWorkspaces(estates);
-    std::vector<Zone*> houses = initializer.initHouses(estates);
-    spdlog::info("initialize villagers");
-    this->world->setVillagers(initializer.initVillagers());
     spdlog::info("initialize world grid");
-    this->world->setWorldGrid(initializer.initWorldGrid());
+    std::vector<Tile*> worldGrid = initializer.initWorldGrid();
+    spdlog::info("initialize zones");
+    initializer.initEstates(worldGrid);
+    //spdlog::info("initialize villagers");
     spdlog::info("initialization done");
-
-    allZones.insert(allZones.end(), estates.begin(), estates.end());
-    allZones.insert(allZones.end(), communityAreas.begin(), communityAreas.end());
-    allZones.insert(allZones.end(), workspaces.begin(), workspaces.end());
-    allZones.insert(allZones.end(), houses.begin(), houses.end());
-    this->world->setZones(allZones);
-
+    this->world->setWorldGrid(worldGrid);
   }
 
   void Engine::update() {}
