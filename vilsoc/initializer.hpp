@@ -21,11 +21,9 @@ namespace X11 {
 
   class Initializer {
   private:
-    std::vector<sf::IntRect> occupiedAreas;
-    bool isOccupied(sf::IntRect areaRect);
     sf::Vector2i getRandomPosition();
     sf::Vector2i getRandomPosition(sf::IntRect boundaries);
-    void affectFillColorRectangle(std::vector<Tile*>& grid, sf::Vector2i& topleft, int size, sf::Color color);
+    void affectRectangle(std::vector<Tile*>& grid, sf::Vector2i& topleft, int size, TileType type);
 
   public:
     Initializer();

@@ -12,8 +12,8 @@
 
 namespace X11 {
 
-  Tile::Tile(){}
-  Tile::Tile(sf::Vector2f position){
+  Tile::Tile() : type{TileType::Empty} {}
+  Tile::Tile(sf::Vector2f position) : type{TileType::Empty} {
     sf::Vector2f size(TILE_SIZE, TILE_SIZE);
     this->tileShape = sf::RectangleShape(size);
     // this->tileShape.setOutlineColor(sf::Color(255, 255, 255, 50));
@@ -28,6 +28,24 @@ namespace X11 {
   Tile::~Tile(){}
   sf::RectangleShape& Tile::getTileShape(){return this->tileShape;}
   sf::IntRect Tile::getBoundaries(){return this->boundaries;}
+
+  void Tile::setType(TileType type) {
+    this->type = type;
+    this->setColorByType(type);
+  }
+
+  TileType Tile::getType() {return this->type;}
+
+  void Tile::setColorByType(TileType type) {
+    switch (type) {
+    case Empty : this->tileShape.setFillColor(sf::Color::Transparent); break;
+    case Estate : this->tileShape.setFillColor(sf::Color(103, 128, 159, 100)); break;
+    case Workshop : this->tileShape.setFillColor(sf::Color(103, 128, 159, 100)); break;
+    case House : this->tileShape.setFillColor(sf::Color(103, 128, 159, 100)); break;
+    case Community : this->tileShape.setFillColor(sf::Color(254, 241, 96, 255)); break;
+    case Villager : this->tileShape.setFillColor(sf::Color(103, 128, 159, 100)); break;
+    }
+  }
 
   World::World() {
     spdlog::info("create world");

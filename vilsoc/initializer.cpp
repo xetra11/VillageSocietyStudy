@@ -13,9 +13,6 @@
 #include "initializer.hpp"
 #include <random>
 
-#define ESTATE_COUNT 5
-#define COMMUNITY_COUNT 5
-
 using namespace std;
 
 namespace X11 {
@@ -23,31 +20,24 @@ namespace X11 {
   Initializer::Initializer() {}
   Initializer::~Initializer() {}
 
-  bool Initializer::isOccupied(sf::IntRect rect) {
-    for (auto occupied : this->occupiedAreas) {
-      if (occupied.intersects(rect)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   void Initializer::initEstates(std::vector<Tile*>& grid) {
-    sf::Vector2i randomPos = this->getRandomPosition();
-    affectFillColorRectangle(grid, randomPos, 2, sf::Color(103, 128, 159, 100));
+    for (int count = 1; count <= ESTATE_COUNT; count++) {
+      sf::Vector2i randomPos = this->getRandomPosition();
+      affectRectangle(grid, randomPos, 4, TileType::Estate);
+    }
   }
 
   void Initializer::initCommunityAreas(std::vector<Tile*>& grid) {
-    sf::Vector2i randomPos = this->getRandomPosition();
-    affectFillColorRectangle(grid, randomPos, 1, sf::Color(254, 241, 96, 255));
+    for (int count = 1; count <= COMMUNITY_COUNT; count++) {
+      sf::Vector2i randomPos = this->getRandomPosition();
+      affectRectangle(grid, randomPos, 1, TileType::Community);
+    }
   }
 
-  void Initializer::affectFillColorRectangle(std::vector<Tile*>& grid, sf::Vector2i& topleft, int size, sf::Color color) {
-    grid[topleft.x * topleft.y]->getTileShape().setFillColor(color); // center
-
+  void Initializer::affectRectangle(std::vector<Tile*>& grid, sf::Vector2i& topleft, int size, TileType type) {
     for (int width = 0; width < size; width++) {
       for (int height = 0; height < size; height++) {
-        grid[(topleft.x * topleft.y) + width + (height * GRID_WIDTH)]->getTileShape().setFillColor(color); // top
+        grid[(topleft.x * topleft.y) + width + (height * GRID_WIDTH)]->setType(type);
       }
     }
   }
