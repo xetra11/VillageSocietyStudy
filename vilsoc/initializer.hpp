@@ -25,17 +25,17 @@ namespace X11 {
     bool isOccupied(sf::IntRect areaRect);
     sf::Vector2i getRandomPosition();
     sf::Vector2i getRandomPosition(sf::IntRect boundaries);
-    void affectFillColorRadius(std::vector<Tile*>& grid, sf::Vector2i& center, int radius, sf::Color color);
+    void affectFillColorRectangle(std::vector<Tile*>& grid, sf::Vector2i& topleft, int size, sf::Color color);
 
   public:
     Initializer();
     virtual ~Initializer();
 
     void initEstates(std::vector<Tile*>& grid);
-    void initCommunityAreas();
-    void initWorkspaces();
-    void initHouses();
-    void initVillagers();
+    void initCommunityAreas(std::vector<Tile*>& grid);
+    void initWorkspaces(std::vector<Tile*>& grid);
+    void initHouses(std::vector<Tile*>& grid);
+    void initVillagers(std::vector<Tile*>& grid);
     std::vector<Tile*> initWorldGrid();
   };
 }

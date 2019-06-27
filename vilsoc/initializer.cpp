@@ -34,19 +34,22 @@ namespace X11 {
 
   void Initializer::initEstates(std::vector<Tile*>& grid) {
     sf::Vector2i randomPos = this->getRandomPosition();
-    affectFillColorRadius(grid, randomPos, 1, sf::Color(103, 128, 159, 100));
+    affectFillColorRectangle(grid, randomPos, 2, sf::Color(103, 128, 159, 100));
   }
 
-  void Initializer::affectFillColorRadius(std::vector<Tile*>& grid, sf::Vector2i& center, int radius, sf::Color color) {
-    grid[center.x * center.y]->getTileShape().setFillColor(color); // center
-    grid[(center.x * center.y) - 1]->getTileShape().setFillColor(color); // left
-    grid[(center.x * center.y) + 1]->getTileShape().setFillColor(color); // right
-    grid[(center.x * center.y) - GRID_WIDTH]->getTileShape().setFillColor(color); // top
-    grid[(center.x * center.y) + GRID_WIDTH]->getTileShape().setFillColor(color); // bottom
-    grid[(center.x * center.y) - GRID_WIDTH-1]->getTileShape().setFillColor(color); // top-left
-    grid[(center.x * center.y) - GRID_WIDTH+1]->getTileShape().setFillColor(color); // top-right
-    grid[(center.x * center.y) + GRID_WIDTH-1]->getTileShape().setFillColor(color); // bottom-left
-    grid[(center.x * center.y) + GRID_WIDTH+1]->getTileShape().setFillColor(color); // bottom-right
+  void Initializer::initCommunityAreas(std::vector<Tile*>& grid) {
+    sf::Vector2i randomPos = this->getRandomPosition();
+    affectFillColorRectangle(grid, randomPos, 1, sf::Color(254, 241, 96, 255));
+  }
+
+  void Initializer::affectFillColorRectangle(std::vector<Tile*>& grid, sf::Vector2i& topleft, int size, sf::Color color) {
+    grid[topleft.x * topleft.y]->getTileShape().setFillColor(color); // center
+
+    for (int width = 0; width < size; width++) {
+      for (int height = 0; height < size; height++) {
+        grid[(topleft.x * topleft.y) + width + (height * GRID_WIDTH)]->getTileShape().setFillColor(color); // top
+      }
+    }
   }
 
   std::vector<Tile*> Initializer::initWorldGrid() {
