@@ -26,7 +26,7 @@ namespace X11 {
     this->boundaries = sf::IntRect(rectPos, rectSize);
   }
   Tile::~Tile(){}
-  sf::RectangleShape* Tile::getTileShape(){return &(this->tileShape);}
+  sf::RectangleShape& Tile::getTileShape(){return this->tileShape;}
   sf::IntRect Tile::getBoundaries(){return this->boundaries;}
 
   World::World() : villagers{std::vector<Villager*>(ESTATE_COUNT, 0)} {
@@ -42,8 +42,8 @@ namespace X11 {
 
   void World::drawGrid(sf::RenderWindow& window) {
     for (auto tile : this->grid) {
-      sf::RectangleShape* shape = tile->getTileShape();
-      window.draw(*shape);
+      sf::RectangleShape& shape = tile->getTileShape();
+      window.draw(shape);
     }
   }
 

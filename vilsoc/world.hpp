@@ -22,7 +22,7 @@ namespace X11 {
     Tile();
     Tile(sf::Vector2f position);
     virtual ~Tile();
-    sf::RectangleShape* getTileShape();
+    sf::RectangleShape& getTileShape();
     sf::IntRect getBoundaries();
   };
 
