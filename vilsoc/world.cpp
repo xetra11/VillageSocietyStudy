@@ -16,29 +16,29 @@ namespace X11 {
   }
   World::~World(){}
 
-  void World::drawAssets(sf::RenderWindow* window) {
+  void World::drawAssets(sf::RenderWindow& window) {
     this->drawZones(window);
     this->drawVillagers(window);
   }
 
-  void World::drawZones(sf::RenderWindow* window) {
+  void World::drawZones(sf::RenderWindow& window) {
     for (auto zone : this->zones) {
       if (zone != NULL) {
         sf::Shape* shape = zone->getShape();
-        window->draw(*shape);
+        window.draw(*shape);
       } else {
         spdlog::warn("villager rendering failed");
       }
     }
   }
 
-  void World::drawVillagers(sf::RenderWindow* window) {
+  void World::drawVillagers(sf::RenderWindow& window) {
     for (auto villager : this->villagers) {
       if (villager != NULL) {
         sf::Shape* head = villager->getHeadShape();
         sf::Shape* body = villager->getBodyShape();
-        window->draw(*head);
-        window->draw(*body);
+        window.draw(*head);
+        window.draw(*body);
       } else {
         spdlog::warn("villager rendering failed");
       }

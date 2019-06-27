@@ -36,6 +36,22 @@ namespace X11 {
   }
 
   void Engine::update() {}
+  void Engine::run() {
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "VilSoc");
+    while (window.isOpen()){
+      sf::Event event;
+
+      while (window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed)
+          window.close();
+      }
+
+      window.clear();
+      this->world->drawAssets(window);
+      window.display();
+    }
+  }
+
   World* Engine::getWorld() {return this->world;}
 }
 

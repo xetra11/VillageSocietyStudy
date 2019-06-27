@@ -13,8 +13,7 @@
 
 int main(int argc, char* argv[]){
   X11::VillageSociety vilsoc;
-  float deltaFPS = 60.f;
-  int exitCode = vilsoc.run(deltaFPS);
+  int exitCode = vilsoc.start();
   return exitCode;
 }
 

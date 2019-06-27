@@ -10,29 +10,16 @@
 
 #include "vilsoc.hpp"
 
-using namespace std;
-
 namespace X11 {
   VillageSociety::VillageSociety() {}
   VillageSociety::~VillageSociety() {}
 
-  int VillageSociety::run(float delta) {
-    auto window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "VilSoc");
-    spdlog::info("start rendering");
+  int VillageSociety::start() {
+    spdlog::info("start vilsoc");
     Engine engine;
+    spdlog::info("initialize engine");
     engine.initialize();
-    while (window->isOpen()){
-
-      sf::Event event;
-      while (window->pollEvent(event)) {
-        if (event.type == sf::Event::Closed)
-          window->close();
-      }
-
-      window->clear();
-      engine.getWorld()->drawAssets(window);
-      window->display();
-    }
+    engine.run();
     return 0;
   }
 }

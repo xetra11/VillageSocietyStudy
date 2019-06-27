@@ -21,6 +21,7 @@ namespace X11 {
     virtual ~Engine();
     void initialize();
     void update();
+    void run();
     World* getWorld();
   };
 
