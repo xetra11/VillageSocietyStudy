@@ -22,14 +22,14 @@ namespace X11 {
 
   void Initializer::initEstates(std::vector<Tile*>& grid) {
     for (int count = 1; count <= ESTATE_COUNT; count++) {
-      sf::Vector2i randomPos = this->getRandomPosition();
+      sf::Vector2i randomPos = this->getRandomPosition(grid, true);
       affectRectangle(grid, randomPos, 4, TileType::Estate);
     }
   }
 
   void Initializer::initCommunityAreas(std::vector<Tile*>& grid) {
     for (int count = 1; count <= COMMUNITY_COUNT; count++) {
-      sf::Vector2i randomPos = this->getRandomPosition();
+      sf::Vector2i randomPos = this->getRandomPosition(grid, true);
       affectRectangle(grid, randomPos, 1, TileType::Community);
     }
   }
@@ -58,14 +58,19 @@ namespace X11 {
     return worldGrid;
   }
 
-  sf::Vector2i Initializer::getRandomPosition() {
-    std::random_device seeder;
-    std::mt19937 engine(seeder());
-    std::uniform_int_distribution<int> distX(0, GRID_WIDTH);
-    std::uniform_int_distribution<int> distY(0, GRID_HEIGHT);
-    int randX = distX(engine);
-    int randY = distY(engine);
-    sf::Vector2i randomPos(randX, randY);
+  sf::Vector2i Initializer::getRandomPosition(std::vector<Tile*>& grid, bool allowOccupied) {
+    sf::Vector2i randomPos;
+    bool isOccupied;
+    do {
+      std::random_device seeder;
+      std::mt19937 engine(seeder());
+      std::uniform_int_distribution<int> distX(0, GRID_WIDTH);
+      std::uniform_int_distribution<int> distY(0, GRID_HEIGHT);
+      int randX = distX(engine);
+      int randY = distY(engine);
+      randomPos = sf::Vector2i(randX, randY);
+      isOccupied = (grid[randX * randY]->getType() != TileType::Empty);
+    } while(isOccupied && !allowOccupied);
     return randomPos;
   }
 

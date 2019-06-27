@@ -21,7 +21,7 @@ namespace X11 {
 
   class Initializer {
   private:
-    sf::Vector2i getRandomPosition();
+    sf::Vector2i getRandomPosition(std::vector<Tile*>& grid, bool allowOccupied = true);
     sf::Vector2i getRandomPosition(sf::IntRect boundaries);
     void affectRectangle(std::vector<Tile*>& grid, sf::Vector2i& topleft, int size, TileType type);
 
