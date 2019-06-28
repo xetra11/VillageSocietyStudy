@@ -11,7 +11,6 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <random>
-#include <sstream>
 #include "initializer.hpp"
 
 using namespace std;
@@ -36,7 +35,10 @@ namespace X11 {
   void Initializer::affectRectangle(std::vector<Tile*>& grid, sf::Vector2i& topleft, int size, TileType type) {
     for (int width = 0; width < size; width++) {
       for (int height = 0; height < size; height++) {
-        grid[(topleft.x * topleft.y) + width + (height * GRID_WIDTH)]->setType(type);
+        int index = (topleft.x * topleft.y) + width + (height * GRID_WIDTH);
+        Tile* tile = grid[index];
+        tile->setType(type);
+        tile->setId(index);
       }
     }
   }
@@ -64,9 +66,7 @@ namespace X11 {
         Tile* newTile = new Tile(position);
         int index = width + (height * GRID_WIDTH);
         worldGrid[index] = newTile;
-        std::stringstream ss;
-        ss << static_cast<char>(TileType::Empty) << index;
-        newTile->setId(ss.str());
+        newTile->setId(index);
       }
     }
     return worldGrid;

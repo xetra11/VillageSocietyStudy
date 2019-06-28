@@ -47,8 +47,8 @@ namespace X11 {
     }
   }
 
-  void Tile::setId(std::string id) {this->id = id;}
-  std::string& Tile::getId() { return this->id;}
+  void Tile::setId(int id) {this->id = id;}
+  int Tile::getId() { return this->id;}
 
   World::World() {
     spdlog::info("create world");

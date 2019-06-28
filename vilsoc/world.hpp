@@ -19,7 +19,7 @@ namespace X11 {
     sf::RectangleShape tileShape;
     sf::IntRect boundaries;
     TileType type;
-    std::string id;
+    int id;
     void setColorByType(TileType type);
   public:
     Tile();
@@ -29,8 +29,8 @@ namespace X11 {
     sf::IntRect getBoundaries();
     void setType(TileType type);
     TileType getType();
-    void setId(std::string id);
-    std::string& getId();
+    void setId(int id);
+    int getId();
   };
 
   class World {
