@@ -19,7 +19,8 @@ namespace X11 {
   void Engine::initialize() {
     Initializer initializer = Initializer();
     spdlog::info("initialize world grid");
-    std::vector<Tile*> worldGrid = initializer.initWorldGrid();
+    std::vector<Tile> worldGrid = initializer.initWorldGrid();
+    spdlog::info("world grid size {}", worldGrid.size());
     spdlog::info("initialize zones");
     initializer.initObjects(TileType::Estate, worldGrid, 4, ESTATE_COUNT);
     initializer.initObjects(TileType::Community, worldGrid, 2, COMMUNITY_COUNT);
