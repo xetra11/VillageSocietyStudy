@@ -28,6 +28,8 @@ namespace X11 {
     //spdlog::info("initialize villagers");
     spdlog::info("initialization done");
     this->world->setWorldGrid(worldGrid);
+    spdlog::info("id of {}", 12);
+    spdlog::info("is {}", worldGrid[12]->getId());
   }
 
   void Engine::update() {}

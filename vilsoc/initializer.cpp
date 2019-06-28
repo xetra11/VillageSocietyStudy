@@ -10,8 +10,9 @@
 
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
-#include "initializer.hpp"
 #include <random>
+#include <sstream>
+#include "initializer.hpp"
 
 using namespace std;
 
@@ -60,8 +61,12 @@ namespace X11 {
     for (int height = 0; height < GRID_HEIGHT; height++) {
       for (int width = 0; width < GRID_WIDTH; width++) {
         sf::Vector2f position(width * TILE_SIZE, height * TILE_SIZE);
-        auto newTile = new Tile(position);
-        worldGrid[width + (height * GRID_WIDTH)] = newTile;
+        Tile* newTile = new Tile(position);
+        int index = width + (height * GRID_WIDTH);
+        worldGrid[index] = newTile;
+        std::stringstream ss;
+        ss << static_cast<char>(TileType::Empty) << index;
+        newTile->setId(ss.str());
       }
     }
     return worldGrid;

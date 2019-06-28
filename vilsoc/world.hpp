@@ -13,12 +13,13 @@
 
 namespace X11 {
 
-  enum TileType { Empty, Estate, Workshop, House, Community, Villager };
+  enum class TileType : char { Empty='n', Estate='e', Workshop='w', House='h', Community='c', Villager='v'};
   class Tile {
   private:
     sf::RectangleShape tileShape;
     sf::IntRect boundaries;
     TileType type;
+    std::string id;
     void setColorByType(TileType type);
   public:
     Tile();
@@ -28,6 +29,8 @@ namespace X11 {
     sf::IntRect getBoundaries();
     void setType(TileType type);
     TileType getType();
+    void setId(std::string id);
+    std::string& getId();
   };
 
   class World {
