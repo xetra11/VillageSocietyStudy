@@ -20,17 +20,15 @@ namespace X11 {
   Initializer::Initializer() {}
   Initializer::~Initializer() {}
 
-  void Initializer::initEstates(std::vector<Tile*>& grid) {
-    for (int count = 1; count <= ESTATE_COUNT; count++) {
-      sf::Vector2i randomPos = this->getRandomPosition(grid, true);
-      affectRectangle(grid, randomPos, 4, TileType::Estate);
-    }
-  }
-
-  void Initializer::initCommunityAreas(std::vector<Tile*>& grid) {
-    for (int count = 1; count <= COMMUNITY_COUNT; count++) {
-      sf::Vector2i randomPos = this->getRandomPosition(grid, true);
-      affectRectangle(grid, randomPos, 1, TileType::Community);
+  void Initializer::initObjects(TileType type, std::vector<Tile*>& grid, int size, int amount) {
+    sf::Vector2i randomPos;
+    for (int count = 1; count <= amount; count++) {
+      bool isOccupied;
+      do {
+        randomPos = this->getRandomPosition(grid);
+        isOccupied = this->isRectAreaOccupied(grid, randomPos, size);
+      } while (isOccupied);
+      affectRectangle(grid, randomPos, size, type);
     }
   }
 
@@ -40,6 +38,17 @@ namespace X11 {
         grid[(topleft.x * topleft.y) + width + (height * GRID_WIDTH)]->setType(type);
       }
     }
+  }
+
+  bool Initializer::isRectAreaOccupied(std::vector<Tile*>& grid, sf::Vector2i& topleft, int size) {
+    bool isOccupied = false;
+    for (int width = 0; width < size; width++) {
+      for (int height = 0; height < size; height++) {
+        isOccupied = grid[(topleft.x * topleft.y) + width + (height * GRID_WIDTH)]->getType() != TileType::Empty;
+        if (isOccupied) { return true; }
+      }
+    }
+    return false;
   }
 
   std::vector<Tile*> Initializer::initWorldGrid() {
@@ -58,19 +67,14 @@ namespace X11 {
     return worldGrid;
   }
 
-  sf::Vector2i Initializer::getRandomPosition(std::vector<Tile*>& grid, bool allowOccupied) {
-    sf::Vector2i randomPos;
-    bool isOccupied;
-    do {
-      std::random_device seeder;
-      std::mt19937 engine(seeder());
-      std::uniform_int_distribution<int> distX(0, GRID_WIDTH);
-      std::uniform_int_distribution<int> distY(0, GRID_HEIGHT);
-      int randX = distX(engine);
-      int randY = distY(engine);
-      randomPos = sf::Vector2i(randX, randY);
-      isOccupied = (grid[randX * randY]->getType() != TileType::Empty);
-    } while(isOccupied && !allowOccupied);
+  sf::Vector2i Initializer::getRandomPosition(std::vector<Tile*>& grid) {
+    std::random_device seeder;
+    std::mt19937 engine(seeder());
+    std::uniform_int_distribution<int> distX(0, GRID_WIDTH);
+    std::uniform_int_distribution<int> distY(0, GRID_HEIGHT);
+    int randX = distX(engine);
+    int randY = distY(engine);
+    sf::Vector2i randomPos(randX, randY);
     return randomPos;
   }
 

@@ -21,8 +21,10 @@ namespace X11 {
     spdlog::info("initialize world grid");
     std::vector<Tile*> worldGrid = initializer.initWorldGrid();
     spdlog::info("initialize zones");
-    initializer.initEstates(worldGrid);
-    initializer.initCommunityAreas(worldGrid);
+    initializer.initObjects(TileType::Estate, worldGrid, 4, ESTATE_COUNT);
+    initializer.initObjects(TileType::Community, worldGrid, 2, COMMUNITY_COUNT);
+    initializer.initObjects(TileType::Workshop, worldGrid, 1, ESTATE_COUNT);
+    initializer.initObjects(TileType::House, worldGrid, 1, ESTATE_COUNT);
     //spdlog::info("initialize villagers");
     spdlog::info("initialization done");
     this->world->setWorldGrid(worldGrid);

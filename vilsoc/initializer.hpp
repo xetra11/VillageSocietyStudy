@@ -21,19 +21,16 @@ namespace X11 {
 
   class Initializer {
   private:
-    sf::Vector2i getRandomPosition(std::vector<Tile*>& grid, bool allowOccupied = true);
+    sf::Vector2i getRandomPosition(std::vector<Tile*>& grid);
     sf::Vector2i getRandomPosition(sf::IntRect boundaries);
     void affectRectangle(std::vector<Tile*>& grid, sf::Vector2i& topleft, int size, TileType type);
+    bool isRectAreaOccupied(std::vector<Tile*>& grid, sf::Vector2i& topleft, int size);
 
   public:
     Initializer();
     virtual ~Initializer();
 
-    void initEstates(std::vector<Tile*>& grid);
-    void initCommunityAreas(std::vector<Tile*>& grid);
-    void initWorkspaces(std::vector<Tile*>& grid);
-    void initHouses(std::vector<Tile*>& grid);
-    void initVillagers(std::vector<Tile*>& grid);
+    void initObjects(TileType type, std::vector<Tile*>& grid, int size, int amount);
     std::vector<Tile*> initWorldGrid();
   };
 }

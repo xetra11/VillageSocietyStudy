@@ -39,11 +39,11 @@ namespace X11 {
   void Tile::setColorByType(TileType type) {
     switch (type) {
     case Empty : this->tileShape.setFillColor(sf::Color::Transparent); break;
-    case Estate : this->tileShape.setFillColor(sf::Color(103, 128, 159, 100)); break;
-    case Workshop : this->tileShape.setFillColor(sf::Color(103, 128, 159, 100)); break;
-    case House : this->tileShape.setFillColor(sf::Color(103, 128, 159, 100)); break;
-    case Community : this->tileShape.setFillColor(sf::Color(254, 241, 96, 255)); break;
-    case Villager : this->tileShape.setFillColor(sf::Color(103, 128, 159, 100)); break;
+    case Estate : this->tileShape.setFillColor(sf::Color(249, 180, 45, 100)); break; //orange
+    case Workshop : this->tileShape.setFillColor(sf::Color(46, 204, 113, 255)); break; // green
+    case House : this->tileShape.setFillColor(sf::Color(231, 76, 60, 255)); break; // red
+    case Community : this->tileShape.setFillColor(sf::Color::Yellow); break; //yellow
+    case Villager : this->tileShape.setFillColor(sf::Color::White); break;
     }
   }
 
