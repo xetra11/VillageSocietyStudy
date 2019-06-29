@@ -9,7 +9,7 @@
 #define MAIN_CPP
 
 #include <SFML/Graphics.hpp>
-#include "vilsoc/vilsoc.hpp"
+#include "vilsoc.hpp"
 
 int main(int argc, char* argv[]){
   X11::VillageSociety vilsoc;

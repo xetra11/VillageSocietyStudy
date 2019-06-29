@@ -56,6 +56,7 @@ namespace X11 {
             sf::RectangleShape& tileShape = zoneTile->getTileShape();
             tileShape.setOutlineColor(sf::Color(255, 255, 255, 50));
             tileShape.setOutlineThickness(0.5f);
+            tileShape.setFillColor(sf::Color::White);
           }
         } else {
           spdlog::info("no adjacent zone tiles for this tile");
