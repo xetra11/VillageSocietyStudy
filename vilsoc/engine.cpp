@@ -19,47 +19,60 @@ namespace X11 {
   void Engine::initialize() {
     Initializer initializer = Initializer();
     spdlog::info("initialize world grid");
-    std::vector<Tile> worldGrid = initializer.initWorldGrid();
+    this->world.setWorldGrid(initializer.initWorldGrid());
     spdlog::info("initialize zones");
+    std::vector<Tile>& worldGrid = this->world.getWorldGrid();
     initializer.initObjects(TileType::Estate, worldGrid, 4, ESTATE_COUNT);
     initializer.initObjects(TileType::Community, worldGrid, 2, COMMUNITY_COUNT);
     initializer.initObjects(TileType::Workshop, worldGrid, 1, ESTATE_COUNT);
     initializer.initObjects(TileType::House, worldGrid, 1, ESTATE_COUNT);
-    //spdlog::info("initialize villagers");
     spdlog::info("initialization done");
-    this->world.setWorldGrid(worldGrid);
   }
 
-  void Engine::update() {}
-  void Engine::run() {
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
-    while (window.isOpen()){
-      sf::Event event;
+      void Engine::update() {}
+    void Engine::run() {
+      sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
+      while (window.isOpen()){
+        this->handleEvents(window);
+        window.clear();
+        this->world.drawAssets(window);
+        window.display();
+      }
+    }
 
+    World& Engine::getWorld() {return this->world;}
+
+    void Engine::handleMouseButtonPressed(sf::RenderWindow& window) {
+      sf::Vector2i mousePos = sf::Mouse::getPosition();
+      sf::Vector2f coordPos = window.mapPixelToCoords(mousePos);
+      Tile* tile = this->getWorld().getTileAtPosition(sf::Vector2i(coordPos.x, coordPos.y));
+      if (tile == NULL) {
+        spdlog::warn("no tile under mouse cursor");
+      } else {
+        spdlog::info("tile type {}", static_cast<char>(tile->getType()));
+        spdlog::info("tile id {}", tile->getId());
+        if (tile->getZoneTiles().size() > 0) {
+          for (Tile* zoneTile : tile->getZoneTiles()) {
+            sf::RectangleShape& tileShape = zoneTile->getTileShape();
+            tileShape.setOutlineColor(sf::Color(255, 255, 255, 50));
+            tileShape.setOutlineThickness(0.5f);
+          }
+        } else {
+          spdlog::info("no adjacent zone tiles for this tile");
+        }
+      }
+    }
+
+    void Engine::handleEvents(sf::RenderWindow& window) {
+      sf::Event event;
       while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
           window.close();
         if (event.type == sf::Event::MouseButtonPressed) {
-          sf::Vector2i mousePos = sf::Mouse::getPosition();
-          sf::Vector2f coordPos = window.mapPixelToCoords(mousePos);
-          Tile* tile = this->getWorld().getTileAtPosition(sf::Vector2i(coordPos.x, coordPos.y));
-          if (tile == NULL) {
-            spdlog::warn("no tile under mouse cursor");
-          } else {
-            spdlog::info("tile type {}", static_cast<char>(tile->getType()));
-            spdlog::info("tile id {}", tile->getId());
-            tile->getTileShape().setFillColor(sf::Color::White);
-          }
+          this->handleMouseButtonPressed(window);
         }
       }
-
-      window.clear();
-      this->world.drawAssets(window);
-      window.display();
     }
   }
-
-  World& Engine::getWorld() {return this->world;}
-}
 
 #endif

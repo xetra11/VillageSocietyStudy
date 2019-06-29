@@ -13,8 +13,6 @@
 #include <random>
 #include "initializer.hpp"
 
-using namespace std;
-
 namespace X11 {
 
   Initializer::Initializer() {}
@@ -33,18 +31,19 @@ namespace X11 {
   }
 
   void Initializer::affectRectangle(std::vector<Tile>& grid, sf::Vector2i& topleft, int size, TileType type) {
-    std::vector<Tile> zoneTiles;
+    std::vector<Tile*> zoneTiles;
     for (int width = 0; width < size; width++) {
       for (int height = 0; height < size; height++) {
         int index = (topleft.x * topleft.y) + width + (height * GRID_WIDTH);
         Tile& tile = grid[index];
         tile.setType(type);
         tile.setId(index);
-        zoneTiles.push_back(tile);
+        zoneTiles.push_back(&tile);
       }
     }
+    //each zone tile stores the array of zone tiles
     for (auto zoneTile : zoneTiles) {
-     zoneTile.setZoneTiles(zoneTiles);
+      zoneTile->setZoneTiles(zoneTiles);
     }
   }
 

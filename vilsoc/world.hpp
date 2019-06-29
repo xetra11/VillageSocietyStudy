@@ -21,7 +21,7 @@ namespace X11 {
     TileType type;
     int id;
     void setColorByType(TileType type);
-    std::vector<Tile> zoneTiles;
+    std::vector<Tile*> zoneTiles;
   public:
     Tile();
     Tile(sf::Vector2f position);
@@ -32,8 +32,8 @@ namespace X11 {
     TileType getType();
     void setId(int id);
     int getId();
-    std::vector<Tile>& getZoneTiles();
-    void setZoneTiles(std::vector<Tile> zoneTiles);
+    std::vector<Tile*>& getZoneTiles();
+    void setZoneTiles(std::vector<Tile*> zoneTiles);
   };
 
   class World {

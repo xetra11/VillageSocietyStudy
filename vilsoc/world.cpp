@@ -12,12 +12,10 @@
 
 namespace X11 {
 
-  Tile::Tile() : type{TileType::Empty} {}
-  Tile::Tile(sf::Vector2f position) : type{TileType::Empty} {
+  Tile::Tile() : type{TileType::Empty}, zoneTiles{std::vector<Tile*>()} {}
+  Tile::Tile(sf::Vector2f position) : type{TileType::Empty}, zoneTiles{std::vector<Tile*>()} {
     sf::Vector2f size(TILE_SIZE, TILE_SIZE);
     this->tileShape = sf::RectangleShape(size);
-    // this->tileShape.setOutlineColor(sf::Color(255, 255, 255, 50));
-    // this->tileShape.setOutlineThickness(0.5f);
     this->tileShape.setFillColor(sf::Color::Transparent);
     this->tileShape.setPosition(position);
 
@@ -49,8 +47,8 @@ namespace X11 {
 
   void Tile::setId(int id) {this->id = id;}
   int Tile::getId() { return this->id;}
-  void Tile::setZoneTiles(std::vector<Tile> zoneTiles){ this->zoneTiles = zoneTiles;}
-  std::vector<Tile>& Tile::getZoneTiles() {return this->zoneTiles;}
+  void Tile::setZoneTiles(std::vector<Tile*> zoneTiles){ this->zoneTiles = zoneTiles;}
+  std::vector<Tile*>& Tile::getZoneTiles() {return this->zoneTiles;}
 
   World::World() {
     spdlog::info("create world");
