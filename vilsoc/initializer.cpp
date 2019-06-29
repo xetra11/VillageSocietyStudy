@@ -33,13 +33,18 @@ namespace X11 {
   }
 
   void Initializer::affectRectangle(std::vector<Tile>& grid, sf::Vector2i& topleft, int size, TileType type) {
+    std::vector<Tile> zoneTiles;
     for (int width = 0; width < size; width++) {
       for (int height = 0; height < size; height++) {
         int index = (topleft.x * topleft.y) + width + (height * GRID_WIDTH);
         Tile& tile = grid[index];
         tile.setType(type);
         tile.setId(index);
+        zoneTiles.push_back(tile);
       }
+    }
+    for (auto zoneTile : zoneTiles) {
+     zoneTile.setZoneTiles(zoneTiles);
     }
   }
 
@@ -71,7 +76,6 @@ namespace X11 {
         worldGrid[index] = newTile;
       }
     }
-    spdlog::info("world grid size {}", worldGrid.size());
     return worldGrid;
   }
 

@@ -20,7 +20,6 @@ namespace X11 {
     Initializer initializer = Initializer();
     spdlog::info("initialize world grid");
     std::vector<Tile> worldGrid = initializer.initWorldGrid();
-    spdlog::info("world grid size {}", worldGrid.size());
     spdlog::info("initialize zones");
     initializer.initObjects(TileType::Estate, worldGrid, 4, ESTATE_COUNT);
     initializer.initObjects(TileType::Community, worldGrid, 2, COMMUNITY_COUNT);
@@ -40,6 +39,18 @@ namespace X11 {
       while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
           window.close();
+        if (event.type == sf::Event::MouseButtonPressed) {
+          sf::Vector2i mousePos = sf::Mouse::getPosition();
+          sf::Vector2f coordPos = window.mapPixelToCoords(mousePos);
+          Tile* tile = this->getWorld()->getTileAtPosition(sf::Vector2i(coordPos.x, coordPos.y));
+          if (tile == NULL) {
+            spdlog::warn("no tile under mouse cursor");
+          } else {
+            spdlog::info("tile type {}", static_cast<char>(tile->getType()));
+            spdlog::info("tile id {}", tile->getId());
+            tile->getTileShape().setFillColor(sf::Color::White);
+          }
+        }
       }
 
       window.clear();

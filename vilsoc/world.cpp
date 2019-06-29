@@ -49,8 +49,8 @@ namespace X11 {
 
   void Tile::setId(int id) {this->id = id;}
   int Tile::getId() { return this->id;}
-  void Tile::setZoneTiles(std::vector<Tile>* zoneTiles){ this->zoneTiles = zoneTiles;}
-  std::vector<Tile>& Tile::getZoneTiles() {return *(this->zoneTiles);}
+  void Tile::setZoneTiles(std::vector<Tile> zoneTiles){ this->zoneTiles = zoneTiles;}
+  std::vector<Tile>& Tile::getZoneTiles() {return this->zoneTiles;}
 
   World::World() {
     spdlog::info("create world");
@@ -70,6 +70,14 @@ namespace X11 {
 
   void World::setWorldGrid(std::vector<Tile> grid) {this->grid = grid;}
   std::vector<Tile>& World::getWorldGrid() {return this->grid;}
+
+  Tile* World::getTileAtPosition(sf::Vector2i position){
+    sf::Vector2i gridVector((position.x/TILE_SIZE), (position.y/TILE_SIZE-1));
+    spdlog::info("gridvector x {0} y {1}", gridVector.x, gridVector.y);
+    Tile& tile = this->grid[gridVector.x + (gridVector.y * GRID_WIDTH)];
+    return &tile;
+  }
+
 };
 
 #endif
