@@ -11,7 +11,7 @@
 #include "engine.hpp"
 
 namespace X11 {
-  Engine::Engine() : world{new World()} {
+  Engine::Engine() : world{World()} {
     spdlog::info("setup engine");
   }
   Engine::~Engine() {}
@@ -27,7 +27,7 @@ namespace X11 {
     initializer.initObjects(TileType::House, worldGrid, 1, ESTATE_COUNT);
     //spdlog::info("initialize villagers");
     spdlog::info("initialization done");
-    this->world->setWorldGrid(worldGrid);
+    this->world.setWorldGrid(worldGrid);
   }
 
   void Engine::update() {}
@@ -42,7 +42,7 @@ namespace X11 {
         if (event.type == sf::Event::MouseButtonPressed) {
           sf::Vector2i mousePos = sf::Mouse::getPosition();
           sf::Vector2f coordPos = window.mapPixelToCoords(mousePos);
-          Tile* tile = this->getWorld()->getTileAtPosition(sf::Vector2i(coordPos.x, coordPos.y));
+          Tile* tile = this->getWorld().getTileAtPosition(sf::Vector2i(coordPos.x, coordPos.y));
           if (tile == NULL) {
             spdlog::warn("no tile under mouse cursor");
           } else {
@@ -54,12 +54,12 @@ namespace X11 {
       }
 
       window.clear();
-      this->world->drawAssets(window);
+      this->world.drawAssets(window);
       window.display();
     }
   }
 
-  World* Engine::getWorld() {return this->world;}
+  World& Engine::getWorld() {return this->world;}
 }
 
 #endif
