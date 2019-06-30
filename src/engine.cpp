@@ -29,51 +29,57 @@ namespace X11 {
     spdlog::info("initialization done");
   }
 
-      void Engine::update() {}
-    void Engine::run() {
-      sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
-      while (window.isOpen()){
-        this->handleEvents(window);
-        window.clear();
-        this->world.drawAssets(window);
-        window.display();
-      }
-    }
-
-    World& Engine::getWorld() {return this->world;}
-
-    void Engine::handleMouseButtonPressed(sf::RenderWindow& window) {
-      sf::Vector2i mousePos = sf::Mouse::getPosition();
-      sf::Vector2f coordPos = window.mapPixelToCoords(mousePos);
-      Tile* tile = this->getWorld().getTileAtPosition(sf::Vector2i(coordPos.x, coordPos.y));
-      if (tile == NULL) {
-        spdlog::warn("no tile under mouse cursor");
-      } else {
-        spdlog::info("tile type {}", static_cast<char>(tile->getType()));
-        spdlog::info("tile id {}", tile->getId());
-        if (tile->getZoneTiles().size() > 0) {
-          for (Tile* zoneTile : tile->getZoneTiles()) {
-            sf::RectangleShape& tileShape = zoneTile->getTileShape();
-            tileShape.setOutlineColor(sf::Color(255, 255, 255, 50));
-            tileShape.setOutlineThickness(0.5f);
-            tileShape.setFillColor(sf::Color::White);
-          }
-        } else {
-          spdlog::info("no adjacent zone tiles for this tile");
-        }
-      }
-    }
-
-    void Engine::handleEvents(sf::RenderWindow& window) {
-      sf::Event event;
-      while (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed)
-          window.close();
-        if (event.type == sf::Event::MouseButtonPressed) {
-          this->handleMouseButtonPressed(window);
-        }
+  void Engine::update() {
+    Tile* selectedTile = this->world.getSelectedTile();
+    if (selectedTile == NULL) {
+      spdlog::info("no tile selected");
+    } else {
+      for(Tile* zoneTile : selectedTile->getZoneTiles()){
+        sf::RectangleShape& tileShape = zoneTile->getTileShape();
+        sf::Color color = tileShape.getFillColor();
+        color.a = 255;
+        tileShape.setFillColor(color);
       }
     }
   }
+
+  void Engine::run() {
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
+    while (window.isOpen()){
+      this->handleEvents(window);
+      this->update();
+      window.clear();
+      this->world.drawAssets(window);
+      window.display();
+    }
+  }
+
+  World& Engine::getWorld() {return this->world;}
+
+  void Engine::handleMouseButtonPressed(sf::RenderWindow& window) {
+    sf::Vector2i mousePos = sf::Mouse::getPosition();
+    sf::Vector2f coordPos = window.mapPixelToCoords(mousePos);
+    Tile* tile = this->getWorld().getTileAtPosition(sf::Vector2i(coordPos.x, coordPos.y));
+    if (tile == NULL) {
+      spdlog::warn("no tile under mouse cursor");
+    } else {
+      spdlog::info("tile type {}", static_cast<char>(tile->getType()));
+      spdlog::info("tile id {}", tile->getId());
+      tile->isSelected = true;
+      this->world.setSelectedTile(tile);
+    }
+  }
+
+  void Engine::handleEvents(sf::RenderWindow& window) {
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed)
+        window.close();
+      if (event.type == sf::Event::MouseButtonPressed) {
+        this->handleMouseButtonPressed(window);
+      }
+    }
+  }
+}
 
 #endif

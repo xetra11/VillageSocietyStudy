@@ -38,9 +38,9 @@ namespace X11 {
     switch (type) {
     case TileType::Empty : this->tileShape.setFillColor(sf::Color::Transparent); break;
     case TileType::Estate : this->tileShape.setFillColor(sf::Color(249, 180, 45, 100)); break; //orange
-    case TileType::Workshop : this->tileShape.setFillColor(sf::Color(46, 204, 113, 255)); break; // green
-    case TileType::House : this->tileShape.setFillColor(sf::Color(231, 76, 60, 255)); break; // red
-    case TileType::Community : this->tileShape.setFillColor(sf::Color::Yellow); break; //yellow
+    case TileType::Workshop : this->tileShape.setFillColor(sf::Color(46, 204, 113, 100)); break; // green
+    case TileType::House : this->tileShape.setFillColor(sf::Color(231, 76, 60, 100)); break; // red
+    case TileType::Community : this->tileShape.setFillColor(sf::Color(245, 230, 83, 100)); break; //yellow
     case TileType::Villager : this->tileShape.setFillColor(sf::Color::White); break;
     }
   }
@@ -50,7 +50,7 @@ namespace X11 {
   void Tile::setZoneTiles(std::vector<Tile*> zoneTiles){ this->zoneTiles = zoneTiles;}
   std::vector<Tile*>& Tile::getZoneTiles() {return this->zoneTiles;}
 
-  World::World() {
+  World::World() : selectedTile{0} {
     spdlog::info("create world");
   }
   World::~World(){}
@@ -76,6 +76,8 @@ namespace X11 {
     return &tile;
   }
 
+  Tile* World::getSelectedTile() { return this->selectedTile;}
+  void World::setSelectedTile(Tile* tile) { this->selectedTile = tile;}
 };
 
 #endif

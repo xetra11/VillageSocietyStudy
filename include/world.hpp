@@ -25,6 +25,7 @@ namespace X11 {
   public:
     Tile();
     Tile(sf::Vector2f position);
+    bool isSelected;
     virtual ~Tile();
     sf::RectangleShape& getTileShape();
     sf::IntRect getBoundaries();
@@ -40,6 +41,7 @@ namespace X11 {
   private:
     std::vector<Tile> grid;
     void drawGrid(sf::RenderWindow& window);
+    Tile* selectedTile;
   public:
     World();
     virtual ~World();
@@ -47,6 +49,8 @@ namespace X11 {
     void setWorldGrid(std::vector<Tile> grid);
     std::vector<Tile>&  getWorldGrid();
     Tile* getTileAtPosition(sf::Vector2i position);
+    Tile* getSelectedTile();
+    void setSelectedTile(Tile* tile);
   };
 }
 
