@@ -16,10 +16,12 @@ namespace X11 {
   private:
     std::vector<Tile> tileGrid;
   public:
+    Layer(std::vector<Tile> tileGrid);
     Layer();
     virtual ~Layer();
     void drawLayer(sf::RenderWindow& window);
     Tile* getTileAtPosition(sf::Vector2i position);
+    std::vector<Tile>& getGrid();
   };
 }
 

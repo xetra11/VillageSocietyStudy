@@ -10,10 +10,10 @@
 
 #include "config.hpp"
 #include "initializer.hpp"
-#include "world.hpp"
 #include "tile.hpp"
 #include "game.hpp"
 #include "layer.hpp"
+#include "gridrenderer.hpp"
 
 #define BACKGROUND 0
 #define SCENE 1
@@ -24,21 +24,19 @@ namespace X11 {
   class Engine {
   private:
     Game game;
-    World world;
     void handleMouseButtonPressed(sf::RenderWindow& window);
     void handleEvents(sf::RenderWindow& window);
     void update();
-    std::vector<std::vector<Tile>> renderLayer;
+    std::vector<Layer> renderLayer;
   public:
     Engine();
     virtual ~Engine();
-    void initialize();
     void run();
-    World& getWorld();
     Game& getGame();
-    std::vector<Tile>& getBackgroundGrid();
-    std::vector<Tile>& getSceneGrid();
-    std::vector<Tile>& getForegroundGrid();
+    void setBackgroundLayer(Layer layer);
+    Layer& getBackgroundLayer();
+    Layer& getSceneLayer();
+    Layer& getForegroundLayer();
   };
 
 };

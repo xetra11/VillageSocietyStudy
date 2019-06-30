@@ -8,12 +8,13 @@
 #ifndef INITIALIZER_HPP
 #define INTIALIZER_HPP
 
-#include <iostream>
-#include <string>
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>
 #include <SFML/Graphics.hpp>
+#include <random>
 #include "config.hpp"
 #include "villager.hpp"
-#include "world.hpp"
+#include "layer.hpp"
 
 namespace X11 {
 
@@ -26,7 +27,7 @@ namespace X11 {
 
   public:
     static void initObjects(TileType type, std::vector<Tile>& grid, int size, int amount);
-    static std::vector<Tile> initBackgroundLayer();
+    static Layer initBackgroundLayer();
   };
 }
 

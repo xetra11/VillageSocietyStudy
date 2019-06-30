@@ -11,10 +11,11 @@
 #include "engine.hpp"
 
 namespace X11 {
-  Engine::Engine() : world{World()}, game{Game()} {
+  Engine::Engine() : renderLayer{std::vector<Layer>(3)}, game{Game()} {
     spdlog::info("setup engine");
     spdlog::info("init background layer");
-    this->renderLayer[BACKGROUND] = Initializer::initBackgroundLayer();
+    Layer backgroundLayer = Initializer::initBackgroundLayer();
+    this->setBackgroundLayer(backgroundLayer);
     // spdlog::info("init scene layer");
     // this->renderLayer[SCENE] = Initializer::initWorldGrid();
     // spdlog::info("init foreground layer");
@@ -22,32 +23,17 @@ namespace X11 {
   }
   Engine::~Engine() {}
 
-  void Engine::initialize() {
-    spdlog::info("initialize world grid");
-    this->world.setWorldGrid(Initializer::initBackgroundLayer());
-    spdlog::info("initialize zones");
-    std::vector<Tile>& worldGrid = this->world.getWorldGrid();
-    Initializer::initObjects(TileType::Estate, worldGrid, 4, ESTATE_COUNT);
-    Initializer::initObjects(TileType::Community, worldGrid, 2, COMMUNITY_COUNT);
-    Initializer::initObjects(TileType::Workshop, worldGrid, 1, ESTATE_COUNT);
-    Initializer::initObjects(TileType::House, worldGrid, 1, ESTATE_COUNT);
-    spdlog::info("initialization done");
-  }
-
   void Engine::update() {
     // update routines for normal tiles
-    std::vector<Tile>& worldGrid = this->getWorld().getWorldGrid();
-    for (Tile& tile : worldGrid) {
-      Tile::setColorByType(tile.getType(), tile.getTileShape());
-      tile.getTileShape().setOutlineColor(sf::Color::Transparent);
-    }
+    std::vector<Tile>& tileGrid = this->getBackgroundLayer().getGrid();
+    GridRenderer::emptyTiles(tileGrid);
 
     // update selected tile
     int selectedTileIndex = this->getGame().getSelectedTilePosition();
     if (selectedTileIndex == -1) {
       spdlog::info("no tile selected");
     } else {
-      Tile& selectedTile = this->world.getWorldGrid()[selectedTileIndex];
+      Tile& selectedTile = tileGrid[selectedTileIndex];
       selectedTile.getTileShape().setOutlineColor(sf::Color::White);
       selectedTile.getTileShape().setOutlineThickness(0.8f);
 
@@ -67,18 +53,17 @@ namespace X11 {
       this->handleEvents(window);
       this->update();
       window.clear();
-      this->world.drawAssets(window);
+      this->getBackgroundLayer().drawLayer(window);
       window.display();
     }
   }
 
-  World& Engine::getWorld() {return this->world;}
   Game& Engine::getGame() {return this->game;}
 
   void Engine::handleMouseButtonPressed(sf::RenderWindow& window) {
     sf::Vector2i mousePos = sf::Mouse::getPosition();
     sf::Vector2f coordPos = window.mapPixelToCoords(mousePos);
-    Tile* tile = this->getWorld().getTileAtPosition(sf::Vector2i(coordPos.x, coordPos.y));
+    Tile* tile = this->getBackgroundLayer().getTileAtPosition(sf::Vector2i(coordPos.x, coordPos.y));
     if (tile == NULL) {
       spdlog::warn("no tile under mouse cursor");
     } else {
@@ -99,9 +84,10 @@ namespace X11 {
     }
   }
 
-  std::vector<Tile>& Engine::getBackgroundGrid() { return this->renderLayer[BACKGROUND]; }
-  std::vector<Tile>& Engine::getSceneGrid(){ return this->renderLayer[SCENE]; }
-  std::vector<Tile>& Engine::getForegroundGrid(){ return this->renderLayer[FOREGROUND]; }
+  void Engine::setBackgroundLayer(Layer layer) { this->renderLayer[BACKGROUND] = layer; }
+  Layer& Engine::getBackgroundLayer() { return this->renderLayer[BACKGROUND]; }
+  Layer& Engine::getSceneLayer(){ return this->renderLayer[SCENE]; }
+  Layer& Engine::getForegroundLayer(){ return this->renderLayer[FOREGROUND]; }
 
 }
 

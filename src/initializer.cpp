@@ -8,9 +8,6 @@
 #ifndef INITIALIZER_CPP
 #define INITIALIZER_CPP
 
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/basic_file_sink.h>
-#include <random>
 #include "initializer.hpp"
 
 namespace X11 {
@@ -57,8 +54,7 @@ namespace X11 {
     return false;
   }
 
-  std::vector<Tile> Initializer::initBackgroundLayer() {
-    spdlog::info("build grid");
+  Layer Initializer::initBackgroundLayer() {
     spdlog::info("grid width: {}", GRID_WIDTH);
     spdlog::info("grid height: {}", GRID_HEIGHT);
 
@@ -72,7 +68,17 @@ namespace X11 {
         worldGrid[index] = newTile;
       }
     }
-    return worldGrid;
+
+    // setup initial zones
+    spdlog::info("setup initial village zones");
+    Initializer::initObjects(TileType::Estate, worldGrid, 4, ESTATE_COUNT);
+    Initializer::initObjects(TileType::Community, worldGrid, 2, COMMUNITY_COUNT);
+    Initializer::initObjects(TileType::Workshop, worldGrid, 1, ESTATE_COUNT);
+    Initializer::initObjects(TileType::House, worldGrid, 1, ESTATE_COUNT);
+    spdlog::info("zones initialized");
+
+    Layer layer(worldGrid);
+    return layer;
   }
 
   sf::Vector2i Initializer::getRandomPosition(std::vector<Tile>& grid) {

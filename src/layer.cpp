@@ -11,8 +11,11 @@
 #include "layer.hpp"
 
 namespace X11 {
-  Layer::Layer(std::vector<Tile> grid){this->tileGrid = grid;}
-  virtual Layer::~Layer();
+  Layer::Layer(std::vector<Tile> grid){
+    this->tileGrid = grid;
+  }
+  Layer::Layer(){}
+  Layer::~Layer() {}
   void Layer::drawLayer(sf::RenderWindow& window){
     for (auto& tile : this->tileGrid) {
       sf::RectangleShape& shape = tile.getTileShape();
@@ -22,9 +25,11 @@ namespace X11 {
   Tile* Layer::getTileAtPosition(sf::Vector2i position){
     sf::Vector2i gridVector((position.x/TILE_SIZE), (position.y/TILE_SIZE-1));
     spdlog::info("gridvector x {0} y {1}", gridVector.x, gridVector.y);
-    Tile& tile = this->grid[gridVector.x + (gridVector.y * GRID_WIDTH)];
+    Tile& tile = this->tileGrid[gridVector.x + (gridVector.y * GRID_WIDTH)];
     return &tile;
   }
+
+  std::vector<Tile>& Layer::getGrid() { return this->tileGrid;}
 }
 
 

@@ -11,7 +11,6 @@
 #include <SFML/Graphics.hpp>
 #include "config.hpp"
 #include "engine.hpp"
-#include "world.hpp"
 
 namespace X11 {
   class VillageSociety {
