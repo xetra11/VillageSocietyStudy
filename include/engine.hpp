@@ -11,13 +11,16 @@
 #include "config.hpp"
 #include "initializer.hpp"
 #include "world.hpp"
+#include "tile.hpp"
 #include "game.hpp"
+#include "layer.hpp"
 
 #define BACKGROUND 0
 #define SCENE 1
 #define FOREGROUND 2
 
 namespace X11 {
+
   class Engine {
   private:
     Game game;

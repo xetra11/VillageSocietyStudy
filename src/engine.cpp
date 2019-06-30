@@ -12,7 +12,14 @@
 
 namespace X11 {
   Engine::Engine() : world{World()}, game{Game()} {
+    Initializer initializer = Initializer();
     spdlog::info("setup engine");
+    spdlog::info("init background layer");
+    this->renderLayer[BACKGROUND] = initializer.initWorldGrid();
+    spdlog::info("init scene layer");
+    this->renderLayer[SCENE] = initializer.initWorldGrid();
+    spdlog::info("init foreground layer");
+    this->renderLayer[FOREGROUND] = initializer.initWorldGrid();
   }
   Engine::~Engine() {}
 
@@ -95,8 +102,8 @@ namespace X11 {
   }
 
   std::vector<Tile>& Engine::getBackgroundGrid() { return this->renderLayer[BACKGROUND]; }
-  std::vector<Tile>& Engine::getSceneGrid(){ return this->renderLayer[BACKGROUND]; }
-  std::vector<Tile>& Engine::getForegroundGrid(){ return this->renderLayer[BACKGROUND]; }
+  std::vector<Tile>& Engine::getSceneGrid(){ return this->renderLayer[SCENE]; }
+  std::vector<Tile>& Engine::getForegroundGrid(){ return this->renderLayer[FOREGROUND]; }
 
 }
 
