@@ -93,6 +93,11 @@ namespace X11 {
       }
     }
   }
+
+  std::vector<Tile>& Engine::getBackgroundGrid() { return this->renderLayer[BACKGROUND]; }
+  std::vector<Tile>& Engine::getSceneGrid(){ return this->renderLayer[BACKGROUND]; }
+  std::vector<Tile>& Engine::getForegroundGrid(){ return this->renderLayer[BACKGROUND]; }
+
 }
 
 #endif
