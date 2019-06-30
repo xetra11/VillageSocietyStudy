@@ -30,11 +30,23 @@ namespace X11 {
   }
 
   void Engine::update() {
+    // update routines for normal tiles
+    std::vector<Tile>& worldGrid = this->getWorld().getWorldGrid();
+    for (Tile& tile : worldGrid) {
+      Tile::setColorByType(tile.getType(), tile.getTileShape());
+      tile.getTileShape().setOutlineColor(sf::Color::Transparent);
+    }
+
+    // update selected tile
     Tile* selectedTile = this->world.getSelectedTile();
     if (selectedTile == NULL) {
       spdlog::info("no tile selected");
     } else {
-      for(Tile* zoneTile : selectedTile->getZoneTiles()){
+      selectedTile->getTileShape().setOutlineColor(sf::Color::White);
+      selectedTile->getTileShape().setOutlineThickness(0.8f);
+
+      std::vector<Tile*> zoneTiles = selectedTile->getZoneTiles();
+      for(Tile* zoneTile : zoneTiles){
         sf::RectangleShape& tileShape = zoneTile->getTileShape();
         sf::Color color = tileShape.getFillColor();
         color.a = 255;
