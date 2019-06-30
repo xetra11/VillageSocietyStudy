@@ -29,19 +29,19 @@ namespace X11 {
 
   void Tile::setType(TileType type) {
     this->type = type;
-    this->setColorByType(type);
+    Tile::setColorByType(type, this->tileShape);
   }
 
   TileType Tile::getType() {return this->type;}
 
-  void Tile::setColorByType(TileType type) {
+  void Tile::setColorByType(TileType type, sf::Shape& shape) {
     switch (type) {
-    case TileType::Empty : this->tileShape.setFillColor(sf::Color::Transparent); break;
-    case TileType::Estate : this->tileShape.setFillColor(sf::Color(249, 180, 45, 100)); break; //orange
-    case TileType::Workshop : this->tileShape.setFillColor(sf::Color(46, 204, 113, 100)); break; // green
-    case TileType::House : this->tileShape.setFillColor(sf::Color(231, 76, 60, 100)); break; // red
-    case TileType::Community : this->tileShape.setFillColor(sf::Color(245, 230, 83, 100)); break; //yellow
-    case TileType::Villager : this->tileShape.setFillColor(sf::Color::White); break;
+    case TileType::Empty : shape.setFillColor(sf::Color::Transparent); break;
+    case TileType::Estate : shape.setFillColor(sf::Color(249, 180, 45, 100)); break; //orange
+    case TileType::Workshop : shape.setFillColor(sf::Color(46, 204, 113, 100)); break; // green
+    case TileType::House : shape.setFillColor(sf::Color(231, 76, 60, 100)); break; // red
+    case TileType::Community : shape.setFillColor(sf::Color(245, 230, 83, 100)); break; //yellow
+    case TileType::Villager : shape.setFillColor(sf::Color::White); break;
     }
   }
 

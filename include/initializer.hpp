@@ -15,8 +15,6 @@
 #include "villager.hpp"
 #include "world.hpp"
 
-using namespace std;
-
 namespace X11 {
 
   class Initializer {

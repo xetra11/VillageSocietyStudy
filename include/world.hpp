@@ -15,12 +15,10 @@ namespace X11 {
 
   enum class TileType : char { Empty='n', Estate='e', Workshop='w', House='h', Community='c', Villager='v'};
   class Tile {
-  private:
     sf::RectangleShape tileShape;
     sf::IntRect boundaries;
     TileType type;
     int id;
-    void setColorByType(TileType type);
     std::vector<Tile*> zoneTiles;
   public:
     Tile();
@@ -35,6 +33,7 @@ namespace X11 {
     int getId();
     std::vector<Tile*>& getZoneTiles();
     void setZoneTiles(std::vector<Tile*> zoneTiles);
+    static void setColorByType(TileType type, sf::Shape& shape);
   };
 
   class World {
@@ -53,5 +52,6 @@ namespace X11 {
     void setSelectedTile(Tile* tile);
   };
 }
+
 
 #endif
