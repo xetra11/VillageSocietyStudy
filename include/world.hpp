@@ -18,8 +18,8 @@ namespace X11 {
     sf::RectangleShape tileShape;
     sf::IntRect boundaries;
     TileType type;
-    int id;
     std::vector<Tile*> zoneTiles;
+    int gridPosition;
   public:
     Tile();
     Tile(sf::Vector2f position);
@@ -29,18 +29,17 @@ namespace X11 {
     sf::IntRect getBoundaries();
     void setType(TileType type);
     TileType getType();
-    void setId(int id);
-    int getId();
     std::vector<Tile*>& getZoneTiles();
     void setZoneTiles(std::vector<Tile*> zoneTiles);
     static void setColorByType(TileType type, sf::Shape& shape);
+    void setGridPosition(int gridIndex);
+    int getGridPosition();
   };
 
   class World {
   private:
     std::vector<Tile> grid;
     void drawGrid(sf::RenderWindow& window);
-    Tile* selectedTile;
   public:
     World();
     virtual ~World();
@@ -48,8 +47,6 @@ namespace X11 {
     void setWorldGrid(std::vector<Tile> grid);
     std::vector<Tile>&  getWorldGrid();
     Tile* getTileAtPosition(sf::Vector2i position);
-    Tile* getSelectedTile();
-    void setSelectedTile(Tile* tile);
   };
 }
 

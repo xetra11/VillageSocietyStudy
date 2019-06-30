@@ -11,10 +11,12 @@
 #include "config.hpp"
 #include "initializer.hpp"
 #include "world.hpp"
+#include "game.hpp"
 
 namespace X11 {
   class Engine {
   private:
+    Game game;
     World world;
     void handleMouseButtonPressed(sf::RenderWindow& window);
     void handleEvents(sf::RenderWindow& window);
@@ -25,6 +27,7 @@ namespace X11 {
     void initialize();
     void run();
     World& getWorld();
+    Game& getGame();
   };
 
 };

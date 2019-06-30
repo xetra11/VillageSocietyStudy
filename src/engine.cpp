@@ -11,7 +11,7 @@
 #include "engine.hpp"
 
 namespace X11 {
-  Engine::Engine() : world{World()} {
+  Engine::Engine() : world{World()}, game{Game()} {
     spdlog::info("setup engine");
   }
   Engine::~Engine() {}
@@ -38,14 +38,15 @@ namespace X11 {
     }
 
     // update selected tile
-    Tile* selectedTile = this->world.getSelectedTile();
-    if (selectedTile == NULL) {
+    int selectedTileIndex = this->getGame().getSelectedTilePosition();
+    if (selectedTileIndex == -1) {
       spdlog::info("no tile selected");
     } else {
-      selectedTile->getTileShape().setOutlineColor(sf::Color::White);
-      selectedTile->getTileShape().setOutlineThickness(0.8f);
+      Tile& selectedTile = this->world.getWorldGrid()[selectedTileIndex];
+      selectedTile.getTileShape().setOutlineColor(sf::Color::White);
+      selectedTile.getTileShape().setOutlineThickness(0.8f);
 
-      std::vector<Tile*> zoneTiles = selectedTile->getZoneTiles();
+      std::vector<Tile*> zoneTiles = selectedTile.getZoneTiles();
       for(Tile* zoneTile : zoneTiles){
         sf::RectangleShape& tileShape = zoneTile->getTileShape();
         sf::Color color = tileShape.getFillColor();
@@ -67,6 +68,7 @@ namespace X11 {
   }
 
   World& Engine::getWorld() {return this->world;}
+  Game& Engine::getGame() {return this->game;}
 
   void Engine::handleMouseButtonPressed(sf::RenderWindow& window) {
     sf::Vector2i mousePos = sf::Mouse::getPosition();
@@ -76,9 +78,8 @@ namespace X11 {
       spdlog::warn("no tile under mouse cursor");
     } else {
       spdlog::info("tile type {}", static_cast<char>(tile->getType()));
-      spdlog::info("tile id {}", tile->getId());
       tile->isSelected = true;
-      this->world.setSelectedTile(tile);
+      this->game.setSelectedTilePosition(tile->getGridPosition());
     }
   }
 

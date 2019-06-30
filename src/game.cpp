@@ -12,11 +12,8 @@
 
 namespace X11 {
 
-  void Game::setSelectedTilePosition(int x, int y){
-    this->setSelectedTilePosition(sf::Vector2i(x,y));
-  }
-  void Game::setSelectedTilePosition(sf::Vector2i gridPosition){ this->selectedTilePosition = gridPosition;}
-  sf::Vector2i Game::getSelectedTilePosition() { return this->selectedTilePosition;}
+  void Game::setSelectedTilePosition(int gridIndex){ this->selectedTilePosition = gridIndex;}
+  int Game::getSelectedTilePosition() { return this->selectedTilePosition;}
 
 }
 #endif

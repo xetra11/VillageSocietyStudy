@@ -13,11 +13,10 @@
 namespace X11 {
   class Game {
   private:
-    sf::Vector2i selectedTilePosition;
+    int selectedTilePosition;
   public:
-    sf::Vector2i getSelectedTilePosition();
-    void setSelectedTilePosition(int x, int y);
-    void setSelectedTilePosition(sf::Vector2i gridPosition);
+    int getSelectedTilePosition();
+    void setSelectedTilePosition(int gridIndex);
   };
 }
 

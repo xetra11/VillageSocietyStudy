@@ -37,7 +37,7 @@ namespace X11 {
         int index = (topleft.x * topleft.y) + width + (height * GRID_WIDTH);
         Tile& tile = grid[index];
         tile.setType(type);
-        tile.setId(index);
+        tile.setGridPosition(index);
         zoneTiles.push_back(&tile);
       }
     }
@@ -68,10 +68,10 @@ namespace X11 {
     std::vector<Tile> worldGrid(GRID_WIDTH * GRID_HEIGHT);
     for (int height = 0; height < GRID_HEIGHT; height++) {
       for (int width = 0; width < GRID_WIDTH; width++) {
-        sf::Vector2f position(width * TILE_SIZE, height * TILE_SIZE);
-        Tile newTile(position);
+        sf::Vector2f coordPosition(width * TILE_SIZE, height * TILE_SIZE);
+        Tile newTile(coordPosition);
         int index = width + (height * GRID_WIDTH);
-        newTile.setId(index);
+        newTile.setGridPosition(index);
         worldGrid[index] = newTile;
       }
     }

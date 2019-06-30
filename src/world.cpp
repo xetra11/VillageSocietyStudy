@@ -45,12 +45,13 @@ namespace X11 {
     }
   }
 
-  void Tile::setId(int id) {this->id = id;}
-  int Tile::getId() { return this->id;}
   void Tile::setZoneTiles(std::vector<Tile*> zoneTiles){ this->zoneTiles = zoneTiles;}
   std::vector<Tile*>& Tile::getZoneTiles() {return this->zoneTiles;}
 
-  World::World() : selectedTile{0} {
+  void Tile::setGridPosition(int gridPosition){ this->gridPosition = gridPosition;}
+  int Tile::getGridPosition() {return this->gridPosition;}
+
+  World::World() {
     spdlog::info("create world");
   }
   World::~World(){}
@@ -75,9 +76,6 @@ namespace X11 {
     Tile& tile = this->grid[gridVector.x + (gridVector.y * GRID_WIDTH)];
     return &tile;
   }
-
-  Tile* World::getSelectedTile() { return this->selectedTile;}
-  void World::setSelectedTile(Tile* tile) { this->selectedTile = tile;}
 };
 
 #endif
