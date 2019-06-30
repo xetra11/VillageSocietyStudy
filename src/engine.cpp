@@ -12,27 +12,25 @@
 
 namespace X11 {
   Engine::Engine() : world{World()}, game{Game()} {
-    Initializer initializer = Initializer();
     spdlog::info("setup engine");
     spdlog::info("init background layer");
-    this->renderLayer[BACKGROUND] = initializer.initWorldGrid();
-    spdlog::info("init scene layer");
-    this->renderLayer[SCENE] = initializer.initWorldGrid();
-    spdlog::info("init foreground layer");
-    this->renderLayer[FOREGROUND] = initializer.initWorldGrid();
+    this->renderLayer[BACKGROUND] = Initializer::initBackgroundLayer();
+    // spdlog::info("init scene layer");
+    // this->renderLayer[SCENE] = Initializer::initWorldGrid();
+    // spdlog::info("init foreground layer");
+    // this->renderLayer[FOREGROUND] = Initializer::initWorldGrid();
   }
   Engine::~Engine() {}
 
   void Engine::initialize() {
-    Initializer initializer = Initializer();
     spdlog::info("initialize world grid");
-    this->world.setWorldGrid(initializer.initWorldGrid());
+    this->world.setWorldGrid(Initializer::initBackgroundLayer());
     spdlog::info("initialize zones");
     std::vector<Tile>& worldGrid = this->world.getWorldGrid();
-    initializer.initObjects(TileType::Estate, worldGrid, 4, ESTATE_COUNT);
-    initializer.initObjects(TileType::Community, worldGrid, 2, COMMUNITY_COUNT);
-    initializer.initObjects(TileType::Workshop, worldGrid, 1, ESTATE_COUNT);
-    initializer.initObjects(TileType::House, worldGrid, 1, ESTATE_COUNT);
+    Initializer::initObjects(TileType::Estate, worldGrid, 4, ESTATE_COUNT);
+    Initializer::initObjects(TileType::Community, worldGrid, 2, COMMUNITY_COUNT);
+    Initializer::initObjects(TileType::Workshop, worldGrid, 1, ESTATE_COUNT);
+    Initializer::initObjects(TileType::House, worldGrid, 1, ESTATE_COUNT);
     spdlog::info("initialization done");
   }
 

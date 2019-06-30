@@ -19,17 +19,14 @@ namespace X11 {
 
   class Initializer {
   private:
-    sf::Vector2i getRandomPosition(std::vector<Tile>& grid);
-    sf::Vector2i getRandomPosition(sf::IntRect boundaries);
-    void affectRectangle(std::vector<Tile>& grid, sf::Vector2i& topleft, int size, TileType type);
-    bool isRectAreaOccupied(std::vector<Tile>& grid, sf::Vector2i& topleft, int size);
+    static sf::Vector2i getRandomPosition(std::vector<Tile>& grid);
+    static sf::Vector2i getRandomPosition(sf::IntRect boundaries);
+    static void affectRectangle(std::vector<Tile>& grid, sf::Vector2i& topleft, int size, TileType type);
+    static bool isRectAreaOccupied(std::vector<Tile>& grid, sf::Vector2i& topleft, int size);
 
   public:
-    Initializer();
-    virtual ~Initializer();
-
-    void initObjects(TileType type, std::vector<Tile>& grid, int size, int amount);
-    std::vector<Tile> initWorldGrid();
+    static void initObjects(TileType type, std::vector<Tile>& grid, int size, int amount);
+    static std::vector<Tile> initBackgroundLayer();
   };
 }
 

@@ -15,16 +15,13 @@
 
 namespace X11 {
 
-  Initializer::Initializer() {}
-  Initializer::~Initializer() {}
-
   void Initializer::initObjects(TileType type, std::vector<Tile>& grid, int size, int amount) {
     sf::Vector2i randomPos;
     for (int count = 1; count <= amount; count++) {
       bool isOccupied;
       do {
-        randomPos = this->getRandomPosition(grid);
-        isOccupied = this->isRectAreaOccupied(grid, randomPos, size);
+        randomPos = Initializer::getRandomPosition(grid);
+        isOccupied = Initializer::isRectAreaOccupied(grid, randomPos, size);
       } while (isOccupied);
       affectRectangle(grid, randomPos, size, type);
     }
@@ -60,7 +57,7 @@ namespace X11 {
     return false;
   }
 
-  std::vector<Tile> Initializer::initWorldGrid() {
+  std::vector<Tile> Initializer::initBackgroundLayer() {
     spdlog::info("build grid");
     spdlog::info("grid width: {}", GRID_WIDTH);
     spdlog::info("grid height: {}", GRID_HEIGHT);
