@@ -27,10 +27,7 @@ namespace X11 {
   sf::RectangleShape& Tile::getTileShape(){return this->tileShape;}
   sf::IntRect Tile::getBoundaries(){return this->boundaries;}
 
-  void Tile::setType(TileType type) {
-    this->type = type;
-    Tile::setColorByType(type, this->tileShape);
-  }
+  void Tile::setType(TileType type) {this->type = type;}
 
   TileType Tile::getType() {return this->type;}
 
