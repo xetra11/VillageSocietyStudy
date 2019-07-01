@@ -14,6 +14,8 @@ namespace X11 {
   class GridRenderer{
   public:
     static void emptyTiles(std::vector<Tile>& tileGrid);
+    static void outlineTile(Tile& tile);
+    static void highlightTile(Tile& tile);
   };
 }
 

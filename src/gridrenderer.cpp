@@ -17,6 +17,16 @@ namespace X11 {
       tile.getTileShape().setOutlineColor(sf::Color::Transparent);
     }
   }
+  void GridRenderer::outlineTile(Tile& tile) {
+    tile.getTileShape().setOutlineColor(sf::Color::White);
+    tile.getTileShape().setOutlineThickness(0.8f);
+  }
+  void GridRenderer::highlightTile(Tile& tile) {
+    sf::RectangleShape& tileShape = tile.getTileShape();
+    sf::Color color = tileShape.getFillColor();
+    color.a = 255;
+    tileShape.setFillColor(color);
+  }
 }
 
 #endif
