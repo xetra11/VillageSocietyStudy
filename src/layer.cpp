@@ -11,10 +11,7 @@
 #include "layer.hpp"
 
 namespace X11 {
-  Layer::Layer(std::vector<Tile> grid){
-    this->tileGrid = grid;
-  }
-  Layer::Layer(){}
+  Layer::Layer() : tileGrid{std::vector<Tile>(GRID_WIDTH * GRID_HEIGHT)}{}
   Layer::~Layer() {}
   void Layer::drawLayer(sf::RenderWindow& window){
     for (auto& tile : this->tileGrid) {
@@ -30,7 +27,7 @@ namespace X11 {
   }
 
   std::vector<Tile>& Layer::getGrid() { return this->tileGrid;}
+  void Layer::setGrid(std::vector<Tile> grid) { this->tileGrid = grid; }
 }
-
 
 #endif

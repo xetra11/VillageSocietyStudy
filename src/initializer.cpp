@@ -54,11 +54,12 @@ namespace X11 {
     return false;
   }
 
-  Layer Initializer::initBackgroundLayer() {
+  void Initializer::initBackgroundLayer(Layer& layer) {
     spdlog::info("grid width: {}", GRID_WIDTH);
     spdlog::info("grid height: {}", GRID_HEIGHT);
 
-    std::vector<Tile> worldGrid(GRID_WIDTH * GRID_HEIGHT);
+    std::vector<Tile>& worldGrid = layer.getGrid();
+
     for (int height = 0; height < GRID_HEIGHT; height++) {
       for (int width = 0; width < GRID_WIDTH; width++) {
         sf::Vector2f coordPosition(width * TILE_SIZE, height * TILE_SIZE);
@@ -71,14 +72,11 @@ namespace X11 {
 
     // setup initial zones
     spdlog::info("setup initial village zones");
-    Initializer::initObjects(TileType::Estate, worldGrid, 4, ESTATE_COUNT);
+    Initializer::initObjects(TileType::Estate, worldGrid, 4, 1);
     Initializer::initObjects(TileType::Community, worldGrid, 2, COMMUNITY_COUNT);
     Initializer::initObjects(TileType::Workshop, worldGrid, 1, ESTATE_COUNT);
     Initializer::initObjects(TileType::House, worldGrid, 1, ESTATE_COUNT);
     spdlog::info("zones initialized");
-
-    Layer layer(worldGrid);
-    return layer;
   }
 
   sf::Vector2i Initializer::getRandomPosition(std::vector<Tile>& grid) {

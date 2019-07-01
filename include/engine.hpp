@@ -33,7 +33,6 @@ namespace X11 {
     virtual ~Engine();
     void run();
     Game& getGame();
-    void setBackgroundLayer(Layer layer);
     Layer& getBackgroundLayer();
     Layer& getSceneLayer();
     Layer& getForegroundLayer();

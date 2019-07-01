@@ -14,12 +14,7 @@ namespace X11 {
   Engine::Engine() : renderLayer{std::vector<Layer>(3)}, game{Game()} {
     spdlog::info("setup engine");
     spdlog::info("init background layer");
-    Layer backgroundLayer = Initializer::initBackgroundLayer();
-    this->setBackgroundLayer(backgroundLayer);
-    // spdlog::info("init scene layer");
-    // this->renderLayer[SCENE] = Initializer::initWorldGrid();
-    // spdlog::info("init foreground layer");
-    // this->renderLayer[FOREGROUND] = Initializer::initWorldGrid();
+    Initializer::initBackgroundLayer(this->getBackgroundLayer());
   }
   Engine::~Engine() {}
 
@@ -84,7 +79,6 @@ namespace X11 {
     }
   }
 
-  void Engine::setBackgroundLayer(Layer layer) { this->renderLayer[BACKGROUND] = layer; }
   Layer& Engine::getBackgroundLayer() { return this->renderLayer[BACKGROUND]; }
   Layer& Engine::getSceneLayer(){ return this->renderLayer[SCENE]; }
   Layer& Engine::getForegroundLayer(){ return this->renderLayer[FOREGROUND]; }
