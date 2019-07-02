@@ -27,6 +27,11 @@ namespace X11 {
     color.a = 255;
     tileShape.setFillColor(color);
   }
+  int GridRenderer::mapCoordsToGridPos(sf::Vector2f coordPos) {
+    sf::Vector2i gridVector((coordPos.x/TILE_SIZE), (coordPos.y/TILE_SIZE-1));
+    int gridIndex = gridVector.x + (gridVector.y * GRID_WIDTH);
+    return gridIndex;
+  }
 }
 
 #endif

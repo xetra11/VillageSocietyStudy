@@ -16,6 +16,7 @@ namespace X11 {
     static void emptyTiles(std::vector<Tile>& tileGrid);
     static void outlineTile(Tile& tile);
     static void highlightTile(Tile& tile);
+    static int mapCoordsToGridPos(sf::Vector2f coordPos);
   };
 }
 

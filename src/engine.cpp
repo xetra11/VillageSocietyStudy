@@ -58,14 +58,7 @@ namespace X11 {
   void Engine::handleMouseButtonPressed(sf::RenderWindow& window) {
     sf::Vector2i mousePos = sf::Mouse::getPosition();
     sf::Vector2f coordPos = window.mapPixelToCoords(mousePos);
-    Tile* tile = this->getBackgroundLayer().getTileAtPosition(sf::Vector2i(coordPos.x, coordPos.y));
-    if (tile == NULL) {
-      spdlog::warn("no tile under mouse cursor");
-    } else {
-      spdlog::info("tile type {}", static_cast<char>(tile->getType()));
-      tile->isSelected = true;
-      this->game.setSelectedTilePosition(tile->getGridPosition());
-    }
+    int gridPosIndex = GridRenderer::mapCoordsToGridPos(coordPos);
   }
 
   void Engine::handleEvents(sf::RenderWindow& window) {
