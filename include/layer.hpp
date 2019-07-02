@@ -9,12 +9,14 @@
 #define LAYER_HPP
 
 #include "tile.hpp"
+#include "assets.hpp"
 
 namespace X11 {
 
   class Layer {
   private:
     std::vector<Tile> tileGrid;
+    std::vector<Asset> assets;
   public:
     Layer();
     virtual ~Layer();
@@ -22,6 +24,7 @@ namespace X11 {
     Tile* getTileAtPosition(sf::Vector2i position);
     std::vector<Tile>& getGrid();
     void setGrid(std::vector<Tile> grid);
+    std::vector<Asset>& getAssets();
   };
 }
 

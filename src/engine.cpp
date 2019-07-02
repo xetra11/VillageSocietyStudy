@@ -16,7 +16,7 @@ namespace X11 {
     spdlog::info("setup engine");
     spdlog::info("init background layer");
     Initializer::initBackgroundLayer(this->getBackgroundLayer());
-    Initializer::initLayer(this->getSceneLayer());
+    Initializer::initSceneLayer(this->getSceneLayer());
     Initializer::initLayer(this->getForegroundLayer());
   }
   Engine::~Engine() {}

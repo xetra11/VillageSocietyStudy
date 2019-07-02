@@ -13,7 +13,6 @@
 #include <SFML/Graphics.hpp>
 #include <random>
 #include "config.hpp"
-#include "villager.hpp"
 #include "layer.hpp"
 
 namespace X11 {
@@ -26,8 +25,10 @@ namespace X11 {
     static bool isRectAreaOccupied(std::vector<Tile>& grid, sf::Vector2i& topleft, int size);
 
   public:
-    static void initObjects(TileType type, std::vector<Tile>& grid, int size, int amount);
+    static void initZones(TileType type, std::vector<Tile>& grid, int size, int amount);
+    static void initAssets(std::vector<Asset>& assets);
     static void initLayer(Layer& layer);
+    static void initSceneLayer(Layer& layer);
     static void initBackgroundLayer(Layer& layer);
   };
 }

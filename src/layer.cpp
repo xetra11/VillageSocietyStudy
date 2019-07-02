@@ -18,7 +18,19 @@ namespace X11 {
       sf::RectangleShape& shape = tile.getTileShape();
       window.draw(shape);
     }
+
+    if (this->assets.size() > 0) {
+      for(auto& asset : assets) {
+        for(auto& shape : asset.getShapes()) {
+          window.draw(*shape);
+        }
+      }
+    } else {
+      spdlog::info("no assets to draw");
+    }
+
   }
+
   Tile* Layer::getTileAtPosition(sf::Vector2i position){
     sf::Vector2i gridVector((position.x/TILE_SIZE), (position.y/TILE_SIZE-1));
     spdlog::info("gridvector x {0} y {1}", gridVector.x, gridVector.y);
@@ -28,6 +40,8 @@ namespace X11 {
 
   std::vector<Tile>& Layer::getGrid() { return this->tileGrid;}
   void Layer::setGrid(std::vector<Tile> grid) { this->tileGrid = grid; }
+
+  std::vector<Asset>& Layer::getAssets() { return this->assets; }
 }
 
 #endif
