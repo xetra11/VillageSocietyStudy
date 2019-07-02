@@ -27,6 +27,7 @@ namespace X11 {
 
   public:
     static void initObjects(TileType type, std::vector<Tile>& grid, int size, int amount);
+    static void initLayer(Layer& layer);
     static void initBackgroundLayer(Layer& layer);
   };
 }

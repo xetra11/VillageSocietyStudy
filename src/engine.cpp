@@ -9,36 +9,42 @@
 #define ENGINE_CPP
 
 #include "engine.hpp"
+#include <iostream>
 
 namespace X11 {
   Engine::Engine() : renderLayer{std::vector<Layer>(3)}, game{Game()} {
     spdlog::info("setup engine");
     spdlog::info("init background layer");
     Initializer::initBackgroundLayer(this->getBackgroundLayer());
+    Initializer::initLayer(this->getSceneLayer());
+    Initializer::initLayer(this->getForegroundLayer());
   }
   Engine::~Engine() {}
 
   void Engine::update() {
     // update routines for normal tiles
-    std::vector<Tile>& tileGrid = this->getBackgroundLayer().getGrid();
-    GridRenderer::emptyTiles(tileGrid);
+    std::vector<Tile>& backgroundGrid = this->getBackgroundLayer().getGrid();
+    std::vector<Tile>& sceneGrid = this->getSceneLayer().getGrid();
+    std::vector<Tile>& foregroundGrid = this->getForegroundLayer().getGrid();
+    GridRenderer::emptyTiles(backgroundGrid);
+    GridRenderer::emptyTiles(sceneGrid);
+    GridRenderer::emptyTiles(foregroundGrid);
 
     // update selected tile
     int selectedTileIndex = this->getGame().getSelectedTilePosition();
     if (selectedTileIndex == -1) {
       spdlog::info("no tile selected");
     } else {
-      Tile& selectedTile = tileGrid[selectedTileIndex];
-      selectedTile.getTileShape().setOutlineColor(sf::Color::White);
-      selectedTile.getTileShape().setOutlineThickness(0.8f);
-
-      std::vector<Tile*> zoneTiles = selectedTile.getZoneTiles();
+      // highlight still in background layer because there are zones rendered
+      Tile& bgSelectedTile = backgroundGrid[selectedTileIndex];
+      std::vector<Tile*> zoneTiles = bgSelectedTile.getZoneTiles();
       for(Tile* zoneTile : zoneTiles){
-        sf::RectangleShape& tileShape = zoneTile->getTileShape();
-        sf::Color color = tileShape.getFillColor();
-        color.a = 255;
-        tileShape.setFillColor(color);
+        GridRenderer::highlightTile(*zoneTile);
       }
+
+      // select marker in scene layer
+      Tile& fgSelectedTile = foregroundGrid[selectedTileIndex];
+      GridRenderer::outlineTile(fgSelectedTile);
     }
   }
 
@@ -49,6 +55,8 @@ namespace X11 {
       this->update();
       window.clear();
       this->getBackgroundLayer().drawLayer(window);
+      this->getSceneLayer().drawLayer(window);
+      this->getForegroundLayer().drawLayer(window);
       window.display();
     }
   }
@@ -59,6 +67,7 @@ namespace X11 {
     sf::Vector2i mousePos = sf::Mouse::getPosition();
     sf::Vector2f coordPos = window.mapPixelToCoords(mousePos);
     int gridPosIndex = GridRenderer::mapCoordsToGridPos(coordPos);
+    this->game.setSelectedTilePosition(gridPosIndex);
   }
 
   void Engine::handleEvents(sf::RenderWindow& window) {

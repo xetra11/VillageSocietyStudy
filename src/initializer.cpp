@@ -54,11 +54,12 @@ namespace X11 {
     return false;
   }
 
-  void Initializer::initBackgroundLayer(Layer& layer) {
+
+  void Initializer::initLayer(Layer& layer) {
     spdlog::info("grid width: {}", GRID_WIDTH);
     spdlog::info("grid height: {}", GRID_HEIGHT);
 
-    std::vector<Tile>& worldGrid = layer.getGrid();
+    std::vector<Tile>& grid = layer.getGrid();
 
     for (int height = 0; height < GRID_HEIGHT; height++) {
       for (int width = 0; width < GRID_WIDTH; width++) {
@@ -66,16 +67,20 @@ namespace X11 {
         Tile newTile(coordPosition);
         int index = width + (height * GRID_WIDTH);
         newTile.setGridPosition(index);
-        worldGrid[index] = newTile;
+        grid[index] = newTile;
       }
     }
+  }
 
+  void Initializer::initBackgroundLayer(Layer& layer) {
+    Initializer::initLayer(layer);
+    std::vector<Tile>& grid = layer.getGrid();
     // setup initial zones
     spdlog::info("setup initial village zones");
-    Initializer::initObjects(TileType::Estate, worldGrid, 4, 1);
-    Initializer::initObjects(TileType::Community, worldGrid, 2, COMMUNITY_COUNT);
-    Initializer::initObjects(TileType::Workshop, worldGrid, 1, ESTATE_COUNT);
-    Initializer::initObjects(TileType::House, worldGrid, 1, ESTATE_COUNT);
+    Initializer::initObjects(TileType::Estate, grid, 4, ESTATE_COUNT);
+    Initializer::initObjects(TileType::Community, grid, 2, COMMUNITY_COUNT);
+    Initializer::initObjects(TileType::Workshop, grid, 1, ESTATE_COUNT);
+    Initializer::initObjects(TileType::House, grid, 1, ESTATE_COUNT);
     spdlog::info("zones initialized");
   }
 
