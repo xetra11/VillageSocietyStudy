@@ -49,7 +49,7 @@ namespace X11 {
   }
 
   void Engine::run() {
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc", sf::Style::Fullscreen);
     while (window.isOpen()){
       this->handleEvents(window);
       this->update();

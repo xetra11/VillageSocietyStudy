@@ -8,6 +8,8 @@
 #ifndef INITIALIZER_CPP
 #define INITIALIZER_CPP
 
+#define MAX_RANDOM_TRIES 25
+
 #include "initializer.hpp"
 
 namespace X11 {
@@ -16,10 +18,12 @@ namespace X11 {
     sf::Vector2i randomPos;
     for (int count = 1; count <= amount; count++) {
       bool isOccupied;
+      int tries = 0;
       do {
+        tries++;
         randomPos = Initializer::getRandomPosition(grid);
         isOccupied = Initializer::isRectAreaOccupied(grid, randomPos, size);
-      } while (isOccupied);
+      } while (isOccupied && tries < MAX_RANDOM_TRIES);
       affectRectangle(grid, randomPos, size, type);
     }
   }

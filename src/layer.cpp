@@ -26,7 +26,6 @@ namespace X11 {
         }
       }
     } else {
-      spdlog::info("no assets to draw");
     }
 
   }
