@@ -19,7 +19,7 @@ namespace X11 {
   }
   void GridRenderer::outline_tile(Tile& tile) {
     tile.get_tile_shape().setOutlineColor(sf::Color::White);
-    tile.get_tile_shape().setOutlineThickness(0.8f);
+    tile.get_tile_shape().setOutlineThickness(-0.8f);
   }
   void GridRenderer::highlight_tile(Tile& tile) {
     sf::RectangleShape& tile_shape = tile.get_tile_shape();
