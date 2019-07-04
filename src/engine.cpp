@@ -64,14 +64,14 @@ namespace X11 {
   Game& Engine::getGame() {return this->game;}
 
   void Engine::handleMouseButtonPressed(sf::RenderWindow& window) {
-    sf::Vector2i mousePos = sf::Mouse::getPosition();
-    sf::Vector2f coordPos = window.mapPixelToCoords(mousePos);
-    int gridPosIndex = GridRenderer::mapCoordsToGridPos(coordPos);
-    if (gridPosIndex >= MAX_GRID_INDEX) {
+    sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
+    sf::Vector2f coord_pos = window.mapPixelToCoords(mouse_pos);
+    int grid_pos_index = GridRenderer::mapCoordsToGridPos(coord_pos);
+    if (grid_pos_index >= MAX_GRID_INDEX) {
       spdlog::error("mouse cursor is out of grid bounds");
-      spdlog::info("grid index was {}", gridPosIndex);
+      spdlog::info("grid index was {}", grid_pos_index);
     } else {
-      this->game.setSelectedTilePosition(gridPosIndex);
+      this->game.setSelectedTilePosition(grid_pos_index);
     }
   }
 

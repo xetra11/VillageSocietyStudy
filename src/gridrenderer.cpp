@@ -28,7 +28,7 @@ namespace X11 {
     tileShape.setFillColor(color);
   }
   int GridRenderer::mapCoordsToGridPos(sf::Vector2f coordPos) {
-    sf::Vector2i gridVector((coordPos.x/TILE_SIZE), (coordPos.y/TILE_SIZE-1));
+    sf::Vector2i gridVector((coordPos.x/TILE_SIZE), (coordPos.y/TILE_SIZE));
     int gridIndex = gridVector.x + (gridVector.y * GRID_WIDTH);
     return gridIndex;
   }
