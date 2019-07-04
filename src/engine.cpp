@@ -49,7 +49,7 @@ namespace X11 {
   }
 
   void Engine::run() {
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc", sf::Style::Fullscreen);
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
     while (window.isOpen()){
       this->handleEvents(window);
       this->update();
@@ -67,7 +67,12 @@ namespace X11 {
     sf::Vector2i mousePos = sf::Mouse::getPosition();
     sf::Vector2f coordPos = window.mapPixelToCoords(mousePos);
     int gridPosIndex = GridRenderer::mapCoordsToGridPos(coordPos);
-    this->game.setSelectedTilePosition(gridPosIndex);
+    if (gridPosIndex >= MAX_GRID_INDEX) {
+      spdlog::error("mouse cursor is out of grid bounds");
+      spdlog::info("grid index was {}", gridPosIndex);
+    } else {
+      this->game.setSelectedTilePosition(gridPosIndex);
+    }
   }
 
   void Engine::handleEvents(sf::RenderWindow& window) {
