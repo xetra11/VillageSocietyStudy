@@ -12,19 +12,20 @@
 #include "assets.hpp"
 
 namespace X11 {
-
+  typedef std::vector<Tile> Grid;
+  typedef std::vector<Asset> AssetList;
   class Layer {
   private:
-    std::vector<Tile> tileGrid;
-    std::vector<Asset> assets;
+    Grid tileGrid;
+    AssetList assets;
   public:
     Layer();
     virtual ~Layer();
     void draw_layer(sf::RenderWindow& window);
     Tile* getTileAtPosition(sf::Vector2i position);
-    std::vector<Tile>& get_grid();
-    void setGrid(std::vector<Tile> grid);
-    std::vector<Asset>& get_assets();
+    Grid& get_grid();
+    void setGrid(Grid grid);
+    AssetList& get_assets();
   };
 }
 

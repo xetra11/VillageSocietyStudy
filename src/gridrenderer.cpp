@@ -11,7 +11,7 @@
 #include "gridrenderer.hpp"
 
 namespace X11 {
-  void GridRenderer::empty_tiles(std::vector<Tile>& tile_grid) {
+  void GridRenderer::empty_tiles(Grid& tile_grid) {
     for (Tile& tile : tile_grid) {
       Tile::set_color_by_type(tile.get_type(), tile.get_tile_shape());
       tile.get_tile_shape().setOutlineColor(sf::Color::Transparent);

@@ -23,9 +23,9 @@ namespace X11 {
 
   void Engine::update() {
     // update routines for normal tiles
-    std::vector<Tile>& background_grid = this->get_background_layer().get_grid();
-    std::vector<Tile>& scene_grid = this->get_scene_layer().get_grid();
-    std::vector<Tile>& foreground_grid = this->get_foreground_layer().get_grid();
+    Grid& background_grid = this->get_background_layer().get_grid();
+    Grid& scene_grid = this->get_scene_layer().get_grid();
+    Grid& foreground_grid = this->get_foreground_layer().get_grid();
     GridRenderer::empty_tiles(background_grid);
     GridRenderer::empty_tiles(scene_grid);
     GridRenderer::empty_tiles(foreground_grid);

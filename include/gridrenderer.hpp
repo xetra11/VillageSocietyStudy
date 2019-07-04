@@ -9,11 +9,12 @@
 #define GRIDRENDERER_HPP
 
 #include "tile.hpp"
+#include "layer.hpp"
 
 namespace X11 {
   class GridRenderer{
   public:
-    static void empty_tiles(std::vector<Tile>& tile_grid);
+    static void empty_tiles(Grid& tile_grid);
     static void outline_tile(Tile& tile);
     static void highlight_tile(Tile& tile);
     static int map_coords_to_grid_pos(sf::Vector2f coord_pos);
