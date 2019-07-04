@@ -18,24 +18,24 @@ namespace X11 {
   Asset::Asset() {}
   Asset::~Asset() {}
 
-  std::vector<sf::Shape*>& Asset::getShapes() { return this->shapes;}
+  std::vector<sf::Shape*>& Asset::get_shapes() { return this->shapes;}
 
   Villager::Villager() {
-    sf::RectangleShape* headShape = new sf::RectangleShape(sf::Vector2f(5.f, 5.f));
-    sf::RectangleShape* bodyShape = new sf::RectangleShape(sf::Vector2f(5.f, 10.f));
+    sf::RectangleShape* head_shape = new sf::RectangleShape(sf::Vector2f(5.f, 5.f));
+    sf::RectangleShape* body_shape = new sf::RectangleShape(sf::Vector2f(5.f, 10.f));
 
-    headShape->setPosition(0, 0);
-    headShape->setFillColor(sf::Color::Magenta);
-    bodyShape->setPosition(0, 5);
-    bodyShape->setFillColor(sf::Color::Cyan);
+    head_shape->setPosition(0, 0);
+    head_shape->setFillColor(sf::Color::Magenta);
+    body_shape->setPosition(0, 5);
+    body_shape->setFillColor(sf::Color::Cyan);
 
-    this->shapes.push_back(headShape);
-    this->shapes.push_back(bodyShape);
+    this->shapes.push_back(head_shape);
+    this->shapes.push_back(body_shape);
   }
   Villager::~Villager() {}
 
-  sf::Shape& Villager::getHeadShape() {return *(this->shapes[HEAD]);}
-  sf::Shape& Villager::getBodyShape() {return *(this->shapes[BODY]);}
+  sf::Shape& Villager::get_head_shape() {return *(this->shapes[HEAD]);}
+  sf::Shape& Villager::get_body_shape() {return *(this->shapes[BODY]);}
 };
 
 #endif

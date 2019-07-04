@@ -11,26 +11,26 @@
 #include "gridrenderer.hpp"
 
 namespace X11 {
-  void GridRenderer::emptyTiles(std::vector<Tile>& tileGrid) {
-    for (Tile& tile : tileGrid) {
-      Tile::setColorByType(tile.getType(), tile.getTileShape());
-      tile.getTileShape().setOutlineColor(sf::Color::Transparent);
+  void GridRenderer::empty_tiles(std::vector<Tile>& tile_grid) {
+    for (Tile& tile : tile_grid) {
+      Tile::set_color_by_type(tile.get_type(), tile.get_tile_shape());
+      tile.get_tile_shape().setOutlineColor(sf::Color::Transparent);
     }
   }
-  void GridRenderer::outlineTile(Tile& tile) {
-    tile.getTileShape().setOutlineColor(sf::Color::White);
-    tile.getTileShape().setOutlineThickness(0.8f);
+  void GridRenderer::outline_tile(Tile& tile) {
+    tile.get_tile_shape().setOutlineColor(sf::Color::White);
+    tile.get_tile_shape().setOutlineThickness(0.8f);
   }
-  void GridRenderer::highlightTile(Tile& tile) {
-    sf::RectangleShape& tileShape = tile.getTileShape();
-    sf::Color color = tileShape.getFillColor();
+  void GridRenderer::highlight_tile(Tile& tile) {
+    sf::RectangleShape& tile_shape = tile.get_tile_shape();
+    sf::Color color = tile_shape.getFillColor();
     color.a = 255;
-    tileShape.setFillColor(color);
+    tile_shape.setFillColor(color);
   }
-  int GridRenderer::mapCoordsToGridPos(sf::Vector2f coordPos) {
-    sf::Vector2i gridVector((coordPos.x/TILE_SIZE), (coordPos.y/TILE_SIZE));
-    int gridIndex = gridVector.x + (gridVector.y * GRID_WIDTH);
-    return gridIndex;
+  int GridRenderer::map_coords_to_grid_pos(sf::Vector2f coord_pos) {
+    sf::Vector2i grid_vector((coord_pos.x / TILE_SIZE), (coord_pos.y / TILE_SIZE));
+    int grid_index = grid_vector.x + (grid_vector.y * GRID_WIDTH);
+    return grid_index;
   }
 }
 

@@ -13,8 +13,8 @@
 
 int main(int argc, char* argv[]){
   X11::VillageSociety vilsoc;
-  int exitCode = vilsoc.start();
-  return exitCode;
+  int exit_code = vilsoc.start();
+  return exit_code;
 }
 
 #endif

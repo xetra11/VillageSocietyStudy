@@ -19,17 +19,17 @@ namespace X11 {
 
   class Initializer {
   private:
-    static sf::Vector2i getRandomPosition(std::vector<Tile>& grid);
+    static sf::Vector2i get_random_position(std::vector<Tile>& grid);
     static sf::Vector2i getRandomPosition(sf::IntRect boundaries);
-    static void affectRectangle(std::vector<Tile>& grid, sf::Vector2i& topleft, int size, TileType type);
-    static bool isRectAreaOccupied(std::vector<Tile>& grid, sf::Vector2i& topleft, int size);
+    static void affect_rectangle(std::vector<Tile>& grid, sf::Vector2i& topleft, int size, TileType type);
+    static bool is_rect_area_occupied(std::vector<Tile>& grid, sf::Vector2i& topleft, int size);
 
   public:
-    static void initZones(TileType type, std::vector<Tile>& grid, int size, int amount);
-    static void initAssets(std::vector<Asset>& assets);
-    static void initLayer(Layer& layer);
-    static void initSceneLayer(Layer& layer);
-    static void initBackgroundLayer(Layer& layer);
+    static void init_zones(TileType type, std::vector<Tile>& grid, int size, int amount);
+    static void init_assets(std::vector<Asset>& assets);
+    static void init_layer(Layer &layer);
+    static void init_scene_layer(Layer &layer);
+    static void init_background_layer(Layer &layer);
   };
 }
 

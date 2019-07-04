@@ -17,25 +17,25 @@ namespace X11 {
 
   class Tile {
   private:
-    sf::RectangleShape tileShape;
+    sf::RectangleShape tile_shape;
     sf::IntRect boundaries;
     TileType type;
-    std::vector<Tile*> zoneTiles;
-    int gridPosition;
+    std::vector<Tile*> zone_tiles;
+    int grid_position;
   public:
     Tile();
     Tile(sf::Vector2f position);
-    bool isSelected;
+    bool is_selected;
     virtual ~Tile();
-    sf::RectangleShape& getTileShape();
-    sf::IntRect getBoundaries();
-    void setType(TileType type);
-    TileType getType();
-    std::vector<Tile*>& getZoneTiles();
-    void setZoneTiles(std::vector<Tile*> zoneTiles);
-    static void setColorByType(TileType type, sf::Shape& shape);
-    void setGridPosition(int gridIndex);
-    int getGridPosition();
+    sf::RectangleShape& get_tile_shape();
+    sf::IntRect get_boundaries();
+    void set_type(TileType type);
+    TileType get_type();
+    std::vector<Tile*>& get_zone_tiles();
+    void set_zone_tiles(std::vector<Tile*> zone_tiles);
+    static void set_color_by_type(TileType type, sf::Shape& shape);
+    void set_grid_position(int grid_index);
+    int get_grid_position();
   };
 
 }

@@ -13,10 +13,10 @@
 namespace X11 {
   class Game {
   private:
-    int selectedTilePosition;
+    int selected_tile_position;
   public:
-    int getSelectedTilePosition();
-    void setSelectedTilePosition(int gridIndex);
+    int get_selected_tile_position();
+    void set_selected_tile_position(int grid_index);
   };
 }
 

@@ -14,102 +14,102 @@
 
 namespace X11 {
 
-  void Initializer::initZones(TileType type, std::vector<Tile>& grid, int size, int amount) {
-    sf::Vector2i randomPos;
+  void Initializer::init_zones(TileType type, std::vector<Tile>& grid, int size, int amount) {
+    sf::Vector2i random_pos;
     for (int count = 1; count <= amount; count++) {
-      bool isOccupied;
+      bool is_occupied;
       int tries = 0;
       do {
         tries++;
-        randomPos = Initializer::getRandomPosition(grid);
-        isOccupied = Initializer::isRectAreaOccupied(grid, randomPos, size);
-      } while (isOccupied && tries < MAX_RANDOM_TRIES);
-      affectRectangle(grid, randomPos, size, type);
+        random_pos = Initializer::get_random_position(grid);
+        is_occupied = Initializer::is_rect_area_occupied(grid, random_pos, size);
+      } while (is_occupied && tries < MAX_RANDOM_TRIES);
+      affect_rectangle(grid, random_pos, size, type);
     }
   }
 
-  void Initializer::initAssets(std::vector<Asset>& assets) {
+  void Initializer::init_assets(std::vector<Asset>& assets) {
     Villager* villager = new Villager();
     assets.push_back(*villager);
   }
 
-  void Initializer::affectRectangle(std::vector<Tile>& grid, sf::Vector2i& topleft, int size, TileType type) {
-    std::vector<Tile*> zoneTiles;
+  void Initializer::affect_rectangle(std::vector<Tile>& grid, sf::Vector2i& topleft, int size, TileType type) {
+    std::vector<Tile*> zone_tiles;
     for (int width = 0; width < size; width++) {
       for (int height = 0; height < size; height++) {
         int index = (topleft.x * topleft.y) + width + (height * GRID_WIDTH);
         Tile& tile = grid[index];
-        tile.setType(type);
-        tile.setGridPosition(index);
-        zoneTiles.push_back(&tile);
+        tile.set_type(type);
+        tile.set_grid_position(index);
+        zone_tiles.push_back(&tile);
       }
     }
     //each zone tile stores the array of zone tiles
-    for (auto zoneTile : zoneTiles) {
-      zoneTile->setZoneTiles(zoneTiles);
+    for (auto zoneTile : zone_tiles) {
+      zoneTile->set_zone_tiles(zone_tiles);
     }
   }
 
-    bool Initializer::isRectAreaOccupied(std::vector<Tile>& grid, sf::Vector2i& topleft, int size) {
-      bool isOccupied = false;
+    bool Initializer::is_rect_area_occupied(std::vector<Tile>& grid, sf::Vector2i& topleft, int size) {
+      bool is_occupied = false;
       for (int width = 0; width < size; width++) {
         for (int height = 0; height < size; height++) {
           int index = (topleft.x * topleft.y) + width + (height * GRID_WIDTH);
           Tile& tile = grid[index];
-          isOccupied = tile.getType() != TileType::Empty;
-          if (isOccupied) { return true; }
+          is_occupied = tile.get_type() != TileType::Empty;
+          if (is_occupied) { return true; }
         }
       }
       return false;
     }
 
-    void Initializer::initLayer(Layer& layer) {
+    void Initializer::init_layer(Layer &layer) {
       spdlog::info("grid width: {}", GRID_WIDTH);
       spdlog::info("grid height: {}", GRID_HEIGHT);
 
-      std::vector<Tile>& grid = layer.getGrid();
+      std::vector<Tile>& grid = layer.get_grid();
 
       for (int height = 0; height < GRID_HEIGHT; height++) {
         for (int width = 0; width < GRID_WIDTH; width++) {
-          sf::Vector2f coordPosition(width * TILE_SIZE, height * TILE_SIZE);
-          Tile newTile(coordPosition);
+          sf::Vector2f coord_position(width * TILE_SIZE, height * TILE_SIZE);
+          Tile new_tile(coord_position);
           int index = width + (height * GRID_WIDTH);
-          newTile.setGridPosition(index);
-          grid[index] = newTile;
+          new_tile.set_grid_position(index);
+          grid[index] = new_tile;
         }
       }
     }
 
-    void Initializer::initBackgroundLayer(Layer& layer) {
-      Initializer::initLayer(layer);
-      std::vector<Tile>& grid = layer.getGrid();
+    void Initializer::init_background_layer(Layer &layer) {
+      Initializer::init_layer(layer);
+      std::vector<Tile>& grid = layer.get_grid();
       // setup initial zones
       spdlog::info("setup initial village zones");
-      Initializer::initZones(TileType::Estate, grid, 4, ESTATE_COUNT);
-      Initializer::initZones(TileType::Community, grid, 2, COMMUNITY_COUNT);
-      Initializer::initZones(TileType::Workshop, grid, 1, ESTATE_COUNT);
-      Initializer::initZones(TileType::House, grid, 1, ESTATE_COUNT);
+      Initializer::init_zones(TileType::Estate, grid, 4, ESTATE_COUNT);
+      Initializer::init_zones(TileType::Community, grid, 2, COMMUNITY_COUNT);
+      Initializer::init_zones(TileType::Workshop, grid, 1, ESTATE_COUNT);
+      Initializer::init_zones(TileType::House, grid, 1, ESTATE_COUNT);
       spdlog::info("zones initialized");
     }
 
-    void Initializer::initSceneLayer(Layer& layer) {
-      Initializer::initLayer(layer);
-      std::vector<Tile>& grid = layer.getGrid();
+    void Initializer::init_scene_layer(Layer &layer) {
+      Initializer::init_layer(layer);
+      std::vector<Tile>& grid = layer.get_grid();
       // setup initial zones
       spdlog::info("setup initial scene assets");
-      Initializer::initAssets(layer.getAssets());
+      Initializer::init_assets(layer.get_assets());
       spdlog::info("assets initialized");
     }
 
-    sf::Vector2i Initializer::getRandomPosition(std::vector<Tile>& grid) {
+    sf::Vector2i Initializer::get_random_position(std::vector<Tile>& grid) {
       std::random_device seeder;
       std::mt19937 engine(seeder());
       std::uniform_int_distribution<int> distX(0, GRID_WIDTH);
       std::uniform_int_distribution<int> distY(0, GRID_HEIGHT);
       int randX = distX(engine);
       int randY = distY(engine);
-      sf::Vector2i randomPos(randX, randY);
-      return randomPos;
+      sf::Vector2i random_pos(randX, randY);
+      return random_pos;
     }
 
     sf::Vector2i Initializer::getRandomPosition(sf::IntRect boundaries) {
@@ -119,8 +119,8 @@ namespace X11 {
       std::uniform_int_distribution<int> distY(boundaries.top, boundaries.top + boundaries.height);
       int randX = distX(engine);
       int randY = distY(engine);
-      sf::Vector2i randomPos(randX, randY);
-      return randomPos;
+      sf::Vector2i random_pos(randX, randY);
+      return random_pos;
     }
 
   }

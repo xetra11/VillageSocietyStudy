@@ -12,8 +12,8 @@
 
 namespace X11 {
 
-  void Game::setSelectedTilePosition(int gridIndex){ this->selectedTilePosition = gridIndex;}
-  int Game::getSelectedTilePosition() { return this->selectedTilePosition;}
+  void Game::set_selected_tile_position(int grid_index){ this->selected_tile_position = grid_index;}
+  int Game::get_selected_tile_position() { return this->selected_tile_position;}
 
 }
 #endif

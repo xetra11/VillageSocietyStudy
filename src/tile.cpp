@@ -12,20 +12,20 @@
 
 namespace X11 {
 
-  Tile::Tile() : type{TileType::Empty}, zoneTiles{std::vector<Tile*>()} {}
-  Tile::Tile(sf::Vector2f position) : type{TileType::Empty}, zoneTiles{std::vector<Tile*>()} {
+  Tile::Tile() : type{TileType::Empty}, zone_tiles{std::vector<Tile*>()} {}
+  Tile::Tile(sf::Vector2f position) : type{TileType::Empty}, zone_tiles{std::vector<Tile*>()} {
     sf::Vector2f size(TILE_SIZE, TILE_SIZE);
-    this->tileShape = sf::RectangleShape(size);
-    this->tileShape.setFillColor(sf::Color::Transparent);
-    this->tileShape.setPosition(position);
+    this->tile_shape = sf::RectangleShape(size);
+    this->tile_shape.setFillColor(sf::Color::Transparent);
+    this->tile_shape.setPosition(position);
 
     sf::Vector2i rectSize(TILE_SIZE, TILE_SIZE);
-    sf::Vector2i rectPos(this->tileShape.getPosition().x, this->tileShape.getPosition().y);
+    sf::Vector2i rectPos(this->tile_shape.getPosition().x, this->tile_shape.getPosition().y);
     this->boundaries = sf::IntRect(rectPos, rectSize);
   }
   Tile::~Tile(){}
 
-  void Tile::setColorByType(TileType type, sf::Shape& shape) {
+  void Tile::set_color_by_type(TileType type, sf::Shape& shape) {
     switch (type) {
     case TileType::Empty : shape.setFillColor(sf::Color::Transparent); break;
     case TileType::Estate : shape.setFillColor(sf::Color(249, 180, 45, 100)); break; //orange
@@ -36,14 +36,14 @@ namespace X11 {
     }
   }
 
-  sf::RectangleShape& Tile::getTileShape(){return this->tileShape;}
-  sf::IntRect Tile::getBoundaries(){return this->boundaries;}
-  void Tile::setType(TileType type) {this->type = type;}
-  TileType Tile::getType() {return this->type;}
-  void Tile::setZoneTiles(std::vector<Tile*> zoneTiles){ this->zoneTiles = zoneTiles;}
-  std::vector<Tile*>& Tile::getZoneTiles() {return this->zoneTiles;}
-  void Tile::setGridPosition(int gridPosition){ this->gridPosition = gridPosition;}
-  int Tile::getGridPosition() {return this->gridPosition;}
+  sf::RectangleShape& Tile::get_tile_shape(){return this->tile_shape;}
+  sf::IntRect Tile::get_boundaries(){return this->boundaries;}
+  void Tile::set_type(TileType type) { this->type = type;}
+  TileType Tile::get_type() {return this->type;}
+  void Tile::set_zone_tiles(std::vector<Tile*> zone_tiles){ this->zone_tiles = zone_tiles;}
+  std::vector<Tile*>& Tile::get_zone_tiles() {return this->zone_tiles;}
+  void Tile::set_grid_position(int grid_index){ this->grid_position = grid_index;}
+  int Tile::get_grid_position() {return this->grid_position;}
 
 }
 

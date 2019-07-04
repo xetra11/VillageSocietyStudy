@@ -13,10 +13,10 @@
 namespace X11 {
   class GridRenderer{
   public:
-    static void emptyTiles(std::vector<Tile>& tileGrid);
-    static void outlineTile(Tile& tile);
-    static void highlightTile(Tile& tile);
-    static int mapCoordsToGridPos(sf::Vector2f coordPos);
+    static void empty_tiles(std::vector<Tile>& tile_grid);
+    static void outline_tile(Tile& tile);
+    static void highlight_tile(Tile& tile);
+    static int map_coords_to_grid_pos(sf::Vector2f coord_pos);
   };
 }
 

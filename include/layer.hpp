@@ -20,11 +20,11 @@ namespace X11 {
   public:
     Layer();
     virtual ~Layer();
-    void drawLayer(sf::RenderWindow& window);
+    void draw_layer(sf::RenderWindow& window);
     Tile* getTileAtPosition(sf::Vector2i position);
-    std::vector<Tile>& getGrid();
+    std::vector<Tile>& get_grid();
     void setGrid(std::vector<Tile> grid);
-    std::vector<Asset>& getAssets();
+    std::vector<Asset>& get_assets();
   };
 }
 

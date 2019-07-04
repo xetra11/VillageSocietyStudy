@@ -24,18 +24,18 @@ namespace X11 {
   class Engine {
   private:
     Game game;
-    void handleMouseButtonPressed(sf::RenderWindow& window);
-    void handleEvents(sf::RenderWindow& window);
+    void handle_mouse_button_pressed(sf::RenderWindow& window);
+    void handle_events(sf::RenderWindow& window);
     void update();
-    std::vector<Layer> renderLayer;
+    std::vector<Layer> render_layer;
   public:
     Engine();
     virtual ~Engine();
     void run();
-    Game& getGame();
-    Layer& getBackgroundLayer();
-    Layer& getSceneLayer();
-    Layer& getForegroundLayer();
+    Game& get_game();
+    Layer& get_background_layer();
+    Layer& get_scene_layer();
+    Layer& get_foreground_layer();
   };
 
 };

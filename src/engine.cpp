@@ -12,83 +12,83 @@
 #include <iostream>
 
 namespace X11 {
-  Engine::Engine() : renderLayer{std::vector<Layer>(3)}, game{Game()} {
+  Engine::Engine() : render_layer{std::vector<Layer>(3)}, game{Game()} {
     spdlog::info("setup engine");
     spdlog::info("init background layer");
-    Initializer::initBackgroundLayer(this->getBackgroundLayer());
-    Initializer::initSceneLayer(this->getSceneLayer());
-    Initializer::initLayer(this->getForegroundLayer());
+    Initializer::init_background_layer(this->get_background_layer());
+    Initializer::init_scene_layer(this->get_scene_layer());
+    Initializer::init_layer(this->get_foreground_layer());
   }
-  Engine::~Engine() {}
+  Engine::~Engine() = default;
 
   void Engine::update() {
     // update routines for normal tiles
-    std::vector<Tile>& backgroundGrid = this->getBackgroundLayer().getGrid();
-    std::vector<Tile>& sceneGrid = this->getSceneLayer().getGrid();
-    std::vector<Tile>& foregroundGrid = this->getForegroundLayer().getGrid();
-    GridRenderer::emptyTiles(backgroundGrid);
-    GridRenderer::emptyTiles(sceneGrid);
-    GridRenderer::emptyTiles(foregroundGrid);
+    std::vector<Tile>& background_grid = this->get_background_layer().get_grid();
+    std::vector<Tile>& scene_grid = this->get_scene_layer().get_grid();
+    std::vector<Tile>& foreground_grid = this->get_foreground_layer().get_grid();
+    GridRenderer::empty_tiles(background_grid);
+    GridRenderer::empty_tiles(scene_grid);
+    GridRenderer::empty_tiles(foreground_grid);
 
     // update selected tile
-    int selectedTileIndex = this->getGame().getSelectedTilePosition();
-    if (selectedTileIndex == -1) {
+    int selected_tile_index = this->get_game().get_selected_tile_position();
+    if (selected_tile_index == -1) {
       spdlog::info("no tile selected");
     } else {
       // highlight still in background layer because there are zones rendered
-      Tile& bgSelectedTile = backgroundGrid[selectedTileIndex];
-      std::vector<Tile*> zoneTiles = bgSelectedTile.getZoneTiles();
-      for(Tile* zoneTile : zoneTiles){
-        GridRenderer::highlightTile(*zoneTile);
+      Tile& bg_selected_tile = background_grid[selected_tile_index];
+      std::vector<Tile*> zone_tiles = bg_selected_tile.get_zone_tiles();
+      for(Tile* zone_tile : zone_tiles){
+        GridRenderer::highlight_tile(*zone_tile);
       }
 
       // select marker in scene layer
-      Tile& fgSelectedTile = foregroundGrid[selectedTileIndex];
-      GridRenderer::outlineTile(fgSelectedTile);
+      Tile& fg_selected_tile = foreground_grid[selected_tile_index];
+      GridRenderer::outline_tile(fg_selected_tile);
     }
   }
 
   void Engine::run() {
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
     while (window.isOpen()){
-      this->handleEvents(window);
+      this->handle_events(window);
       this->update();
       window.clear();
-      this->getBackgroundLayer().drawLayer(window);
-      this->getSceneLayer().drawLayer(window);
-      this->getForegroundLayer().drawLayer(window);
+      this->get_background_layer().draw_layer(window);
+      this->get_scene_layer().draw_layer(window);
+      this->get_foreground_layer().draw_layer(window);
       window.display();
     }
   }
 
-  Game& Engine::getGame() {return this->game;}
+  Game& Engine::get_game() {return this->game;}
 
-  void Engine::handleMouseButtonPressed(sf::RenderWindow& window) {
+  void Engine::handle_mouse_button_pressed(sf::RenderWindow& window) {
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
     sf::Vector2f coord_pos = window.mapPixelToCoords(mouse_pos);
-    int grid_pos_index = GridRenderer::mapCoordsToGridPos(coord_pos);
+    int grid_pos_index = GridRenderer::map_coords_to_grid_pos(coord_pos);
     if (grid_pos_index >= MAX_GRID_INDEX) {
       spdlog::error("mouse cursor is out of grid bounds");
       spdlog::info("grid index was {}", grid_pos_index);
     } else {
-      this->game.setSelectedTilePosition(grid_pos_index);
+      this->game.set_selected_tile_position(grid_pos_index);
     }
   }
 
-  void Engine::handleEvents(sf::RenderWindow& window) {
+  void Engine::handle_events(sf::RenderWindow& window) {
     sf::Event event;
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
         window.close();
       if (event.type == sf::Event::MouseButtonPressed) {
-        this->handleMouseButtonPressed(window);
+        this->handle_mouse_button_pressed(window);
       }
     }
   }
 
-  Layer& Engine::getBackgroundLayer() { return this->renderLayer[BACKGROUND]; }
-  Layer& Engine::getSceneLayer(){ return this->renderLayer[SCENE]; }
-  Layer& Engine::getForegroundLayer(){ return this->renderLayer[FOREGROUND]; }
+  Layer& Engine::get_background_layer() { return this->render_layer[BACKGROUND]; }
+  Layer& Engine::get_scene_layer(){ return this->render_layer[SCENE]; }
+  Layer& Engine::get_foreground_layer(){ return this->render_layer[FOREGROUND]; }
 
 }
 

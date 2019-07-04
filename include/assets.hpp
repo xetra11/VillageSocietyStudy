@@ -18,7 +18,7 @@ namespace X11 {
   public:
     Asset();
     ~Asset();
-    std::vector<sf::Shape*>& getShapes();
+    std::vector<sf::Shape*>& get_shapes();
   };
 
   class Villager : public Asset {
@@ -26,8 +26,8 @@ namespace X11 {
   public:
     Villager();
     virtual ~Villager();
-    sf::Shape& getHeadShape();
-    sf::Shape& getBodyShape();
+    sf::Shape& get_head_shape();
+    sf::Shape& get_body_shape();
   };
 
 };
