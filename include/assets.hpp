@@ -12,22 +12,15 @@
 #include "config.hpp"
 
 namespace X11 {
-  class Asset {
-  protected:
-    std::vector<sf::Shape*> shapes;
-  public:
-    Asset();
-    ~Asset();
-    std::vector<sf::Shape*>& get_shapes();
-  };
 
-  class Villager : public Asset {
+  class Villager : public sf::Drawable {
   private:
+    std::array<sf::Shape*, 2> shapes;
+    void draw(sf::RenderTarget& target, sf::RenderStates stats) const override;
   public:
     Villager();
     virtual ~Villager();
-    sf::Shape& get_head_shape();
-    sf::Shape& get_body_shape();
+    std::array<sf::Shape*, 2>& get_shapes();
   };
 
 };

@@ -28,7 +28,7 @@ namespace X11 {
     }
   }
 
-  void Initializer::init_assets(AssetList& assets) {
+  void Initializer::init_assets(Layer& assets) {
   }
 
   void Initializer::affect_rectangle(Grid& grid, sf::Vector2i& topleft, int size, TileType type) {
@@ -95,8 +95,8 @@ namespace X11 {
     Grid& grid = layer.get_grid();
     // setup initial zones
     spdlog::info("setup initial scene assets");
-    Initializer::init_villagers(layer.get_assets());
-    Initializer::init_assets(layer.get_assets());
+    Initializer::init_villagers(layer);
+    Initializer::init_assets(layer);
     spdlog::info("assets initialized");
   }
 
@@ -122,10 +122,9 @@ namespace X11 {
     return random_pos;
   }
 
-  void Initializer::init_villagers(AssetList& assets) {
-    Asset villager;
-    villager = Villager();
-    assets.push_back(villager);
+  void Initializer::init_villagers(Layer& layer) {
+    std::shared_ptr<Villager> villager (new Villager());
+    layer.add_asset(&villager);
   }
 
 }

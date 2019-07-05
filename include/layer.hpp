@@ -13,7 +13,7 @@
 
 namespace X11 {
   typedef std::vector<Tile> Grid;
-  typedef std::vector<Asset> AssetList;
+  typedef std::vector<sf::Drawable*> AssetList;
 
   class Layer {
   private:
@@ -27,6 +27,7 @@ namespace X11 {
     Grid& get_grid();
     void setGrid(Grid grid);
     AssetList& get_assets();
+    void add_asset(sf::Drawable* asset);
   };
 }
 

@@ -44,6 +44,11 @@ namespace X11 {
   void Layer::setGrid(Grid grid) { this->tileGrid = std::move(grid); }
 
   AssetList& Layer::get_assets() { return this->assets; }
+
+  void Layer::add_asset(sf::Drawable* asset) {
+    this->assets.push_back(asset);
+  }
+
 }
 
 #endif
