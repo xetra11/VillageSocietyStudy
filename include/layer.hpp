@@ -14,6 +14,7 @@
 namespace X11 {
   typedef std::vector<Tile> Grid;
   typedef std::vector<Asset> AssetList;
+
   class Layer {
   private:
     Grid tileGrid;

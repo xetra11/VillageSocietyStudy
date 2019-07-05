@@ -17,7 +17,7 @@ namespace X11 {
   public:
     VillageSociety();
     virtual ~VillageSociety();
-    int start();
+    static int start();
   };
 }
 

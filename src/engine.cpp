@@ -19,6 +19,7 @@ namespace X11 {
     Initializer::init_scene_layer(this->get_scene_layer());
     Initializer::init_layer(this->get_foreground_layer());
   }
+
   Engine::~Engine() = default;
 
   void Engine::update() {
@@ -38,7 +39,7 @@ namespace X11 {
       // highlight still in background layer because there are zones rendered
       Tile& bg_selected_tile = background_grid[selected_tile_index];
       std::vector<Tile*> zone_tiles = bg_selected_tile.get_zone_tiles();
-      for(Tile* zone_tile : zone_tiles){
+      for (Tile* zone_tile : zone_tiles) {
         GridRenderer::highlight_tile(*zone_tile);
       }
 
@@ -50,7 +51,7 @@ namespace X11 {
 
   void Engine::run() {
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
-    while (window.isOpen()){
+    while (window.isOpen()) {
       this->handle_events(window);
       this->update();
       window.clear();
@@ -61,7 +62,7 @@ namespace X11 {
     }
   }
 
-  Game& Engine::get_game() {return this->game;}
+  Game& Engine::get_game() { return this->game; }
 
   void Engine::handle_mouse_button_pressed(sf::RenderWindow& window) {
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
@@ -76,7 +77,7 @@ namespace X11 {
   }
 
   void Engine::handle_events(sf::RenderWindow& window) {
-    sf::Event event;
+    sf::Event event{};
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
         window.close();
@@ -87,8 +88,10 @@ namespace X11 {
   }
 
   Layer& Engine::get_background_layer() { return this->render_layer[BACKGROUND]; }
-  Layer& Engine::get_scene_layer(){ return this->render_layer[SCENE]; }
-  Layer& Engine::get_foreground_layer(){ return this->render_layer[FOREGROUND]; }
+
+  Layer& Engine::get_scene_layer() { return this->render_layer[SCENE]; }
+
+  Layer& Engine::get_foreground_layer() { return this->render_layer[FOREGROUND]; }
 
 }
 

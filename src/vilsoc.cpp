@@ -11,8 +11,9 @@
 #include "vilsoc.hpp"
 
 namespace X11 {
-  VillageSociety::VillageSociety() {}
-  VillageSociety::~VillageSociety() {}
+  VillageSociety::VillageSociety() = default;
+
+  VillageSociety::~VillageSociety() = default;
 
   int VillageSociety::start() {
     spdlog::info("start vilsoc");

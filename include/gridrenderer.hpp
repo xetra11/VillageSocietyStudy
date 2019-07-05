@@ -12,7 +12,7 @@
 #include "layer.hpp"
 
 namespace X11 {
-  class GridRenderer{
+  class GridRenderer {
   public:
     static void empty_tiles(Grid& tile_grid);
     static void outline_tile(Tile& tile);

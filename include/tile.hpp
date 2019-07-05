@@ -13,7 +13,9 @@
 
 namespace X11 {
 
-  enum class TileType : char { Empty='n', Estate='e', Workshop='w', House='h', Community='c', Villager='v'};
+  enum class TileType : char {
+    Empty = 'n', Estate = 'e', Workshop = 'w', House = 'h', Community = 'c', Villager = 'v'
+  };
 
   class Tile {
   private:
@@ -24,7 +26,7 @@ namespace X11 {
     int grid_position;
   public:
     Tile();
-    Tile(sf::Vector2f position);
+    explicit Tile(sf::Vector2f position);
     bool is_selected;
     virtual ~Tile();
     sf::RectangleShape& get_tile_shape();

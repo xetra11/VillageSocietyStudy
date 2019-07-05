@@ -27,11 +27,11 @@ namespace X11 {
   public:
     static void init_zones(TileType type, Grid& grid, int size, int amount);
     static void init_assets(AssetList& assets);
-    static void init_layer(Layer &layer);
-    static void init_scene_layer(Layer &layer);
-    static void init_background_layer(Layer &layer);
+    static void init_layer(Layer& layer);
+    static void init_scene_layer(Layer& layer);
+    static void init_background_layer(Layer& layer);
 
-    static void init_villagers(AssetList &vector);
+    static void init_villagers(AssetList& vector);
   };
 }
 
