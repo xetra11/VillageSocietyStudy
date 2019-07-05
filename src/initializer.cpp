@@ -123,8 +123,9 @@ namespace X11 {
   }
 
   void Initializer::init_villagers(AssetList& assets) {
-    Villager* villager = new Villager();
-    assets.push_back(*villager);
+    Asset villager;
+    villager = Villager();
+    assets.push_back(villager);
   }
 
 }
