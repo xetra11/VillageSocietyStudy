@@ -20,16 +20,6 @@ namespace X11 {
       sf::RectangleShape& shape = tile.get_tile_shape();
       window.draw(shape);
     }
-
-    if (!this->assets.empty()) {
-      for (auto& asset : assets) {
-        for (auto& shape : asset.get_shapes()) {
-          window.draw(*shape);
-        }
-      }
-    } else {
-    }
-
   }
 
   Tile* Layer::getTileAtPosition(sf::Vector2i position) {
@@ -45,9 +35,6 @@ namespace X11 {
 
   AssetList& Layer::get_assets() { return this->assets; }
 
-  void Layer::add_asset(sf::Drawable* asset) {
-    this->assets.push_back(asset);
-  }
 
 }
 

@@ -14,6 +14,7 @@
 #include <random>
 #include "config.hpp"
 #include "layer.hpp"
+#include "game.hpp"
 
 namespace X11 {
 
@@ -30,7 +31,9 @@ namespace X11 {
     static void init_layer(Layer& layer);
     static void init_scene_layer(Layer& layer);
     static void init_background_layer(Layer& layer);
-    static void init_villagers(Layer& vector);
+
+    static void init_game(Game& game);
+    static void init_villagers(Game& game);
   };
 }
 

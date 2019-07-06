@@ -94,10 +94,6 @@ namespace X11 {
     Initializer::init_layer(layer);
     Grid& grid = layer.get_grid();
     // setup initial zones
-    spdlog::info("setup initial scene assets");
-    Initializer::init_villagers(layer);
-    Initializer::init_assets(layer);
-    spdlog::info("assets initialized");
   }
 
   sf::Vector2i Initializer::get_random_position(Grid& grid) {
@@ -122,9 +118,14 @@ namespace X11 {
     return random_pos;
   }
 
-  void Initializer::init_villagers(Layer& layer) {
-    std::shared_ptr<Villager> villager (new Villager());
-    layer.add_asset(&villager);
+  void Initializer::init_game(Game& game) {
+    Initializer::init_villagers(game);
+
+  }
+
+  void Initializer::init_villagers(Game& game) {
+    Villager villager;
+    game.add_villager(villager);
   }
 
 }

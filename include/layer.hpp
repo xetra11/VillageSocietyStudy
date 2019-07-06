@@ -27,7 +27,7 @@ namespace X11 {
     Grid& get_grid();
     void setGrid(Grid grid);
     AssetList& get_assets();
-    void add_asset(sf::Drawable* asset);
+    void add_asset(std::unique_ptr<sf::Drawable*>& asset);
   };
 }
 
