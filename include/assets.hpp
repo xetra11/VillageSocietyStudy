@@ -13,16 +13,15 @@
 
 namespace X11 {
 
-  class Villager : public sf::Drawable {
+  class Villager {
   private:
     std::array<sf::Shape*, 2> shapes;
-    void draw(sf::RenderTarget& target, sf::RenderStates stats) const override;
   public:
     Villager();
     virtual ~Villager();
     std::array<sf::Shape*, 2>& get_shapes();
   };
 
-};
+}
 
 #endif

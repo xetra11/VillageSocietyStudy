@@ -20,7 +20,7 @@ namespace X11 {
   public:
     int get_selected_tile_position();
     void set_selected_tile_position(int grid_index);
-    VillagerList get_villagers() {return this->villager_list;}
+    VillagerList& get_villagers() {return this->villager_list;}
     void add_villager(Villager villager_ref) {
       this->villager_list.push_back( std::move(villager_ref));
     }

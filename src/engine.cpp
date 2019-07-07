@@ -62,8 +62,10 @@ namespace X11 {
       this->get_background_layer().draw_layer(window);
       this->get_scene_layer().draw_layer(window);
       this->get_foreground_layer().draw_layer(window);
-      for (auto& villager : this->game.get_villagers()) {
-        window.draw(villager);
+      for (Villager villager : this->game.get_villagers()) {
+        for (sf::Shape* shape : villager.get_shapes()) {
+          window.draw(*shape);
+        }
       }
       window.display();
     }
