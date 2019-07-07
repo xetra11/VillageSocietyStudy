@@ -16,8 +16,12 @@ namespace X11 {
     spdlog::info("setup engine");
     spdlog::info("init background layer");
     Initializer::init_background_layer(this->get_background_layer());
+    spdlog::info("init scene layer");
     Initializer::init_scene_layer(this->get_scene_layer());
+    spdlog::info("init foreground layer");
     Initializer::init_layer(this->get_foreground_layer());
+    spdlog::info("init game");
+    Initializer::init_game(this->game);
   }
 
   Engine::~Engine() = default;
@@ -58,6 +62,9 @@ namespace X11 {
       this->get_background_layer().draw_layer(window);
       this->get_scene_layer().draw_layer(window);
       this->get_foreground_layer().draw_layer(window);
+      for (auto& villager : this->game.get_villagers()) {
+        window.draw(villager);
+      }
       window.display();
     }
   }

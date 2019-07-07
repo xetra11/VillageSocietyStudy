@@ -120,7 +120,6 @@ namespace X11 {
 
   void Initializer::init_game(Game& game) {
     Initializer::init_villagers(game);
-
   }
 
   void Initializer::init_villagers(Game& game) {
