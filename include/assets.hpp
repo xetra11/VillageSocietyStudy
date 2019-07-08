@@ -18,7 +18,9 @@ namespace X11 {
     std::array<sf::Shape*, 2> shapes;
   public:
     Villager();
+    explicit Villager(sf::Vector2f position);
     virtual ~Villager();
+    void setPosition(sf::Vector2f position);
     std::array<sf::Shape*, 2>& get_shapes();
   };
 

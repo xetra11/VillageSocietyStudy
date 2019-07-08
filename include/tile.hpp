@@ -9,6 +9,7 @@
 #define TILE_HPP
 
 #include "config.hpp"
+#include "assets.hpp"
 #include <SFML/Graphics.hpp>
 
 namespace X11 {
@@ -38,6 +39,8 @@ namespace X11 {
     static void set_color_by_type(TileType type, sf::Shape& shape);
     void set_grid_position(int grid_index);
     int get_grid_position();
+    void place_onto(sf::Shape* shape);
+    void place_onto(Villager& villager);
   };
 
 }

@@ -31,6 +31,17 @@ namespace X11 {
   void Initializer::init_assets(Layer& assets) {
   }
 
+  std::vector<Tile> Initializer::get_zones_by_type(TileType type, Layer& layer) {
+    std::vector<Tile> zones;
+    Grid& grid = layer.get_grid();
+    for (Tile& tile : grid) {
+      if (tile.get_type() == type) {
+        zones.push_back(tile);
+      }
+    }
+    return zones;
+  }
+
   void Initializer::affect_rectangle(Grid& grid, sf::Vector2i& topleft, int size, TileType type) {
     std::vector<Tile*> zone_tiles;
     for (int width = 0; width < size; width++) {
@@ -118,13 +129,17 @@ namespace X11 {
     return random_pos;
   }
 
-  void Initializer::init_game(Game& game) {
-    Initializer::init_villagers(game);
+  void Initializer::init_game(Game& game, Layer& layer) {
+    Initializer::init_villagers(game, layer);
   }
 
-  void Initializer::init_villagers(Game& game) {
-    Villager villager;
-    game.add_villager(villager);
+  void Initializer::init_villagers(Game& game, Layer& layer) {
+    std::vector<Tile> house_zones = Initializer::get_zones_by_type(TileType::House, layer);
+    for (Tile& zone : house_zones) {
+      Villager villager = Villager();
+      zone.place_onto(villager);
+      game.add_villager(villager);
+    }
   }
 
 }

@@ -21,7 +21,7 @@ namespace X11 {
     spdlog::info("init foreground layer");
     Initializer::init_layer(this->get_foreground_layer());
     spdlog::info("init game");
-    Initializer::init_game(this->game);
+    Initializer::init_game(this->game, this->get_background_layer());
   }
 
   Engine::~Engine() = default;

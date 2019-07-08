@@ -32,8 +32,9 @@ namespace X11 {
     static void init_scene_layer(Layer& layer);
     static void init_background_layer(Layer& layer);
 
-    static void init_game(Game& game);
-    static void init_villagers(Game& game);
+    static void init_game(Game& game, Layer& layer);
+    static void init_villagers(Game& game, Layer& layer);
+    static std::vector<Tile> get_zones_by_type(TileType type, Layer& layer);
   };
 }
 
