@@ -8,6 +8,8 @@
 #ifndef ENGINE_CPP
 #define ENGINE_CPP
 
+#define FPS (1.0f/60.0f)
+
 #include "engine.hpp"
 #include <iostream>
 
@@ -55,6 +57,7 @@ namespace X11 {
 
   void Engine::run() {
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
+    window.setFramerateLimit(60.f);
     while (window.isOpen()) {
       this->handle_events(window);
       this->update();
