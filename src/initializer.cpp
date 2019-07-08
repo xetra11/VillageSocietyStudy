@@ -94,7 +94,7 @@ namespace X11 {
     Grid& grid = layer.get_grid();
     // setup initial zones
     spdlog::info("setup initial village zones");
-    Initializer::init_zones(TileType::Estate, grid, 4, ESTATE_COUNT);
+//    Initializer::init_zones(TileType::Estate, grid, 4, ESTATE_COUNT);
     Initializer::init_zones(TileType::Community, grid, 2, COMMUNITY_COUNT);
     Initializer::init_zones(TileType::Workshop, grid, 1, ESTATE_COUNT);
     Initializer::init_zones(TileType::House, grid, 1, ESTATE_COUNT);
