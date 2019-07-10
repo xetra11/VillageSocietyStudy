@@ -18,6 +18,7 @@ namespace X11 {
     Empty = 'n', Estate = 'e', Workshop = 'w', House = 'h', Community = 'c', Villager = 'v'
   };
 
+  class Villager;
   class Tile {
   private:
     sf::RectangleShape tile_shape;

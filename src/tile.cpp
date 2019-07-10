@@ -78,7 +78,7 @@ namespace X11 {
     sf::Vector2f size = this->get_tile_shape().getSize();
     sf::Vector2f tile_center_pos = sf::Vector2f(tile_pos.x + size.x / 2, tile_pos.y + size.y / 2);
     sf::Vector2f villager_pos = sf::Vector2f(tile_center_pos.x, tile_center_pos.y - PERSPECTIVE_DELTA);
-    villager.setPosition(villager_pos);
+    villager.set_destination(*this);
   }
 
 }

@@ -20,7 +20,7 @@
 
 namespace X11 {
 
-  Villager::Villager() : shapes{std::array<sf::Shape*,2>()}{
+  Villager::Villager(Tile& starting_tile) : shapes{std::array<sf::Shape*,2>()}, destination_tile(starting_tile) {
     auto head_shape = new sf::RectangleShape(sf::Vector2f(HEAD_SIZE_X, HEAD_SIZE_Y));
     auto body_shape = new sf::RectangleShape(sf::Vector2f(BODY_SIZE_X, BODY_SIZE_Y));
 
@@ -36,19 +36,10 @@ namespace X11 {
     this->shapes[BODY] = body_shape;
   }
 
-  Villager::Villager(sf::Vector2f position) : Villager() {
-    this->setPosition(position);
+
+  void Villager::set_destination(Tile& tile_to_move) {this->destination_tile = tile_to_move;
   }
 
-  Villager::~Villager() = default;
-
-  std::array<sf::Shape*, 2>& Villager::get_shapes() { return this->shapes; }
-
-  void Villager::setPosition(sf::Vector2f position) {
-    this->shapes[HEAD]->setPosition(position);
-    this->shapes[BODY]->setPosition(position.x, position.y + HEAD_BODY_DELTA);
-
-  }
 
 }
 
