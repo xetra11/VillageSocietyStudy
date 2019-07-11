@@ -10,6 +10,7 @@
 
 #define MAX_RANDOM_TRIES 25
 
+#include <iostream>
 #include "initializer.hpp"
 
 namespace X11 {
@@ -31,12 +32,12 @@ namespace X11 {
   void Initializer::init_assets(Layer& assets) {
   }
 
-  std::vector<Tile> Initializer::get_zones_by_type(TileType type, Layer& layer) {
-    std::vector<Tile> zones;
+  std::vector<Tile*> Initializer::get_zones_by_type(TileType type, Layer& layer) {
+    std::vector<Tile*> zones;
     Grid& grid = layer.get_grid();
     for (Tile& tile : grid) {
       if (tile.get_type() == type) {
-        zones.push_back(tile);
+        zones.push_back(&tile);
       }
     }
     return zones;
@@ -60,12 +61,11 @@ namespace X11 {
   }
 
   bool Initializer::is_rect_area_occupied(Grid& grid, sf::Vector2i& topleft, int size) {
-    bool is_occupied = false;
     for (int width = 0; width < size; width++) {
       for (int height = 0; height < size; height++) {
         int index = (topleft.x * topleft.y) + width + (height * GRID_WIDTH);
         Tile& tile = grid[index];
-        is_occupied = tile.get_type() != TileType::Empty;
+        bool is_occupied = tile.get_type() != TileType::Empty;
         if (is_occupied) { return true; }
       }
     }
@@ -131,14 +131,16 @@ namespace X11 {
 
   void Initializer::init_game(Game& game, Layer& layer) {
     Initializer::init_villagers(game, layer);
+    spdlog::info("zone pos: {}", game.get_villagers()[0].get_destination().get_grid_position());
   }
 
   void Initializer::init_villagers(Game& game, Layer& layer) {
-    std::vector<Tile> house_zones = Initializer::get_zones_by_type(TileType::House, layer);
-    for (Tile& zone : house_zones) {
-      Villager villager = Villager(zone);
-      game.add_villager(villager);
-    }
+    std::vector<Tile*> house_zones = Initializer::get_zones_by_type(TileType::House, layer);
+    Tile* zone = house_zones[0];
+//    for (Tile& zone : house_zone) {
+    Villager villager = Villager(*zone);
+    game.add_villager(villager);
+//    }
   }
 
 }
