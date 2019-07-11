@@ -8,6 +8,8 @@
 #ifndef INITIALIZER_HPP
 #define INTIALIZER_HPP
 
+#define MAX_RANDOM_TRIES 25
+
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <SFML/Graphics.hpp>

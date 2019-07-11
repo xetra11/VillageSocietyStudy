@@ -53,7 +53,7 @@ namespace X11 {
       Tile& fg_selected_tile = foreground_grid[selected_tile_index];
       GridRenderer::outline_tile(fg_selected_tile);
 
-      this->game.move_villagers(2);
+      this->game.move_villagers();
     }
   }
 

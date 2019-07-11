@@ -8,8 +8,6 @@
 #ifndef INITIALIZER_CPP
 #define INITIALIZER_CPP
 
-#define MAX_RANDOM_TRIES 25
-
 #include <iostream>
 #include "initializer.hpp"
 
@@ -137,6 +135,7 @@ namespace X11 {
     std::vector<Tile*> house_zones = Initializer::get_zones_by_type(TileType::House, layer);
     for (Tile* zone : house_zones) {
       Villager villager = Villager(*zone);
+      villager.set_speed(1.f);
       game.add_villager(villager);
     }
   }

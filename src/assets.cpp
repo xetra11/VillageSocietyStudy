@@ -37,6 +37,30 @@ namespace X11 {
     return this->destination_tile;
   }
 
+  void Villager::set_position(sf::Vector2f new_position) {
+    this->shapes[HEAD]->setPosition(new_position);
+    this->shapes[BODY]->setPosition(new_position + sf::Vector2f(0, HEAD_BODY_DELTA));
+  }
+
+  void Villager::move_to_destination(float speed) {
+    sf::Vector2f head_pos = this->get_shapes()[HEAD]->getPosition();
+    Tile& destination_tile = this->get_destination();
+    sf::Vector2f destination_pos = destination_tile.get_tile_center() + sf::Vector2f (0, PERSPECTIVE_DELTA_VILLAGER);
+
+    sf::Vector2f delta_vector_head = destination_pos - head_pos;
+    float distance_head = sqrt(pow(delta_vector_head.x, 2) + pow(delta_vector_head.y, 2));
+
+    // only move/calculate if distance is great enough
+    if (distance_head > 0.5) {
+      sf::Vector2f normalized_vector = sf::Vector2f(0, 0);
+      if (distance_head != 0) {
+        normalized_vector = sf::Vector2f(delta_vector_head.x / distance_head,
+                                       delta_vector_head.y / distance_head);
+      }
+      this->set_position(head_pos + (normalized_vector * speed));
+    }
+  }
+
 }
 
 #endif

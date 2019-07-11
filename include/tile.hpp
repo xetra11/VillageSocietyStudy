@@ -8,6 +8,8 @@
 #ifndef TILE_HPP
 #define TILE_HPP
 
+#define PERSPECTIVE_DELTA (TILE_SIZE - (TILE_SIZE * 0.25))
+
 #include "config.hpp"
 #include "assets.hpp"
 #include <SFML/Graphics.hpp>
@@ -40,8 +42,9 @@ namespace X11 {
     static void set_color_by_type(TileType type, sf::Shape& shape);
     void set_grid_position(int grid_index);
     int get_grid_position();
-    void place_onto(sf::Shape* shape);
+//    void place_onto(sf::Shape* shape);
     void place_onto(Villager& villager);
+    sf::Vector2f get_tile_center();
   };
 
 }

@@ -8,8 +8,6 @@
 #ifndef TILE_CPP
 #define TILE_CPP
 
-#define PERSPECTIVE_DELTA TILE_SIZE - (TILE_SIZE * 0.25)
-
 #include "tile.hpp"
 
 namespace X11 {
@@ -54,6 +52,7 @@ namespace X11 {
   }
 
   sf::RectangleShape& Tile::get_tile_shape() { return this->tile_shape; }
+  sf::Vector2f Tile::get_tile_center() { return this->tile_shape.getPosition() - sf::Vector2f(-TILE_SIZE/2.f, -TILE_SIZE/2.f); }
 
   sf::IntRect Tile::get_boundaries() { return this->boundaries; }
 
@@ -69,15 +68,11 @@ namespace X11 {
 
   int Tile::get_grid_position() { return this->grid_position; }
 
-  void Tile::place_onto(sf::Shape* shape) {
-    spdlog::warn("Tile::place_onto(sf::Shape* shape) not yet implented");
-  }
+//  void Tile::place_onto(sf::Shape* shape) {
+//    spdlog::warn("Tile::place_onto(sf::Shape* shape) not yet implented");
+//  }
 
   void Tile::place_onto(Villager& villager) {
-    sf::Vector2f tile_pos = this->get_tile_shape().getPosition();
-    sf::Vector2f size = this->get_tile_shape().getSize();
-    sf::Vector2f tile_center_pos = sf::Vector2f(tile_pos.x + size.x / 2, tile_pos.y + size.y / 2);
-    sf::Vector2f villager_pos = sf::Vector2f(tile_center_pos.x, tile_center_pos.y - PERSPECTIVE_DELTA);
     villager.set_destination(*this);
   }
 
