@@ -10,13 +10,6 @@
 
 #include "assets.hpp"
 
-#define HEAD 0
-#define HEAD_SIZE_X 5.f
-#define HEAD_SIZE_Y 5.f
-#define BODY 1
-#define BODY_SIZE_X 5.f
-#define BODY_SIZE_Y 10.f
-#define HEAD_BODY_DELTA 5
 
 namespace X11 {
 
@@ -31,7 +24,6 @@ namespace X11 {
     body_shape->setOrigin(BODY_SIZE_X/2, (BODY_SIZE_Y - HEAD_BODY_DELTA) /2);
     body_shape->setFillColor(sf::Color::Cyan);
 
-
     this->shapes[HEAD] = head_shape;
     this->shapes[BODY] = body_shape;
   }
@@ -40,6 +32,9 @@ namespace X11 {
   void Villager::set_destination(Tile& tile_to_move) {this->destination_tile = tile_to_move;
   }
 
+  sf::Vector2f Villager::get_destination() {
+    return this->destination_tile.get_tile_shape().getPosition();
+  }
 
 }
 

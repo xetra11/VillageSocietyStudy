@@ -9,7 +9,9 @@
 #define GAME_HPP
 
 #include <SFML/Graphics.hpp>
+#include <math.h>
 #include "assets.hpp"
+
 
 namespace X11 {
   typedef std::vector<Villager> VillagerList;
@@ -24,6 +26,7 @@ namespace X11 {
     void add_villager(Villager villager_ref) {
       this->villager_list.push_back( std::move(villager_ref));
     }
+    void move_villagers(int speed);
   };
 }
 
