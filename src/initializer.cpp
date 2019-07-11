@@ -135,11 +135,10 @@ namespace X11 {
 
   void Initializer::init_villagers(Game& game, Layer& layer) {
     std::vector<Tile*> house_zones = Initializer::get_zones_by_type(TileType::House, layer);
-    Tile* zone = house_zones[0];
-//    for (Tile& zone : house_zone) {
-    Villager villager = Villager(*zone);
-    game.add_villager(villager);
-//    }
+    for (Tile* zone : house_zones) {
+      Villager villager = Villager(*zone);
+      game.add_villager(villager);
+    }
   }
 
 }

@@ -34,6 +34,7 @@ namespace X11 {
     Tile& get_destination();
 
     std::array<sf::Shape*, 2>& get_shapes() { return this->shapes; }
+    void setPosition
   };
 
 }
