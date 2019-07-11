@@ -59,7 +59,7 @@ namespace X11 {
 
   void Engine::run() {
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
-    window.setFramerateLimit(60.f);
+    window.setFramerateLimit(60);
     while (window.isOpen()) {
       this->handle_events(window);
       this->update();

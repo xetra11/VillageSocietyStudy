@@ -31,7 +31,7 @@ namespace X11 {
     explicit Villager(Tile& starting_tile);
     ~Villager() = default;
     void set_destination(Tile& tile_to_move);
-    sf::Vector2f get_destination();
+    Tile& get_destination();
 
     std::array<sf::Shape*, 2>& get_shapes() { return this->shapes; }
   };

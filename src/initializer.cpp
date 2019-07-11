@@ -131,7 +131,6 @@ namespace X11 {
 
   void Initializer::init_game(Game& game, Layer& layer) {
     Initializer::init_villagers(game, layer);
-    spdlog::info("zone pos: {}", game.get_villagers()[0].get_destination().get_grid_position());
   }
 
   void Initializer::init_villagers(Game& game, Layer& layer) {

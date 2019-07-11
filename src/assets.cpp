@@ -8,6 +8,7 @@
 #ifndef ASSETS_CPP
 #define ASSETS_CPP
 
+#include <iostream>
 #include "assets.hpp"
 
 
@@ -32,8 +33,8 @@ namespace X11 {
   void Villager::set_destination(Tile& tile_to_move) {this->destination_tile = tile_to_move;
   }
 
-  sf::Vector2f Villager::get_destination() {
-    return this->destination_tile.get_tile_shape().getPosition();
+  Tile& Villager::get_destination() {
+    return this->destination_tile;
   }
 
 }
