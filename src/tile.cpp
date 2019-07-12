@@ -73,7 +73,7 @@ namespace X11 {
 //  }
 
   void Tile::place_onto(Villager& villager) {
-    villager.set_destination(*this);
+    villager.set_destination(this);
   }
 
 }

@@ -24,9 +24,33 @@ namespace X11 {
     }
   }
 
-  void Game::update_daily_tasks(Layer& background_layer) {
-    if (this->daily_state == TaskState::Home) {
+  void Game::update_destination() {
+    for(Villager& villager: this->villager_list) {
+      if (this->daily_state == TaskState::Home) {
+        villager.set_destination(villager.home);
+      } else if (this->daily_state == TaskState::Work) {
+        villager.set_destination(villager.workplace);
+      } else if (this->daily_state == TaskState::Community) {
+        villager.set_destination(villager.community);
+      }
     }
+  }
+
+  void Game::change_daily_state() {
+    if (this->tick % 10 == 0) {
+      this->tick = 1;
+      if (this->daily_state == TaskState::Home) {
+        this->daily_state = TaskState::Work;
+        spdlog::info("statechange to work");
+      } else if (this->daily_state == TaskState::Work) {
+        this->daily_state = TaskState::Community;
+        spdlog::info("statechange  to community");
+      } else if (this->daily_state == TaskState::Community) {
+        this->daily_state = TaskState::Home;
+        spdlog::info("statechange to home");
+      }
+    }
+
   }
 
 }

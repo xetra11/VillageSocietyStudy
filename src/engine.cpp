@@ -53,8 +53,9 @@ namespace X11 {
       Tile& fg_selected_tile = foreground_grid[selected_tile_index];
       GridRenderer::outline_tile(fg_selected_tile);
 
+      this->game.change_daily_state();
+      this->game.update_destination();
       this->game.move_villagers();
-      this->game.update_daily_tasks(this->get_background_layer());
     }
   }
 
@@ -67,7 +68,6 @@ namespace X11 {
         this->game.tick++;
         clock.restart();
       }
-      spdlog::info("current tick {}", game.tick);
       this->handle_events(window);
       this->update();
       window.clear();

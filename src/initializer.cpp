@@ -74,7 +74,7 @@ namespace X11 {
     spdlog::info("grid width: {}", GRID_WIDTH);
     spdlog::info("grid height: {}", GRID_HEIGHT);
 
-    Grid& grid = layer.get_grid();
+   Grid& grid = layer.get_grid();
 
     for (int height = 0; height < GRID_HEIGHT; height++) {
       for (int width = 0; width < GRID_WIDTH; width++) {
@@ -90,12 +90,12 @@ namespace X11 {
   void Initializer::init_background_layer(Layer& layer) {
     Initializer::init_layer(layer);
     Grid& grid = layer.get_grid();
-    // setup initial zones
+    // setup initial zone
     spdlog::info("setup initial village zones");
 //    Initializer::init_zones(TileType::Estate, grid, 4, ESTATE_COUNT);
+    Initializer::init_zones(TileType::House, grid, 1, VILLAGER_COUNT);
     Initializer::init_zones(TileType::Community, grid, 2, COMMUNITY_COUNT);
     Initializer::init_zones(TileType::Workshop, grid, 1, VILLAGER_COUNT);
-    Initializer::init_zones(TileType::House, grid, 1, VILLAGER_COUNT);
     spdlog::info("zones initialized");
   }
 
@@ -142,7 +142,7 @@ namespace X11 {
       Tile* home = game.homes[index];
       Tile* workplace = game.workplaces[index];
       Tile* community = game.community_areas[0];
-      Villager villager = Villager(*home);
+      Villager villager = Villager(home);
       villager.home = home;
       villager.workplace = workplace;
       villager.community = community;

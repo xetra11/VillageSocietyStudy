@@ -29,8 +29,9 @@ namespace X11 {
       this->villager_list.push_back( villager_ref);
     }
     void move_villagers();
-    void update_daily_tasks(Layer& background_layer);
-    long int tick;
+    void update_destination();
+    void change_daily_state();
+    long int tick = 1;
     TaskState daily_state = TaskState::Home;
     std::vector<Tile*> homes;
     std::vector<Tile*> workplaces;

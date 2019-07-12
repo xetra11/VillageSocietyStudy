@@ -27,15 +27,15 @@ namespace X11 {
   class Villager {
   private:
     std::array<sf::Shape*, 2> shapes;
-    Tile& destination_tile;
+    Tile* destination_tile;
     float speed = 1.f;
   public:
     Villager();
-    explicit Villager(Tile& starting_tile);
+    explicit Villager(Tile* starting_tile);
     ~Villager() = default;
-    void set_destination(Tile& tile_to_move);
+    void set_destination(Tile* tile_to_move);
     void set_position(sf::Vector2f new_position);
-    Tile& get_destination();
+    Tile* get_destination();
     void move_to_destination(float speed = 1.f);
     std::array<sf::Shape*, 2>& get_shapes() { return this->shapes; }
     void set_speed(float speed) { this-> speed = speed;}
