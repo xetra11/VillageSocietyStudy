@@ -94,8 +94,8 @@ namespace X11 {
     spdlog::info("setup initial village zones");
 //    Initializer::init_zones(TileType::Estate, grid, 4, ESTATE_COUNT);
     Initializer::init_zones(TileType::Community, grid, 2, COMMUNITY_COUNT);
-    Initializer::init_zones(TileType::Workshop, grid, 1, ESTATE_COUNT);
-    Initializer::init_zones(TileType::House, grid, 1, ESTATE_COUNT);
+    Initializer::init_zones(TileType::Workshop, grid, 1, VILLAGER_COUNT);
+    Initializer::init_zones(TileType::House, grid, 1, VILLAGER_COUNT);
     spdlog::info("zones initialized");
   }
 
@@ -128,13 +128,24 @@ namespace X11 {
   }
 
   void Initializer::init_game(Game& game, Layer& layer) {
-    Initializer::init_villagers(game, layer);
+    std::vector<Tile*> house_zones = Initializer::get_zones_by_type(TileType::House, layer);
+    std::vector<Tile*> workplaces = Initializer::get_zones_by_type(TileType::Workshop, layer);
+    std::vector<Tile*> community_areas = Initializer::get_zones_by_type(TileType::Community, layer);
+    game.homes = house_zones;
+    game.workplaces = workplaces;
+    game.community_areas = community_areas;
+    Initializer::init_villagers(game);
   }
 
-  void Initializer::init_villagers(Game& game, Layer& layer) {
-    std::vector<Tile*> house_zones = Initializer::get_zones_by_type(TileType::House, layer);
-    for (Tile* zone : house_zones) {
-      Villager villager = Villager(*zone);
+  void Initializer::init_villagers(Game& game) {
+    for (int index = 0; index < VILLAGER_COUNT; index++) {
+      Tile* home = game.homes[index];
+      Tile* workplace = game.workplaces[index];
+      Tile* community = game.community_areas[0];
+      Villager villager = Villager(*home);
+      villager.home = home;
+      villager.workplace = workplace;
+      villager.community = community;
       villager.set_speed(1.f);
       game.add_villager(villager);
     }

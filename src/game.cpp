@@ -10,7 +10,9 @@
 
 #include <iostream>
 #include "game.hpp"
+#include "initializer.hpp"
 namespace X11 {
+
 
   void Game::set_selected_tile_position(int grid_index) { this->selected_tile_position = grid_index; }
 
@@ -22,7 +24,9 @@ namespace X11 {
     }
   }
 
-  void Game::update_daily_tasks(Grid& background_grid) {
+  void Game::update_daily_tasks(Layer& background_layer) {
+    if (this->daily_state == TaskState::Home) {
+    }
   }
 
 }

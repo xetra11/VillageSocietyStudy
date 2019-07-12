@@ -54,7 +54,7 @@ namespace X11 {
       GridRenderer::outline_tile(fg_selected_tile);
 
       this->game.move_villagers();
-      this->game.update_daily_tasks(background_grid);
+      this->game.update_daily_tasks(this->get_background_layer());
     }
   }
 

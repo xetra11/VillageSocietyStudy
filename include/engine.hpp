@@ -9,11 +9,11 @@
 #define ENGINE_HPP
 
 #include "config.hpp"
-#include "initializer.hpp"
 #include "tile.hpp"
 #include "game.hpp"
 #include "layer.hpp"
 #include "gridrenderer.hpp"
+#include "initializer.hpp"
 
 #define BACKGROUND 0
 #define SCENE 1

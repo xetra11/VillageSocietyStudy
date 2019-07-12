@@ -19,7 +19,7 @@
 #include "game.hpp"
 
 namespace X11 {
-
+  class Game;
   class Initializer {
   private:
     static sf::Vector2i get_random_position(Grid& grid);
@@ -35,7 +35,7 @@ namespace X11 {
     static void init_background_layer(Layer& layer);
 
     static void init_game(Game& game, Layer& layer);
-    static void init_villagers(Game& game, Layer& layer);
+    static void init_villagers(Game& game);
     static std::vector<Tile*> get_zones_by_type(TileType type, Layer& layer);
   };
 }

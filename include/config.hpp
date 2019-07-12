@@ -5,6 +5,7 @@
 #include <spdlog/sinks/basic_file_sink.h>
 
 #define ESTATE_COUNT 8
+#define VILLAGER_COUNT 10
 #define COMMUNITY_COUNT 3
 
 #define ESTATE_SHAPE_SIZE 30.f

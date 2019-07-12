@@ -11,7 +11,6 @@
 #include <iostream>
 #include "assets.hpp"
 
-
 namespace X11 {
 
   Villager::Villager(Tile& starting_tile) : shapes{std::array<sf::Shape*,2>()}, destination_tile(starting_tile) {

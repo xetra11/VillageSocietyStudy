@@ -40,6 +40,9 @@ namespace X11 {
     std::array<sf::Shape*, 2>& get_shapes() { return this->shapes; }
     void set_speed(float speed) { this-> speed = speed;}
     float get_speed() { return this-> speed; }
+    Tile* home;
+    Tile* workplace;
+    Tile* community;
 
   };
 
