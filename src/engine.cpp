@@ -54,13 +54,20 @@ namespace X11 {
       GridRenderer::outline_tile(fg_selected_tile);
 
       this->game.move_villagers();
+      this->game.update_daily_tasks(background_grid);
     }
   }
 
   void Engine::run() {
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
+    sf::Clock clock;
     window.setFramerateLimit(60);
     while (window.isOpen()) {
+      if (clock.getElapsedTime().asSeconds() > 1.f) {
+        this->game.tick++;
+        clock.restart();
+      }
+      spdlog::info("current tick {}", game.tick);
       this->handle_events(window);
       this->update();
       window.clear();

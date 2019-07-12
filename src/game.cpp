@@ -22,6 +22,9 @@ namespace X11 {
     }
   }
 
+  void Game::update_daily_tasks(Grid& background_grid) {
+  }
+
 }
 
 #endif

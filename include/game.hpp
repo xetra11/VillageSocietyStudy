@@ -12,6 +12,7 @@
 #include <cmath>
 #include "assets.hpp"
 #include "utils.hpp"
+#include "layer.hpp"
 
 namespace X11 {
   typedef std::vector<Villager> VillagerList;
@@ -27,6 +28,8 @@ namespace X11 {
       this->villager_list.push_back( villager_ref);
     }
     void move_villagers();
+    void update_daily_tasks(Grid& background_grid);
+    long int tick;
   };
 }
 
