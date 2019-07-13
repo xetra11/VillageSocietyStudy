@@ -16,12 +16,14 @@
 
 namespace X11 {
   typedef std::vector<Villager> VillagerList;
-  enum class TaskState  {Home, Work, Community};
+  enum class TaskState;
   class Game {
   private:
-    int selected_tile_position;
+    int selected_tile_position = -1;
     VillagerList villager_list;
   public:
+    Game();
+    ~Game() = default;
     int get_selected_tile_position();
     void set_selected_tile_position(int grid_index);
     VillagerList& get_villagers() {return this->villager_list;}
@@ -32,7 +34,7 @@ namespace X11 {
     void update_destination();
     void change_daily_state();
     long int tick = 1;
-    TaskState daily_state = TaskState::Home;
+    TaskState daily_state;
     std::vector<Tile*> homes;
     std::vector<Tile*> workplaces;
     std::vector<Tile*> community_areas;

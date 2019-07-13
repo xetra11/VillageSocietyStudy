@@ -39,24 +39,20 @@ namespace X11 {
 
     // update selected tile
     int selected_tile_index = this->get_game().get_selected_tile_position();
-    if (selected_tile_index == -1) {
-      spdlog::info("no tile selected");
-    } else {
+    if (selected_tile_index > -1) {
       // highlight still in background layer because there are zones rendered
       Tile& bg_selected_tile = background_grid[selected_tile_index];
       std::vector<Tile*> zone_tiles = bg_selected_tile.get_zone_tiles();
       for (Tile* zone_tile : zone_tiles) {
         GridRenderer::highlight_tile(*zone_tile);
       }
-
       // select marker in scene layer
       Tile& fg_selected_tile = foreground_grid[selected_tile_index];
       GridRenderer::outline_tile(fg_selected_tile);
-
-      this->game.change_daily_state();
-      this->game.update_destination();
-      this->game.move_villagers();
     }
+    this->game.change_daily_state();
+    this->game.update_destination();
+    this->game.move_villagers();
   }
 
   void Engine::run() {

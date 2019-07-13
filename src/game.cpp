@@ -11,8 +11,10 @@
 #include <iostream>
 #include "game.hpp"
 #include "initializer.hpp"
-namespace X11 {
 
+namespace X11 {
+  enum class TaskState  {Home, Work, Community};
+  Game::Game() : daily_state {TaskState::Home} { }
 
   void Game::set_selected_tile_position(int grid_index) { this->selected_tile_position = grid_index; }
 
@@ -25,7 +27,7 @@ namespace X11 {
   }
 
   void Game::update_destination() {
-    for(Villager& villager: this->villager_list) {
+    for (Villager& villager: this->villager_list) {
       if (this->daily_state == TaskState::Home) {
         villager.set_destination(villager.home);
       } else if (this->daily_state == TaskState::Work) {
