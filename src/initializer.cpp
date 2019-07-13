@@ -143,6 +143,7 @@ namespace X11 {
       Tile* workplace = game.workplaces[index];
       Tile* community = game.community_areas[0];
       Villager villager = Villager(home);
+      villager.daily_destinations.insert(std::pair<TaskState, Tile*>(TaskState::Home, home));
       villager.home = home;
       villager.workplace = workplace;
       villager.community = community;

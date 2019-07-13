@@ -23,6 +23,7 @@
 #define PERSPECTIVE_DELTA_VILLAGER (-10)
 
 namespace X11 {
+  enum class TaskState;
   class Tile;
   class Villager {
   private:
@@ -40,6 +41,7 @@ namespace X11 {
     std::array<sf::Shape*, 2>& get_shapes() { return this->shapes; }
     void set_speed(float speed) { this-> speed = speed;}
     float get_speed() { return this-> speed; }
+    std::map<TaskState, Tile*> daily_destinations;
     Tile* home;
     Tile* workplace;
     Tile* community;
