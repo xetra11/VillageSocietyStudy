@@ -28,11 +28,11 @@ namespace X11 {
   void Game::update_destination() {
     for (Villager& villager: this->villager_list) {
       if (this->daily_state == TaskState::Home) {
-        villager.set_destination(villager.home);
+        villager.set_destination(villager.daily_destinations.at(TaskState::Home));
       } else if (this->daily_state == TaskState::Work) {
-        villager.set_destination(villager.workplace);
+        villager.set_destination(villager.daily_destinations.at(TaskState::Work));
       } else if (this->daily_state == TaskState::Community) {
-        villager.set_destination(villager.community);
+        villager.set_destination(villager.daily_destinations.at(TaskState::Community));
       }
     }
   }
