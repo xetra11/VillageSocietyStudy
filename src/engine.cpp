@@ -47,8 +47,7 @@ namespace X11 {
         GridRenderer::highlight_tile(*zone_tile);
       }
       // select marker in scene layer
-      Tile& fg_selected_tile = foreground_grid[selected_tile_index];
-      GridRenderer::outline_tile(fg_selected_tile);
+      GridRenderer::outline_tile(bg_selected_tile);
     }
     this->game.change_daily_state();
     this->game.update_destination();
