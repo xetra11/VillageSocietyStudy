@@ -13,7 +13,6 @@
 #include "initializer.hpp"
 
 namespace X11 {
-  enum class TaskState  {Home, Work, Community};
   Game::Game() : daily_state {TaskState::Home} { }
 
   void Game::set_selected_tile_position(int grid_index) { this->selected_tile_position = grid_index; }

@@ -16,7 +16,7 @@
 
 namespace X11 {
   typedef std::vector<Villager> VillagerList;
-  enum class TaskState;
+  enum class TaskState  {Home, Work, Community};
   class Game {
   private:
     int selected_tile_position = -1;
