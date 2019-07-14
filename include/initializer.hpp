@@ -33,6 +33,10 @@ namespace X11 {
     static void init_layer(Layer& layer);
     static void init_scene_layer(Layer& layer);
     static void init_background_layer(Layer& layer);
+    static void init_foreground_layer(Layer& layer);
+    static void init_menu_layer(Layer& layer);
+
+    static void init_notification_bar(Layer& layer);
 
     static void init_game(Game& game, Layer& layer);
     static void init_villagers(Game& game);

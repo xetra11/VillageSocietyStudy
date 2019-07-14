@@ -13,21 +13,19 @@
 
 namespace X11 {
   typedef std::vector<Tile> Grid;
-  typedef std::vector<sf::Drawable*> AssetList;
+  typedef std::vector<sf::Shape*> AssetList;
 
   class Layer {
   private:
     Grid tileGrid;
-    AssetList assets;
   public:
     Layer();
     virtual ~Layer();
+    AssetList assets;
     void draw_layer(sf::RenderWindow& window);
     Tile* getTileAtPosition(sf::Vector2i position);
     Grid& get_grid();
     void setGrid(Grid grid);
-    AssetList& get_assets();
-    void add_asset(std::unique_ptr<sf::Drawable*>& asset);
   };
 }
 

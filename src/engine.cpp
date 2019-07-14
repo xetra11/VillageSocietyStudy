@@ -14,15 +14,15 @@
 #include <iostream>
 
 namespace X11 {
-  Engine::Engine() : render_layer{std::vector<Layer>(3)}, game{Game()} {
+  Engine::Engine() : render_layer{std::vector<Layer>(4)}, game{Game()} {
     spdlog::info("setup engine");
-    spdlog::info("init background layer");
+    spdlog::info("init layer");
+
     Initializer::init_background_layer(this->get_background_layer());
-    spdlog::info("init scene layer");
     Initializer::init_scene_layer(this->get_scene_layer());
-    spdlog::info("init foreground layer");
-    Initializer::init_layer(this->get_foreground_layer());
-    spdlog::info("init game");
+    Initializer::init_foreground_layer(this->get_foreground_layer());
+    Initializer::init_menu_layer(this->get_menu_layer());
+
     Initializer::init_game(this->game, this->get_background_layer());
   }
 
@@ -33,6 +33,7 @@ namespace X11 {
     Grid& background_grid = this->get_background_layer().get_grid();
     Grid& scene_grid = this->get_scene_layer().get_grid();
     Grid& foreground_grid = this->get_foreground_layer().get_grid();
+    Grid& menu_grid = this->get_menu_layer().get_grid();
     GridRenderer::empty_tiles(background_grid);
     GridRenderer::empty_tiles(scene_grid);
     GridRenderer::empty_tiles(foreground_grid);
@@ -66,9 +67,12 @@ namespace X11 {
       this->handle_events(window);
       this->update();
       window.clear();
+
       this->get_background_layer().draw_layer(window);
       this->get_scene_layer().draw_layer(window);
       this->get_foreground_layer().draw_layer(window);
+      this->get_menu_layer().draw_layer(window);
+
       for (Villager villager : this->game.get_villagers()) {
         for (sf::Shape* shape : villager.get_shapes()) {
           window.draw(*shape);
@@ -108,6 +112,8 @@ namespace X11 {
   Layer& Engine::get_scene_layer() { return this->render_layer[SCENE]; }
 
   Layer& Engine::get_foreground_layer() { return this->render_layer[FOREGROUND]; }
+
+  Layer& Engine::get_menu_layer() { return this->render_layer[MENU]; }
 
 }
 

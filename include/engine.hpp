@@ -18,6 +18,7 @@
 #define BACKGROUND 0
 #define SCENE 1
 #define FOREGROUND 2
+#define MENU 3
 
 namespace X11 {
 
@@ -36,6 +37,7 @@ namespace X11 {
     Layer& get_background_layer();
     Layer& get_scene_layer();
     Layer& get_foreground_layer();
+    Layer& get_menu_layer();
   };
 
 };

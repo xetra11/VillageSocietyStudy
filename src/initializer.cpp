@@ -9,6 +9,7 @@
 #define INITIALIZER_CPP
 
 #include <iostream>
+
 #include "initializer.hpp"
 
 namespace X11 {
@@ -88,6 +89,7 @@ namespace X11 {
   }
 
   void Initializer::init_background_layer(Layer& layer) {
+    spdlog::info("init background layer");
     Initializer::init_layer(layer);
     Grid& grid = layer.get_grid();
     // setup initial zone
@@ -99,7 +101,21 @@ namespace X11 {
     spdlog::info("zones initialized");
   }
 
+  void Initializer::init_foreground_layer(Layer& layer) {
+    Initializer::init_layer(layer);
+    Grid& grid = layer.get_grid();
+    spdlog::info("setup foreground layer");
+    spdlog::info("foreground initialized");
+  }
+
+  void Initializer::init_menu_layer(Layer& layer) {
+    spdlog::info("setup menu layer");
+    Initializer::init_notification_bar(layer);
+    spdlog::info("menu initialized");
+  }
+
   void Initializer::init_scene_layer(Layer& layer) {
+    spdlog::info("init scene layer");
     Initializer::init_layer(layer);
     Grid& grid = layer.get_grid();
     // setup initial zones
@@ -128,6 +144,7 @@ namespace X11 {
   }
 
   void Initializer::init_game(Game& game, Layer& layer) {
+    spdlog::info("init game");
     std::vector<Tile*> house_zones = Initializer::get_zones_by_type(TileType::House, layer);
     std::vector<Tile*> workplaces = Initializer::get_zones_by_type(TileType::Workshop, layer);
     std::vector<Tile*> community_areas = Initializer::get_zones_by_type(TileType::Community, layer);
@@ -149,6 +166,11 @@ namespace X11 {
       villager.set_speed(1.f);
       game.add_villager(villager);
     }
+  }
+
+  void Initializer::init_notification_bar(Layer& layer) {
+    sf::Shape* notification_bar = new sf::RectangleShape(sf::Vector2f(100.f, 100.f));
+    layer.assets.push_back(notification_bar);
   }
 
 }

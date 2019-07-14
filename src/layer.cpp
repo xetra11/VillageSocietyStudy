@@ -1,3 +1,4 @@
+
 /**
  * The layer interface that renders different tilegrid layer
  *
@@ -20,6 +21,11 @@ namespace X11 {
       sf::RectangleShape& shape = tile.get_tile_shape();
       window.draw(shape);
     }
+    if (!this->assets.empty()) {
+      for(sf::Shape* asset : this->assets) {
+        window.draw(*asset);
+      }
+    }
   }
 
   Tile* Layer::getTileAtPosition(sf::Vector2i position) {
@@ -32,8 +38,6 @@ namespace X11 {
   Grid& Layer::get_grid() { return this->tileGrid; }
 
   void Layer::setGrid(Grid grid) { this->tileGrid = std::move(grid); }
-
-  AssetList& Layer::get_assets() { return this->assets; }
 
 
 }
