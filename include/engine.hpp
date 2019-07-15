@@ -37,7 +37,9 @@ namespace X11 {
     Engine();
     virtual ~Engine();
     void run();
-    void render(sf::RenderWindow& window, sf::View& view);
+    void run_main(sf::RenderWindow& window);
+    void run_minimap(sf::RenderWindow& window);
+    void render(sf::RenderWindow& window);
     void eval_tick(sf::Clock& clock);
     sf::View main_view;
     sf::View minimap_view;

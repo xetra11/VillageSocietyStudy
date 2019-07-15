@@ -58,18 +58,16 @@ namespace X11 {
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
     this->main_view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH, WINDOW_HEIGHT));
     this->main_view.setViewport(sf::FloatRect(0.25f, 0.25f, 0.5f, 0.5f));
-    this->minimap_view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH*2, WINDOW_HEIGHT*2));
-    this->minimap_view.setViewport(sf::FloatRect(0.8f, 0.f, 0.1f, 0.1f));
+    this->minimap_view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH*MODIFIER, WINDOW_HEIGHT*MODIFIER));
+    this->minimap_view.setViewport(sf::FloatRect(0.8f, 0.1f, 0.1f, 0.1f));
 
     sf::Clock clock;
     window.setFramerateLimit(60);
     while (window.isOpen()) {
       this->eval_tick(clock);
       window.clear();
-      this->handle_events(window);
-      this->update();
-      this->render(window, this->main_view); // draw logic
-//      this->render(window, this->minimap_view); // draw logic
+      this->run_main(window);
+      this->run_minimap(window);
       window.display();
     }
   }
@@ -159,8 +157,7 @@ namespace X11 {
 
   Layer& Engine::get_menu_layer() { return this->render_layer[MENU]; }
 
-  void Engine::render(sf::RenderWindow& window, sf::View& view) {
-    window.setView(view);
+  void Engine::render(sf::RenderWindow& window) {
     this->get_background_layer().draw_layer(window);
     this->get_menu_layer().draw_layer(window);
 
@@ -169,6 +166,20 @@ namespace X11 {
         window.draw(*shape);
       }
     }
+  }
+
+  void Engine::run_main(sf::RenderWindow& window) {
+    window.setView(this->main_view);
+    this->handle_events(window);
+    this->update();
+    this->render(window); // draw logic
+  }
+
+  void Engine::run_minimap(sf::RenderWindow& window) {
+    window.setView(this->minimap_view);
+//    this->handle_events(window);
+//    this->update();
+    this->render(window); // draw logic
   }
 
 }
