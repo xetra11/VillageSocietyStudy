@@ -8,7 +8,6 @@
 #define INITIALIZER_CPP
 
 #include <iostream>
-
 #include "initializer.hpp"
 
 namespace X11 {
@@ -101,15 +100,15 @@ namespace X11 {
   }
 
   void Initializer::init_foreground_layer(Layer& layer) {
+    spdlog::info("init foreground layer");
     Initializer::init_layer(layer);
     Grid& grid = layer.get_grid();
-    spdlog::info("setup foreground layer");
     spdlog::info("foreground initialized");
   }
 
   void Initializer::init_menu_layer(Layer& layer) {
-    spdlog::info("setup menu layer");
-    // Initializer::init_notification_bar(layer);
+    spdlog::info("init menu layer");
+    Initializer::init_notification_bar(layer);
     spdlog::info("menu initialized");
   }
 
@@ -117,7 +116,7 @@ namespace X11 {
     spdlog::info("init scene layer");
     Initializer::init_layer(layer);
     Grid& grid = layer.get_grid();
-    // setup initial zones
+    spdlog::info("scene initialized");
   }
 
   sf::Vector2i Initializer::get_random_position(Grid& grid) {

@@ -56,6 +56,10 @@ namespace X11 {
 
   void Engine::run() {
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
+    sf::View camera(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH, WINDOW_HEIGHT));
+    spdlog::info("window x size {}", window.getSize().x);
+    spdlog::info("window y size {}", window.getSize().y);
+    window.setView(camera);
     sf::Clock clock;
     window.setFramerateLimit(60);
     while (window.isOpen()) {

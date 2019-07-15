@@ -30,7 +30,8 @@ namespace X11 {
   void Tile::set_color_by_type(TileType type, sf::Shape& shape) {
     switch (type) {
       case TileType::Empty :
-        shape.setFillColor(sf::Color::Transparent);
+        // shape.setFillColor(sf::Color::Transparent);
+        shape.setFillColor(sf::Color(180,180,180,180));
         break;
       case TileType::Estate :
         shape.setFillColor(sf::Color(249, 180, 45, 100));
