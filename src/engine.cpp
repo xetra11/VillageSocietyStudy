@@ -59,7 +59,9 @@ namespace X11 {
     sf::View camera(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH, WINDOW_HEIGHT));
     spdlog::info("window x size {}", window.getSize().x);
     spdlog::info("window y size {}", window.getSize().y);
+    camera.setViewport(sf::FloatRect(0.25f, 0.25f, 0.5f, 0.5f));
     window.setView(camera);
+
     sf::Clock clock;
     window.setFramerateLimit(60);
     while (window.isOpen()) {
