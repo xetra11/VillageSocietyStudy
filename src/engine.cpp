@@ -103,18 +103,36 @@ namespace X11 {
 
   void Engine::on_key(sf::Event& event, sf::RenderWindow& window) {
     switch (event.key.code) {
-    case sf::Keyboard::Left : this->move_viewport(Direction::Left, window); break;
-    case sf::Keyboard::Right : this->move_viewport(Direction::Right, window); break;
+      case sf::Keyboard::Left :
+        this->move_viewport(Direction::Left, window);
+        break;
+      case sf::Keyboard::Right :
+        this->move_viewport(Direction::Right, window);
+        break;
+      case sf::Keyboard::Down :
+        this->move_viewport(Direction::Down, window);
+        break;
+      case sf::Keyboard::Up :
+        this->move_viewport(Direction::Up, window);
+        break;
     }
   }
 
   void Engine::move_viewport(Direction direction, sf::RenderWindow& window) {
     sf::View view = window.getView();
     switch (direction) {
-    case Direction::Left : view.move(-100.f, 0.f); break;
-    case Direction::Right : view.move(100.f, 0.f); break;
-    case Direction::Down : view.move(0.f, 100.f); break;
-    case Direction::Up : view.move(0.f, -100.f); break;
+      case Direction::Left :
+        view.move(-100.f, 0.f);
+        break;
+      case Direction::Right :
+        view.move(100.f, 0.f);
+        break;
+      case Direction::Down :
+        view.move(0.f, 100.f);
+        break;
+      case Direction::Up :
+        view.move(0.f, -100.f);
+        break;
     }
     window.setView(view);
   }
