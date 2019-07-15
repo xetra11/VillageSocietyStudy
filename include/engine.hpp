@@ -27,9 +27,8 @@ namespace X11 {
   private:
     Game game;
     void on_mouse_button(sf::RenderWindow& window);
-    void on_key(sf::Event& event, sf::RenderWindow& window);
-
-    void move_viewport(Direction direction, sf::RenderWindow& window);
+    static void on_key(sf::Event& event, sf::RenderWindow& window);
+    static void move_view(Direction direction, sf::RenderWindow& window);
 
     void handle_events(sf::RenderWindow& window);
     void update();
@@ -38,6 +37,8 @@ namespace X11 {
     Engine();
     virtual ~Engine();
     void run();
+    void render_main(sf::RenderWindow& window, sf::View& main_view);
+    void render_minimap(sf::RenderWindow& window);
     Game& get_game();
     Layer& get_background_layer();
     Layer& get_scene_layer();

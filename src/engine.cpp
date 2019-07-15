@@ -56,11 +56,11 @@ namespace X11 {
 
   void Engine::run() {
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
-    sf::View camera(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH, WINDOW_HEIGHT));
+    sf::View main_view(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH, WINDOW_HEIGHT));
+    sf::View minimap_view(sf::FloatRect(200.f, 0.f, 100, 100));
     spdlog::info("window x size {}", window.getSize().x);
     spdlog::info("window y size {}", window.getSize().y);
-    camera.setViewport(sf::FloatRect(0.25f, 0.25f, 0.5f, 0.5f));
-    window.setView(camera);
+    main_view.setViewport(sf::FloatRect(0.25f, 0.25f, 0.5f, 0.5f));
 
     sf::Clock clock;
     window.setFramerateLimit(60);
@@ -71,21 +71,11 @@ namespace X11 {
       }
       this->handle_events(window);
       this->update();
-      window.clear();
-
-      this->get_background_layer().draw_layer(window);
-      // this->get_scene_layer().draw_layer(window);
-      // this->get_foreground_layer().draw_layer(window);
-      this->get_menu_layer().draw_layer(window);
-
-      for (Villager villager : this->game.get_villagers()) {
-        for (sf::Shape* shape : villager.get_shapes()) {
-          window.draw(*shape);
-        }
-      }
-      window.display();
+      this->render_main(window, main_view);
     }
   }
+
+
 
   Game& Engine::get_game() { return this->game; }
 
@@ -104,21 +94,23 @@ namespace X11 {
   void Engine::on_key(sf::Event& event, sf::RenderWindow& window) {
     switch (event.key.code) {
       case sf::Keyboard::Left :
-        this->move_viewport(Direction::Left, window);
+        Engine::move_view(Direction::Left, window);
         break;
       case sf::Keyboard::Right :
-        this->move_viewport(Direction::Right, window);
+        Engine::move_view(Direction::Right, window);
         break;
       case sf::Keyboard::Down :
-        this->move_viewport(Direction::Down, window);
+        Engine::move_view(Direction::Down, window);
         break;
       case sf::Keyboard::Up :
-        this->move_viewport(Direction::Up, window);
+        Engine::move_view(Direction::Up, window);
+        break;
+      default :
         break;
     }
   }
 
-  void Engine::move_viewport(Direction direction, sf::RenderWindow& window) {
+  void Engine::move_view(Direction direction, sf::RenderWindow& window) {
     sf::View view = window.getView();
     switch (direction) {
       case Direction::Left :
@@ -146,7 +138,7 @@ namespace X11 {
         this->on_mouse_button(window);
       }
       if (event.type == sf::Event::KeyPressed) {
-        this->on_key(event, window);
+        Engine::on_key(event, window);
       }
     }
   }
@@ -158,6 +150,26 @@ namespace X11 {
   Layer& Engine::get_foreground_layer() { return this->render_layer[FOREGROUND]; }
 
   Layer& Engine::get_menu_layer() { return this->render_layer[MENU]; }
+
+  void Engine::render_main(sf::RenderWindow& window, sf::View& main_view) {
+    window.setView(main_view);
+    window.clear();
+    this->get_background_layer().draw_layer(window);
+    // this->get_scene_layer().draw_layer(window);
+    // this->get_foreground_layer().draw_layer(window);
+    this->get_menu_layer().draw_layer(window);
+
+    for (Villager villager : this->game.get_villagers()) {
+      for (sf::Shape* shape : villager.get_shapes()) {
+        window.draw(*shape);
+      }
+    }
+    window.display();
+  }
+
+  void Engine::render_minimap(sf::RenderWindow& window) {
+
+  }
 
 }
 
