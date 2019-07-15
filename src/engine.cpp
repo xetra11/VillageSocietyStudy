@@ -31,12 +31,11 @@ namespace X11 {
   void Engine::update() {
     // update routines for normal tiles
     Grid& background_grid = this->get_background_layer().get_grid();
-    Grid& scene_grid = this->get_scene_layer().get_grid();
+    // Grid& scene_grid = this->get_scene_layer().get_grid();
     Grid& foreground_grid = this->get_foreground_layer().get_grid();
-    Grid& menu_grid = this->get_menu_layer().get_grid();
     GridRenderer::empty_tiles(background_grid);
-    GridRenderer::empty_tiles(scene_grid);
-    GridRenderer::empty_tiles(foreground_grid);
+    // GridRenderer::empty_tiles(scene_grid);
+    // GridRenderer::empty_tiles(foreground_grid);
 
     // update selected tile
     int selected_tile_index = this->get_game().get_selected_tile_position();
@@ -69,8 +68,8 @@ namespace X11 {
       window.clear();
 
       this->get_background_layer().draw_layer(window);
-      this->get_scene_layer().draw_layer(window);
-      this->get_foreground_layer().draw_layer(window);
+      // this->get_scene_layer().draw_layer(window);
+      // this->get_foreground_layer().draw_layer(window);
       this->get_menu_layer().draw_layer(window);
 
       for (Villager villager : this->game.get_villagers()) {

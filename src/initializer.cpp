@@ -1,5 +1,4 @@
-/**
- * Initializes VilSoc assets
+/** * Initializes VilSoc assets
  *
  * @file initializer.cpp
  * @author Patrick Charles H. | xetra11
@@ -110,7 +109,7 @@ namespace X11 {
 
   void Initializer::init_menu_layer(Layer& layer) {
     spdlog::info("setup menu layer");
-    Initializer::init_notification_bar(layer);
+    // Initializer::init_notification_bar(layer);
     spdlog::info("menu initialized");
   }
 

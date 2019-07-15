@@ -32,6 +32,9 @@ namespace X11 {
 
   int GridRenderer::map_coords_to_grid_pos(sf::Vector2f coord_pos) {
     sf::Vector2i grid_vector((coord_pos.x / TILE_SIZE), (coord_pos.y / TILE_SIZE));
+    if(grid_vector.x >= GRID_WIDTH || grid_vector.y > GRID_HEIGHT) {
+      return MAX_GRID_INDEX;
+    }
     int grid_index = grid_vector.x + (grid_vector.y * GRID_WIDTH);
     return grid_index;
   }

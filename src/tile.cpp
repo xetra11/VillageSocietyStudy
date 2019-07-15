@@ -18,7 +18,6 @@ namespace X11 {
                                       is_selected{false} {
     sf::Vector2f size(TILE_SIZE, TILE_SIZE);
     this->tile_shape = sf::RectangleShape(size);
-    this->tile_shape.setFillColor(sf::Color::Transparent);
     this->tile_shape.setPosition(position);
 
     sf::Vector2i rectSize(TILE_SIZE, TILE_SIZE);
