@@ -21,11 +21,16 @@
 #define MENU 3
 
 namespace X11 {
+  enum class Direction {Left, Right, Up, Down};
 
   class Engine {
   private:
     Game game;
-    void handle_mouse_button_pressed(sf::RenderWindow& window);
+    void on_mouse_button(sf::RenderWindow& window);
+    void on_key(sf::Event& event, sf::RenderWindow& window);
+
+    void move_viewport(Direction direction, sf::RenderWindow& window);
+
     void handle_events(sf::RenderWindow& window);
     void update();
     std::vector<Layer> render_layer;

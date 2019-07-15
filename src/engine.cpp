@@ -89,7 +89,7 @@ namespace X11 {
 
   Game& Engine::get_game() { return this->game; }
 
-  void Engine::handle_mouse_button_pressed(sf::RenderWindow& window) {
+  void Engine::on_mouse_button(sf::RenderWindow& window) {
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
     sf::Vector2f coord_pos = window.mapPixelToCoords(mouse_pos);
     int grid_pos_index = GridRenderer::map_coords_to_grid_pos(coord_pos);
@@ -101,13 +101,34 @@ namespace X11 {
     }
   }
 
+  void Engine::on_key(sf::Event& event, sf::RenderWindow& window) {
+    switch (event.key.code) {
+    case sf::Keyboard::Left : this->move_viewport(Direction::Left, window); break;
+    case sf::Keyboard::Right : this->move_viewport(Direction::Right, window); break;
+    }
+  }
+
+  void Engine::move_viewport(Direction direction, sf::RenderWindow& window) {
+    sf::View view = window.getView();
+    switch (direction) {
+    case Direction::Left : view.move(-100.f, 0.f); break;
+    case Direction::Right : view.move(100.f, 0.f); break;
+    case Direction::Down : view.move(0.f, 100.f); break;
+    case Direction::Up : view.move(0.f, -100.f); break;
+    }
+    window.setView(view);
+  }
+
   void Engine::handle_events(sf::RenderWindow& window) {
     sf::Event event{};
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
         window.close();
       if (event.type == sf::Event::MouseButtonPressed) {
-        this->handle_mouse_button_pressed(window);
+        this->on_mouse_button(window);
+      }
+      if (event.type == sf::Event::KeyPressed) {
+        this->on_key(event, window);
       }
     }
   }
