@@ -169,7 +169,9 @@ namespace X11 {
   }
 
   void Initializer::init_notification_bar(Layer& layer) {
-    sf::Shape* notification_bar = new sf::RectangleShape(sf::Vector2f(100.f, 100.f));
+    int bar_height = 100;
+    sf::Shape* notification_bar = new sf::RectangleShape(sf::Vector2f(WINDOW_WIDTH, bar_height));
+    notification_bar->setPosition(0, WINDOW_HEIGHT - bar_height);
     layer.assets.push_back(notification_bar);
   }
 
