@@ -38,6 +38,7 @@ namespace X11 {
     virtual ~Engine();
     void run();
     void render(sf::RenderWindow& window, sf::View& view);
+    void eval_tick(sf::Clock& clock);
     sf::View main_view;
     sf::View minimap_view;
     Game& get_game();

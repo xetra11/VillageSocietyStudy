@@ -61,7 +61,10 @@ namespace X11 {
     this->minimap_view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH*2, WINDOW_HEIGHT*2));
     this->minimap_view.setViewport(sf::FloatRect(0.8f, 0.f, 0.1f, 0.1f));
 
+    sf::Clock clock;
+    window.setFramerateLimit(60);
     while (window.isOpen()) {
+      this->eval_tick(clock);
       window.clear();
       this->handle_events(window);
       this->update();
@@ -72,6 +75,13 @@ namespace X11 {
   }
 
   Game& Engine::get_game() { return this->game; }
+
+  void Engine::eval_tick(sf::Clock& clock) {
+    if (clock.getElapsedTime().asSeconds() > 1.f) {
+      this->game.tick++;
+      clock.restart();
+    }
+  }
 
   void Engine::on_mouse_button(sf::RenderWindow& window) {
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
