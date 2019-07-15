@@ -87,15 +87,19 @@ namespace X11 {
 
   void Engine::on_key(sf::Event& event, sf::RenderWindow& window) {
     switch (event.key.code) {
+      case sf::Keyboard::A :
       case sf::Keyboard::Left :
         this->move_main_view(Direction::Left, window);
         break;
+      case sf::Keyboard::D :
       case sf::Keyboard::Right :
         this->move_main_view(Direction::Right, window);
         break;
+      case sf::Keyboard::S :
       case sf::Keyboard::Down :
         this->move_main_view(Direction::Down, window);
         break;
+      case sf::Keyboard::W :
       case sf::Keyboard::Up :
         this->move_main_view(Direction::Up, window);
         break;
