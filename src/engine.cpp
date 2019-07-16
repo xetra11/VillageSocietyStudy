@@ -21,8 +21,8 @@ namespace X11 {
     Initializer::init_background_layer(this->get_background_layer());
     Initializer::init_scene_layer(this->get_scene_layer());
     Initializer::init_foreground_layer(this->get_foreground_layer());
-    Initializer::init_menu_layer(this->get_menu_layer());
 
+    Initializer::init_menu(this->menu);
     Initializer::init_game(this->game, this->get_background_layer());
   }
 
@@ -56,6 +56,7 @@ namespace X11 {
 
   void Engine::run() {
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "VilSoc");
+    this->menu_view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH, WINDOW_HEIGHT));
     this->main_view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH, WINDOW_HEIGHT));
     this->main_view.setViewport(sf::FloatRect(0.25f, 0.25f, 0.5f, 0.5f));
     this->minimap_view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH*MODIFIER, WINDOW_HEIGHT*MODIFIER));
@@ -66,6 +67,7 @@ namespace X11 {
     while (window.isOpen()) {
       this->eval_tick(clock);
       window.clear();
+      this->run_menu(window);
       this->run_main(window);
       this->run_minimap(window);
       window.display();
@@ -157,7 +159,7 @@ namespace X11 {
 
   Layer& Engine::get_menu_layer() { return this->render_layer[MENU]; }
 
-  void Engine::render(sf::RenderWindow& window) {
+  void Engine::render_game(sf::RenderWindow& window) {
     this->get_background_layer().draw_layer(window);
     this->get_menu_layer().draw_layer(window);
 
@@ -168,18 +170,27 @@ namespace X11 {
     }
   }
 
+  void Engine::render_menu(sf::RenderWindow& window) {
+    for (sf::RectangleShape& shape : this->menu.menu_shapes) {
+      window.draw(shape);
+    }
+  }
+
+  void Engine::run_menu(sf::RenderWindow& window) {
+    window.setView(this->menu_view);
+    this->render_menu(window); // draw logic
+  }
+
   void Engine::run_main(sf::RenderWindow& window) {
     window.setView(this->main_view);
     this->handle_events(window);
     this->update();
-    this->render(window); // draw logic
+    this->render_game(window); // draw logic
   }
 
   void Engine::run_minimap(sf::RenderWindow& window) {
     window.setView(this->minimap_view);
-//    this->handle_events(window);
-//    this->update();
-    this->render(window); // draw logic
+    this->render_game(window); // draw logic
   }
 
 }

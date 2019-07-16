@@ -17,6 +17,7 @@
 #include "config.hpp"
 #include "layer.hpp"
 #include "game.hpp"
+#include "menu.hpp"
 
 namespace X11 {
   class Game;
@@ -34,11 +35,12 @@ namespace X11 {
     static void init_scene_layer(Layer& layer);
     static void init_background_layer(Layer& layer);
     static void init_foreground_layer(Layer& layer);
-    static void init_menu_layer(Layer& layer);
 
-    static void init_notification_bar(Layer& layer);
+    static void init_notification_bar(Menu& menu);
 
     static void init_game(Game& game, Layer& layer);
+    static void init_menu(Menu& menu);
+
     static void init_villagers(Game& game);
     static std::vector<Tile*> get_zones_by_type(TileType type, Layer& layer);
   };

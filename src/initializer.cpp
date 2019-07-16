@@ -106,10 +106,9 @@ namespace X11 {
     spdlog::info("foreground initialized");
   }
 
-  void Initializer::init_menu_layer(Layer& layer) {
-    spdlog::info("init menu layer");
-    // Initializer::init_notification_bar(layer);
-    spdlog::info("menu initialized");
+  void Initializer::init_menu(Menu& menu) {
+    spdlog::info("init menu");
+    Initializer::init_notification_bar(menu);
   }
 
   void Initializer::init_scene_layer(Layer& layer) {
@@ -166,11 +165,12 @@ namespace X11 {
     }
   }
 
-  void Initializer::init_notification_bar(Layer& layer) {
-    int bar_height = 100;
-    sf::Shape* notification_bar = new sf::RectangleShape(sf::Vector2f(WINDOW_WIDTH, bar_height));
-    notification_bar->setPosition(0, WINDOW_HEIGHT - bar_height);
-    layer.assets.push_back(notification_bar);
+  void Initializer::init_notification_bar(Menu& menu) {
+    spdlog::info("init notification bar");
+    sf::RectangleShape notification_bar(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT * 0.25));
+    notification_bar.setPosition(0, WINDOW_HEIGHT * 0.75);
+    notification_bar.setFillColor(sf::Color::Blue);
+    menu.menu_shapes.push_back(notification_bar);
   }
 
 }

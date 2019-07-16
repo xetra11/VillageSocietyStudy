@@ -14,6 +14,7 @@
 #include "layer.hpp"
 #include "gridrenderer.hpp"
 #include "initializer.hpp"
+#include "menu.hpp"
 
 #define BACKGROUND 0
 #define SCENE 1
@@ -25,6 +26,7 @@ namespace X11 {
 
   class Engine {
   private:
+    Menu menu;
     Game game;
     void on_mouse_button(sf::RenderWindow& window);
     void on_key(sf::Event& event, sf::RenderWindow& window);
@@ -39,10 +41,15 @@ namespace X11 {
     void run();
     void run_main(sf::RenderWindow& window);
     void run_minimap(sf::RenderWindow& window);
-    void render(sf::RenderWindow& window);
+    void run_menu(sf::RenderWindow& window);
+    void render_game(sf::RenderWindow& window);
+    void render_menu(sf::RenderWindow& window);
     void eval_tick(sf::Clock& clock);
+
+    sf::View menu_view;
     sf::View main_view;
     sf::View minimap_view;
+
     Game& get_game();
     Layer& get_background_layer();
     Layer& get_scene_layer();
