@@ -37,6 +37,8 @@ namespace X11 {
     static void init_foreground_layer(Layer& layer);
 
     static void init_notification_bar(Menu& menu);
+    static void init_left_bar(Menu& menu);
+    static void init_right_bar(Menu& menu);
 
     static void init_game(Game& game, Layer& layer);
     static void init_menu(Menu& menu);
