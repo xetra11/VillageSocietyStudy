@@ -187,6 +187,10 @@ namespace X11 {
 
   void Initializer::init_left_bar_text(Menu& menu) {
     spdlog::info("init left bar texts");
+    Initializer::init_tick_text(menu);
+  }
+
+  void Initializer::init_tick_text(Menu& menu) {
     sf::Text tick_label;
     sf::Text tick_time;
     ResourceManager* resources = ResourceManager::instance();
@@ -199,15 +203,16 @@ namespace X11 {
     tick_label.setFillColor(sf::Color::Black);
     tick_label.setStyle(sf::Text::Bold);
     tick_label.setCharacterSize(10);
+
     tick_time.setString("0");
     tick_time.setPosition(sf::Vector2f(tick_label.getGlobalBounds().width + 50.f, 10.f));
     tick_time.setFillColor(sf::Color::Black);
     tick_time.setStyle(sf::Text::Bold);
     tick_time.setCharacterSize(10);
+
     menu.menu_texts.push_back(tick_label);
     menu.menu_texts.push_back(tick_time);
   }
-
 
 
   void Initializer::init_right_bar(Menu& menu) {
