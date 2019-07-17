@@ -24,6 +24,7 @@ namespace X11 {
 
     Initializer::init_menu(this->menu);
     Initializer::init_game(this->game, this->get_background_layer());
+
   }
 
   Engine::~Engine() = default;
@@ -173,6 +174,9 @@ namespace X11 {
   void Engine::render_menu(sf::RenderWindow& window) {
     for (sf::RectangleShape& shape : this->menu.menu_shapes) {
       window.draw(shape);
+    }
+    for (sf::Text& text : this->menu.menu_texts) {
+      window.draw(text);
     }
   }
 

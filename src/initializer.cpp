@@ -1,4 +1,5 @@
-/** * Initializes VilSoc assets
+/**
+ * Initializes VilSoc assets
  *
  * @file initializer.cpp
  * @author Patrick Charles H. | xetra11
@@ -9,6 +10,7 @@
 
 #include <iostream>
 #include "initializer.hpp"
+#include "../src/resources.cpp"
 
 namespace X11 {
 
@@ -189,6 +191,15 @@ namespace X11 {
     right_bar.setPosition(WINDOW_WIDTH * 0.75, 0);
     right_bar.setFillColor(sf::Color(205,133,63, 255));
     menu.menu_shapes.push_back(right_bar);
+    spdlog::info("init right bar texts");
+    sf::Text text;
+    text.setFont(ResourceManager::instance()->fonts[0]);
+    text.setString("current tick:");
+    text.setPosition(sf::Vector2f(10.f, 10.f));
+    text.setFillColor(sf::Color::Black);
+    text.setStyle(sf::Text::Bold);
+    text.setCharacterSize(10);
+    menu.menu_texts.push_back(text);
   }
 
 }

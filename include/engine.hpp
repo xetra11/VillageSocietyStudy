@@ -38,6 +38,7 @@ namespace X11 {
   public:
     Engine();
     virtual ~Engine();
+
     void run();
     void run_main(sf::RenderWindow& window);
     void run_minimap(sf::RenderWindow& window);

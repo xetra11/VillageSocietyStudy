@@ -15,6 +15,7 @@ namespace X11 {
   private:
   public:
     std::vector<sf::RectangleShape> menu_shapes;
+    std::vector<sf::Text> menu_texts;
   };
 }
 #endif
