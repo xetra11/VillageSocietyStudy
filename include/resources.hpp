@@ -19,7 +19,7 @@ namespace X11 {
       spdlog::info("loading resources...");
       spdlog::info("loading fonts...");
       sf::Font font;
-      if (font.loadFromFile("/usr/share/fonts/TTF/DejaVuSans.ttf")){
+      if (font.loadFromFile("data/fonts/DejaVuSans.ttf")){
         this->fonts.push_back(font);
       } else {
         spdlog::error("fonts could not be loaded");
