@@ -179,18 +179,10 @@ namespace X11 {
   void Initializer::init_left_bar(Menu& menu) {
     spdlog::info("init left bar");
     sf::RectangleShape left_bar(sf::Vector2f(WINDOW_WIDTH * 0.25, WINDOW_HEIGHT * 0.75));
-    left_bar.setPosition(0, 0);
+    left_bar.setPosition(WINDOW_WIDTH * 0.75, 0);
     left_bar.setFillColor(sf::Color(205,133,63, 255));
     menu.menu_shapes.push_back(left_bar);
-  }
-
-  void Initializer::init_right_bar(Menu& menu) {
-    spdlog::info("init right bar");
-    sf::RectangleShape right_bar(sf::Vector2f(WINDOW_WIDTH * 0.25, WINDOW_HEIGHT * 0.75));
-    right_bar.setPosition(WINDOW_WIDTH * 0.75, 0);
-    right_bar.setFillColor(sf::Color(205,133,63, 255));
-    menu.menu_shapes.push_back(right_bar);
-    spdlog::info("init right bar texts");
+    spdlog::info("init left bar texts");
     sf::Text tick_label;
     sf::Text tick_time;
     if (!ResourceManager::instance()->fonts.empty()) {
@@ -209,6 +201,14 @@ namespace X11 {
     tick_time.setCharacterSize(10);
     menu.menu_texts.push_back(tick_label);
     menu.menu_texts.push_back(tick_time);
+  }
+
+  void Initializer::init_right_bar(Menu& menu) {
+    spdlog::info("init right bar");
+    sf::RectangleShape right_bar(sf::Vector2f(WINDOW_WIDTH * 0.25, WINDOW_HEIGHT * 0.75));
+    right_bar.setPosition(0, 0);
+    right_bar.setFillColor(sf::Color(205,133,63, 255));
+    menu.menu_shapes.push_back(right_bar);
   }
 
 }
