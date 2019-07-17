@@ -60,8 +60,8 @@ namespace X11 {
     this->menu_view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH, WINDOW_HEIGHT));
     this->main_view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH, WINDOW_HEIGHT));
     this->main_view.setViewport(sf::FloatRect(0.25f, 0.25f, 0.5f, 0.5f));
-    this->minimap_view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH*MODIFIER, WINDOW_HEIGHT*MODIFIER));
-    this->minimap_view.setViewport(sf::FloatRect(0.8f, 0.1f, 0.1f, 0.1f));
+    this->minimap_view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_WIDTH * MODIFIER, WINDOW_HEIGHT * MODIFIER));
+    this->minimap_view.setViewport(sf::FloatRect(0.77f, 0.05f, 0.2f, 0.2f));
 
     sf::Clock clock;
     window.setFramerateLimit(60);
