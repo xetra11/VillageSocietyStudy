@@ -1,0 +1,36 @@
+/**
+ * the resource manager
+ *
+ * @file resources.hpp
+ * @author Patrick Charles H. | xetra11
+ */
+
+#ifndef RESOURCES_HPP
+#define RESOURCES_HPP
+
+#include "config.hpp"
+#include <SFML/Graphics.hpp>
+
+namespace X11 {
+  class ResourceManager {
+  private:
+    static ResourceManager* _instance;
+    ResourceManager() {
+      spdlog::info("loading resources...");
+      spdlog::info("loading fonts...");
+      sf::Font font;
+      if (font.loadFromFile("/usr/share/fonts/TTF/DejaVuSans.ttf")){
+        this->fonts.push_back(font);
+      } else {
+        spdlog::error("fonts could not be loaded");
+      };
+      spdlog::info("resources loaded");
+    };
+    ResourceManager (const ResourceManager&);
+    ~ResourceManager() = default;
+  public:
+    static ResourceManager* instance();
+    std::vector<sf::Font> fonts;
+  };
+}
+#endif
