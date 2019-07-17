@@ -9,6 +9,7 @@
 #define MENU_HPP
 
 #include "config.hpp"
+#include <SFML/Graphics.hpp>
 
 namespace X11 {
   class Menu {

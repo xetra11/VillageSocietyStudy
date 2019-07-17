@@ -10,7 +10,6 @@
 
 #include <iostream>
 #include "initializer.hpp"
-#include "../src/resources.cpp"
 
 namespace X11 {
 
@@ -185,7 +184,9 @@ namespace X11 {
     menu.menu_shapes.push_back(left_bar);
     spdlog::info("init left bar texts");
     sf::Text text;
-    text.setFont(ResourceManager::instance()->fonts[0]);
+    if (!ResourceManager::instance()->fonts.empty()) {
+      text.setFont(ResourceManager::instance()->fonts[0]);
+    }
     text.setString("current tick:");
     text.setPosition(sf::Vector2f(10.f, 10.f));
     text.setFillColor(sf::Color::Black);
