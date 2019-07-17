@@ -80,6 +80,7 @@ namespace X11 {
   void Engine::eval_tick(sf::Clock& clock) {
     if (clock.getElapsedTime().asSeconds() > 1.f) {
       this->game.tick++;
+      this->menu.menu_texts[1].setString(std::to_string(game.tick));
       clock.restart();
     }
   }

@@ -191,16 +191,24 @@ namespace X11 {
     right_bar.setFillColor(sf::Color(205,133,63, 255));
     menu.menu_shapes.push_back(right_bar);
     spdlog::info("init right bar texts");
-    sf::Text text;
+    sf::Text tick_label;
+    sf::Text tick_time;
     if (!ResourceManager::instance()->fonts.empty()) {
-      text.setFont(ResourceManager::instance()->fonts[0]);
+      tick_label.setFont(ResourceManager::instance()->fonts[0]);
+      tick_time.setFont(ResourceManager::instance()->fonts[0]);
     }
-    text.setString("current tick:");
-    text.setPosition(sf::Vector2f(10.f, 10.f));
-    text.setFillColor(sf::Color::Black);
-    text.setStyle(sf::Text::Bold);
-    text.setCharacterSize(10);
-    menu.menu_texts.push_back(text);
+    tick_label.setString("current tick:");
+    tick_label.setPosition(sf::Vector2f(10.f, 10.f));
+    tick_label.setFillColor(sf::Color::Black);
+    tick_label.setStyle(sf::Text::Bold);
+    tick_label.setCharacterSize(10);
+    tick_time.setString("0");
+    tick_time.setPosition(sf::Vector2f(tick_label.getGlobalBounds().width + 50.f, 10.f));
+    tick_time.setFillColor(sf::Color::Black);
+    tick_time.setStyle(sf::Text::Bold);
+    tick_time.setCharacterSize(10);
+    menu.menu_texts.push_back(tick_label);
+    menu.menu_texts.push_back(tick_time);
   }
 
 }
