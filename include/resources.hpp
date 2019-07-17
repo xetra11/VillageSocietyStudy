@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 
 namespace X11 {
+  enum class Font {DejaVuSans};
   class ResourceManager {
   private:
     static ResourceManager* _instance;
@@ -20,7 +21,7 @@ namespace X11 {
       spdlog::info("loading fonts...");
       sf::Font font;
       if (font.loadFromFile("data/fonts/DejaVuSans.ttf")){
-        this->fonts.push_back(font);
+        this->fonts.insert(std::pair<Font, sf::Font>(Font::DejaVuSans, font));
       } else {
         spdlog::error("fonts could not be loaded");
       };
@@ -30,7 +31,7 @@ namespace X11 {
     ~ResourceManager() = default;
   public:
     static ResourceManager* instance();
-    std::vector<sf::Font> fonts;
+    std::map<Font, sf::Font> fonts;
   };
 }
 #endif

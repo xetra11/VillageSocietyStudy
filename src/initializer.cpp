@@ -182,12 +182,17 @@ namespace X11 {
     left_bar.setPosition(WINDOW_WIDTH * 0.75, 0);
     left_bar.setFillColor(sf::Color(205,133,63, 255));
     menu.menu_shapes.push_back(left_bar);
+    Initializer::init_left_bar_text(menu);
+  }
+
+  void Initializer::init_left_bar_text(Menu& menu) {
     spdlog::info("init left bar texts");
     sf::Text tick_label;
     sf::Text tick_time;
-    if (!ResourceManager::instance()->fonts.empty()) {
-      tick_label.setFont(ResourceManager::instance()->fonts[0]);
-      tick_time.setFont(ResourceManager::instance()->fonts[0]);
+    ResourceManager* resources = ResourceManager::instance();
+    if (!resources->fonts.empty()) {
+      tick_label.setFont(resources->fonts.at(Font::DejaVuSans));
+      tick_time.setFont(resources->fonts.at(Font::DejaVuSans));
     }
     tick_label.setString("current tick:");
     tick_label.setPosition(sf::Vector2f(10.f, 10.f));
@@ -202,6 +207,8 @@ namespace X11 {
     menu.menu_texts.push_back(tick_label);
     menu.menu_texts.push_back(tick_time);
   }
+
+
 
   void Initializer::init_right_bar(Menu& menu) {
     spdlog::info("init right bar");

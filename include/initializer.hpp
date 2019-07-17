@@ -37,15 +37,17 @@ namespace X11 {
     static void init_background_layer(Layer& layer);
     static void init_foreground_layer(Layer& layer);
 
-    static void init_notification_bar(Menu& menu);
-    static void init_left_bar(Menu& menu);
-    static void init_right_bar(Menu& menu);
-
     static void init_game(Game& game, Layer& layer);
     static void init_menu(Menu& menu);
 
     static void init_villagers(Game& game);
     static std::vector<Tile*> get_zones_by_type(TileType type, Layer& layer);
+
+    static void init_notification_bar(Menu& menu);
+    static void init_left_bar(Menu& menu);
+    static void init_right_bar(Menu& menu);
+
+    static void init_left_bar_text(Menu& menu);
   };
 }
 
