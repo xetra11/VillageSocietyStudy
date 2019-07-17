@@ -24,4 +24,5 @@ if (UNIX)
   target_link_libraries(vilsoc ${LIBS})
 endif (UNIX)
 file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/logs")
+file(COPY src/data DESTINATION .)
 
