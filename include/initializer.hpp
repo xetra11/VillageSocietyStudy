@@ -48,7 +48,7 @@ namespace X11 {
     static void init_right_bar(Menu& menu);
 
     static void init_left_bar_text(Menu& menu);
-    static void init_tick_text(Menu& menu);
+    static void init_tick_text(Menu& menu, const sf::Vector2f& position);
   };
 }
 

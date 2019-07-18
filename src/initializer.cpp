@@ -187,10 +187,10 @@ namespace X11 {
 
   void Initializer::init_left_bar_text(Menu& menu) {
     spdlog::info("init left bar texts");
-    Initializer::init_tick_text(menu);
+    Initializer::init_tick_text(menu, sf::Vector2f(10.f, 10.f));
   }
 
-  void Initializer::init_tick_text(Menu& menu) {
+  void Initializer::init_tick_text(Menu& menu, const sf::Vector2f& position) {
     sf::Text tick_label;
     sf::Text tick_time;
     ResourceManager* resources = ResourceManager::instance();
@@ -199,7 +199,7 @@ namespace X11 {
       tick_time.setFont(resources->fonts.at(Font::DejaVuSans));
     }
     tick_label.setString("current tick:");
-    tick_label.setPosition(sf::Vector2f(10.f, 10.f));
+    tick_label.setPosition(position);
     tick_label.setFillColor(sf::Color::Black);
     tick_label.setStyle(sf::Text::Bold);
     tick_label.setCharacterSize(10);
