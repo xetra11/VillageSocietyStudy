@@ -191,24 +191,18 @@ namespace X11 {
   }
 
   void Initializer::init_tick_text(Menu& menu, const sf::Vector2f& position) {
-    sf::Text tick_label;
-    sf::Text tick_time;
+    Text tick_label;
+    Text tick_time;
     ResourceManager* resources = ResourceManager::instance();
     if (!resources->fonts.empty()) {
       tick_label.setFont(resources->fonts.at(Font::DejaVuSans));
       tick_time.setFont(resources->fonts.at(Font::DejaVuSans));
     }
     tick_label.setString("current tick:");
-    tick_label.setPosition(position);
-    tick_label.setFillColor(sf::Color::Black);
-    tick_label.setStyle(sf::Text::Bold);
-    tick_label.setCharacterSize(10);
-
     tick_time.setString("0");
+
+    tick_label.setPosition(position);
     tick_time.setPosition(sf::Vector2f(tick_label.getGlobalBounds().width + 50.f, 10.f));
-    tick_time.setFillColor(sf::Color::Black);
-    tick_time.setStyle(sf::Text::Bold);
-    tick_time.setCharacterSize(10);
 
     menu.menu_texts.push_back(tick_label);
     menu.menu_texts.push_back(tick_time);

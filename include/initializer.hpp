@@ -19,6 +19,7 @@
 #include "game.hpp"
 #include "menu.hpp"
 #include "resources.hpp"
+#include "text.hpp"
 
 namespace X11 {
   class Game;
