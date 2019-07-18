@@ -14,7 +14,14 @@
 #include <iostream>
 
 namespace X11 {
-  Engine::Engine() : render_layer{std::vector<Layer>(4)}, game{Game()} {
+  Engine::Engine() : render_layer{std::vector<Layer>(3)},
+                     game{Game()},
+                     bottom_menu{Menu(sf::Vector2f(0, WINDOW_HEIGHT * 0.75),
+                                    sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT * 0.25))},
+                     left_menu{Menu(sf::Vector2f(0.f, 0.f),
+                                     sf::Vector2f(WINDOW_WIDTH * 0.25, WINDOW_HEIGHT * 0.75))},
+                     right_menu{Menu( sf::Vector2f(WINDOW_WIDTH * 0.75, 0),
+                             sf::Vector2f(WINDOW_WIDTH * 0.25, WINDOW_HEIGHT * 0.75))} {
     spdlog::info("setup engine");
     spdlog::info("init layer");
 
@@ -22,9 +29,9 @@ namespace X11 {
     Initializer::init_scene_layer(this->get_scene_layer());
     Initializer::init_foreground_layer(this->get_foreground_layer());
 
-    Initializer::init_menu(this->menu);
     Initializer::init_game(this->game, this->get_background_layer());
 
+    Initializer::init_left_menu(this->left_menu);
   }
 
   Engine::~Engine() = default;
@@ -39,7 +46,7 @@ namespace X11 {
     // GridRenderer::empty_tiles(foreground_grid);
 
     // update selected tile
-    int selected_tile_index = this->get_game().get_selected_tile_position();
+    int selected_tile_index = this->game.get_selected_tile_position();
     if (selected_tile_index > -1) {
       // highlight still in background layer because there are zones rendered
       Tile& bg_selected_tile = background_grid[selected_tile_index];
@@ -75,12 +82,10 @@ namespace X11 {
     }
   }
 
-  Game& Engine::get_game() { return this->game; }
 
   void Engine::eval_tick(sf::Clock& clock) {
     if (clock.getElapsedTime().asSeconds() > 1.f) {
       this->game.tick++;
-      this->menu.menu_texts[1].setString(std::to_string(game.tick));
       clock.restart();
     }
   }
@@ -159,11 +164,9 @@ namespace X11 {
 
   Layer& Engine::get_foreground_layer() { return this->render_layer[FOREGROUND]; }
 
-  Layer& Engine::get_menu_layer() { return this->render_layer[MENU]; }
 
   void Engine::render_game(sf::RenderWindow& window) {
     this->get_background_layer().draw_layer(window);
-    this->get_menu_layer().draw_layer(window);
 
     for (Villager villager : this->game.get_villagers()) {
       for (sf::Shape* shape : villager.get_shapes()) {
@@ -173,12 +176,9 @@ namespace X11 {
   }
 
   void Engine::render_menu(sf::RenderWindow& window) {
-    for (sf::RectangleShape& shape : this->menu.menu_shapes) {
-      window.draw(shape);
-    }
-    for (sf::Text& text : this->menu.menu_texts) {
-      window.draw(text);
-    }
+    window.draw(this->left_menu);
+    window.draw(this->right_menu);
+    window.draw(this->bottom_menu);
   }
 
   void Engine::run_menu(sf::RenderWindow& window) {

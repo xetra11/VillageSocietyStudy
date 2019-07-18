@@ -9,14 +9,16 @@
 #define MENU_HPP
 
 #include "config.hpp"
+#include "text.hpp"
 #include <SFML/Graphics.hpp>
 
 namespace X11 {
-  class Menu {
+  class Menu : public sf::RectangleShape {
   private:
   public:
-    std::vector<sf::RectangleShape> menu_shapes;
-    std::vector<sf::Text> menu_texts;
+    Menu(sf::Vector2f position, sf::Vector2f size);
+    ~Menu() = default;
+    std::vector<Text> texts;
   };
 }
 #endif

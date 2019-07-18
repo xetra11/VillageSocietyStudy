@@ -19,14 +19,18 @@
 #define BACKGROUND 0
 #define SCENE 1
 #define FOREGROUND 2
-#define MENU 3
 
 namespace X11 {
   enum class Direction {Left, Right, Up, Down};
 
   class Engine {
   private:
-    Menu menu;
+    Menu left_menu;
+    Menu right_menu;
+    Menu bottom_menu;
+    sf::View menu_view;
+    sf::View main_view;
+    sf::View minimap_view;
     Game game;
     void on_mouse_button(sf::RenderWindow& window);
     void on_key(sf::Event& event, sf::RenderWindow& window);
@@ -35,11 +39,11 @@ namespace X11 {
     void handle_events(sf::RenderWindow& window);
     void update();
     std::vector<Layer> render_layer;
-  public:
-    Engine();
-    virtual ~Engine();
 
-    void run();
+    Layer& get_background_layer();
+    Layer& get_scene_layer();
+    Layer& get_foreground_layer();
+
     void run_main(sf::RenderWindow& window);
     void run_minimap(sf::RenderWindow& window);
     void run_menu(sf::RenderWindow& window);
@@ -47,15 +51,10 @@ namespace X11 {
     void render_menu(sf::RenderWindow& window);
     void eval_tick(sf::Clock& clock);
 
-    sf::View menu_view;
-    sf::View main_view;
-    sf::View minimap_view;
-
-    Game& get_game();
-    Layer& get_background_layer();
-    Layer& get_scene_layer();
-    Layer& get_foreground_layer();
-    Layer& get_menu_layer();
+  public:
+    Engine();
+    virtual ~Engine();
+    void run();
   };
 
 };

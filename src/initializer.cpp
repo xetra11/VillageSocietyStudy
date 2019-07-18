@@ -107,13 +107,6 @@ namespace X11 {
     spdlog::info("foreground initialized");
   }
 
-  void Initializer::init_menu(Menu& menu) {
-    spdlog::info("init menu");
-    Initializer::init_notification_bar(menu);
-    Initializer::init_left_bar(menu);
-    Initializer::init_right_bar(menu);
-  }
-
   void Initializer::init_scene_layer(Layer& layer) {
     spdlog::info("init scene layer");
     Initializer::init_layer(layer);
@@ -168,28 +161,6 @@ namespace X11 {
     }
   }
 
-  void Initializer::init_notification_bar(Menu& menu) {
-    spdlog::info("init notification bar");
-    sf::RectangleShape notification_bar(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT * 0.25));
-    notification_bar.setPosition(0, WINDOW_HEIGHT * 0.75);
-    notification_bar.setFillColor(sf::Color(205,133,63, 255));
-    menu.menu_shapes.push_back(notification_bar);
-  }
-
-  void Initializer::init_left_bar(Menu& menu) {
-    spdlog::info("init left bar");
-    sf::RectangleShape left_bar(sf::Vector2f(WINDOW_WIDTH * 0.25, WINDOW_HEIGHT * 0.75));
-    left_bar.setPosition(WINDOW_WIDTH * 0.75, 0);
-    left_bar.setFillColor(sf::Color(205,133,63, 255));
-    menu.menu_shapes.push_back(left_bar);
-    Initializer::init_left_bar_text(menu);
-  }
-
-  void Initializer::init_left_bar_text(Menu& menu) {
-    spdlog::info("init left bar texts");
-    Initializer::init_tick_text(menu, sf::Vector2f(10.f, 10.f));
-  }
-
   void Initializer::init_tick_text(Menu& menu, const sf::Vector2f& position) {
     Text tick_label;
     Text tick_time;
@@ -204,17 +175,21 @@ namespace X11 {
     tick_label.setPosition(position);
     tick_time.setPosition(sf::Vector2f(tick_label.getGlobalBounds().width + 50.f, 10.f));
 
-    menu.menu_texts.push_back(tick_label);
-    menu.menu_texts.push_back(tick_time);
+    menu.texts.push_back(tick_label);
+    menu.texts.push_back(tick_time);
   }
 
+  void Initializer::init_left_menu(Menu& menu) {
+    spdlog::info("init left bar");
+    Initializer::init_tick_text(menu, sf::Vector2f(10.f, 10.f));
+  }
 
-  void Initializer::init_right_bar(Menu& menu) {
-    spdlog::info("init right bar");
-    sf::RectangleShape right_bar(sf::Vector2f(WINDOW_WIDTH * 0.25, WINDOW_HEIGHT * 0.75));
-    right_bar.setPosition(0, 0);
-    right_bar.setFillColor(sf::Color(205,133,63, 255));
-    menu.menu_shapes.push_back(right_bar);
+  void Initializer::init_right_menu(Menu& menu) {
+
+  }
+
+  void Initializer::init_bottom_menu(Menu& menu) {
+
   }
 
 }
