@@ -13,12 +13,15 @@
 #include <SFML/Graphics.hpp>
 
 namespace X11 {
-  class Menu : public sf::RectangleShape {
+  class Menu : public sf::Drawable {
   private:
   public:
     Menu(sf::Vector2f position, sf::Vector2f size);
     ~Menu() = default;
+    sf::RectangleShape shape;
     std::vector<Text> texts;
+  private:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
   };
 }
 #endif
