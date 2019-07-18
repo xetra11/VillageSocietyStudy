@@ -28,6 +28,8 @@ namespace X11 {
     Menu left_menu;
     Menu right_menu;
     Menu bottom_menu;
+    Menu top_menu;
+
     sf::View menu_view;
     sf::View main_view;
     sf::View minimap_view;

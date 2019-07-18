@@ -16,6 +16,8 @@
 namespace X11 {
   Engine::Engine() : render_layer{std::vector<Layer>(3)},
                      game{Game()},
+                     top_menu{Menu(sf::Vector2f(WINDOW_WIDTH * 0.25, 0.f),
+                                    sf::Vector2f(WINDOW_WIDTH * 0.50, WINDOW_HEIGHT * 0.25))},
                      bottom_menu{Menu(sf::Vector2f(0, WINDOW_HEIGHT * 0.75),
                                     sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT * 0.25))},
                      left_menu{Menu(sf::Vector2f(0.f, 0.f),
@@ -179,6 +181,7 @@ namespace X11 {
     window.draw(this->left_menu);
     window.draw(this->right_menu);
     window.draw(this->bottom_menu);
+    window.draw(this->top_menu);
   }
 
   void Engine::run_menu(sf::RenderWindow& window) {
