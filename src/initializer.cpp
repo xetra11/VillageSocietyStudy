@@ -164,13 +164,9 @@ namespace X11 {
   void Initializer::init_tick_text(Menu& menu, const sf::Vector2f& position) {
     Text tick_label;
     Text tick_time;
-    ResourceManager* resources = ResourceManager::instance();
-    if (!resources->fonts.empty()) {
-      tick_label.setFont(resources->fonts.at(Font::DejaVuSans));
-      tick_time.setFont(resources->fonts.at(Font::DejaVuSans));
-    }
-    tick_label.setString("current tick:");
-    tick_time.setString("0");
+
+    tick_label.setString("Tick:");
+    tick_time.setString("<none>");
 
     tick_label.setPosition(position);
     tick_time.setPosition(sf::Vector2f(tick_label.getGlobalBounds().width + 50.f, 10.f));
@@ -179,9 +175,38 @@ namespace X11 {
     menu.texts.push_back(tick_time);
   }
 
+  void Initializer::init_tile_info_text(Menu& menu, const sf::Vector2f& position) {
+    Text info_headline;
+    info_headline.is_debug = true;
+    info_headline.setString("Tile Info:");
+    info_headline.setPosition(position);
+
+    Text info_tile_type_label;
+    info_tile_type_label.is_debug = true;
+    info_tile_type_label.setString("- Type: ");
+    info_tile_type_label.setPosition(sf::Vector2f(info_headline.getPosition().x + 5.f, info_headline.getPosition().y + 20.f));
+
+    Text info_tile_owner_label;
+    info_tile_owner_label.is_debug = true;
+    info_tile_owner_label.setString("- Owner: ");
+    info_tile_owner_label.setPosition(sf::Vector2f(info_headline.getPosition().x + 5.f, info_headline.getPosition().y + 40.f));
+
+    Text info_tile_content_label;
+    info_tile_content_label.is_debug = true;
+    info_tile_content_label.setString("- Contents: ");
+    info_tile_content_label.setPosition(sf::Vector2f(info_headline.getPosition().x + 5.f, info_headline.getPosition().y + 60.f));
+
+    menu.texts.push_back(info_headline);
+    menu.texts.push_back(info_tile_type_label);
+    menu.texts.push_back(info_tile_owner_label);
+    menu.texts.push_back(info_tile_content_label);
+  }
+
   void Initializer::init_left_menu(Menu& menu) {
     spdlog::info("init left bar");
-    Initializer::init_tick_text(menu, sf::Vector2f(10.f, 10.f));
+    sf::Vector2f position(10.f, 10.f);
+    Initializer::init_tick_text(menu, position);
+    Initializer::init_tile_info_text(menu, position + sf::Vector2f(0.f, 20.f));
   }
 
   void Initializer::init_right_menu(Menu& menu) {

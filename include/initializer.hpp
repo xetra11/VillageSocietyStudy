@@ -47,6 +47,7 @@ namespace X11 {
     static std::vector<Tile*> get_zones_by_type(TileType type, Layer& layer);
 
     static void init_tick_text(Menu& menu, const sf::Vector2f& position);
+    static void init_tile_info_text(Menu& menu, const sf::Vector2f& position);
   };
 }
 

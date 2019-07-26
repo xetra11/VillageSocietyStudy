@@ -15,6 +15,7 @@ namespace X11 {
 class Text : public sf::Text {
   private:
   public:
+    bool is_debug = false;
     Text();
     ~Text() override = default;
   };
