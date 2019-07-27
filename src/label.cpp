@@ -12,14 +12,14 @@ namespace X11 {
     Text value;
     label.setString(label_text);
     label.setPosition(position);
-    value.setString("<none>");
     value.setPosition(sf::Vector2f(label.getPosition().x + 70.f, label.getPosition().y));
+    this->label = label;
+    this->value = value;
   }
 
   void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    for (Text text : this->texts) {
-      target.draw(text);
-    }
+    target.draw(this->label);
+    target.draw(this->value);
   }
 }
 

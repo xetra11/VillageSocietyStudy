@@ -8,11 +8,15 @@ namespace X11 {
   class Label : public sf::Drawable {
   private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    std::vector<Text> texts;
+    Text label;
+    Text value;
   public:
     Label(std::string label, sf::Vector2f position, bool is_debug);
     ~Label() = default;
     bool is_debug = false;
+    sf::Vector2f getPosition() {
+      return label.getPosition();
+    }
   };
 }
 

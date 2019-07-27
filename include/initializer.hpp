@@ -18,6 +18,7 @@
 #include "layer.hpp"
 #include "game.hpp"
 #include "menu/menu.hpp"
+#include "menu/label.hpp"
 #include "resources.hpp"
 #include "text.hpp"
 

@@ -176,10 +176,7 @@ namespace X11 {
   }
 
   void Initializer::init_tile_info_text(Menu& menu, const sf::Vector2f& position) {
-    Text info_headline;
-    info_headline.is_debug = true;
-    info_headline.setString("Tile Info:");
-    info_headline.setPosition(position);
+    Label info_headline("Tile Info:", position, true);
 
     Text info_tile_type_label;
     Text info_tile_type;
@@ -204,7 +201,7 @@ namespace X11 {
     info_tile_content_label.setString("- Contents: ");
     info_tile_content_label.setPosition(sf::Vector2f(info_headline.getPosition().x + 5.f, info_headline.getPosition().y + 60.f));
 
-    menu.texts.push_back(info_headline);
+    menu.labels.push_back(info_headline);
     menu.texts.push_back(info_tile_type_label);
     menu.texts.push_back(info_tile_type);
     menu.texts.push_back(info_tile_owner_label);
