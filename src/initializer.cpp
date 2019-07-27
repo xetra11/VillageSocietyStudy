@@ -169,7 +169,7 @@ namespace X11 {
     tick_time.setString("<none>");
 
     tick_label.setPosition(position);
-    tick_time.setPosition(sf::Vector2f(tick_label.getGlobalBounds().width + 50.f, 10.f));
+    tick_time.setPosition(sf::Vector2f(tick_label.getGlobalBounds().width + 50.f, tick_label.getGlobalBounds().height + 8.f));
 
     menu.texts.push_back(tick_label);
     menu.texts.push_back(tick_time);
@@ -204,13 +204,16 @@ namespace X11 {
 
   void Initializer::init_left_menu(Menu& menu) {
     spdlog::info("init left bar");
-    sf::Vector2f position(10.f, 10.f);
-    Initializer::init_tick_text(menu, position);
-    Initializer::init_tile_info_text(menu, position + sf::Vector2f(0.f, 20.f));
+    sf::Vector2f position = menu.shape.getPosition();
+    Initializer::init_tick_text(menu, position + sf::Vector2f(20.f, 20.f));
+    Initializer::init_tile_info_text(menu, position + sf::Vector2f(20.f, 40.f));
   }
 
   void Initializer::init_right_menu(Menu& menu) {
-
+    spdlog::info("init right bar");
+    sf::Vector2f position = menu.shape.getPosition();
+    Initializer::init_tick_text(menu, position + sf::Vector2f(20.f, 200.f));
+    Initializer::init_tile_info_text(menu, position + sf::Vector2f(20.f, 220.f));
   }
 
   void Initializer::init_bottom_menu(Menu& menu) {

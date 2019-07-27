@@ -34,6 +34,7 @@ namespace X11 {
     Initializer::init_game(this->game, this->get_background_layer());
 
     Initializer::init_left_menu(this->left_menu);
+    Initializer::init_right_menu(this->right_menu);
   }
 
   Engine::~Engine() = default;
