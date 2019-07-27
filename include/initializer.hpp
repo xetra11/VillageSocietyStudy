@@ -17,7 +17,7 @@
 #include "config.hpp"
 #include "layer.hpp"
 #include "game.hpp"
-#include "menu.hpp"
+#include "menu/menu.hpp"
 #include "resources.hpp"
 #include "text.hpp"
 

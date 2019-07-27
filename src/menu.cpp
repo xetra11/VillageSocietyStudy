@@ -10,7 +10,7 @@
 
 #define DEV_MODE true
 
-#include "menu.hpp"
+#include "menu/menu.hpp"
 
 namespace X11 {
 
@@ -26,6 +26,13 @@ namespace X11 {
         target.draw(text);
       } else if (!text.is_debug) {
         target.draw(text);
+      }
+    }
+    for (Label label : this->labels) {
+      if (label.is_debug && DEV_MODE) {
+        target.draw(label);
+      } else if (!label.is_debug) {
+        target.draw(label);
       }
     }
   }

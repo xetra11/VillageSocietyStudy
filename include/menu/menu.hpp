@@ -10,18 +10,19 @@
 
 #include "config.hpp"
 #include "text.hpp"
+#include "menu/label.hpp"
 #include <SFML/Graphics.hpp>
 
 namespace X11 {
   class Menu : public sf::Drawable {
   private:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
   public:
     Menu(sf::Vector2f position, sf::Vector2f size);
     ~Menu() = default;
     sf::RectangleShape shape;
     std::vector<Text> texts;
-  private:
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    std::vector<Label> labels;
   };
 }
 #endif

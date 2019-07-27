@@ -14,7 +14,7 @@
 #include "layer.hpp"
 #include "gridrenderer.hpp"
 #include "initializer.hpp"
-#include "menu.hpp"
+#include "menu/menu.hpp"
 
 #define BACKGROUND 0
 #define SCENE 1
