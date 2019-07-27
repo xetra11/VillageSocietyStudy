@@ -169,7 +169,7 @@ namespace X11 {
     tick_time.setString("<none>");
 
     tick_label.setPosition(position);
-    tick_time.setPosition(sf::Vector2f(tick_label.getGlobalBounds().width + 50.f, tick_label.getGlobalBounds().height + 8.f));
+    tick_time.setPosition(sf::Vector2f(tick_label.getPosition().x + 70.f, tick_label.getPosition().y));
 
     menu.texts.push_back(tick_label);
     menu.texts.push_back(tick_time);
@@ -182,14 +182,22 @@ namespace X11 {
     info_headline.setPosition(position);
 
     Text info_tile_type_label;
+    Text info_tile_type;
     info_tile_type_label.is_debug = true;
     info_tile_type_label.setString("- Type: ");
     info_tile_type_label.setPosition(sf::Vector2f(info_headline.getPosition().x + 5.f, info_headline.getPosition().y + 20.f));
+    info_tile_type.is_debug = true;
+    info_tile_type.setString("Empty");
+    info_tile_type.setPosition(sf::Vector2f(info_tile_type_label.getPosition().x + 70.f, info_tile_type_label.getPosition().y));
 
     Text info_tile_owner_label;
+    Text info_tile_owner;
     info_tile_owner_label.is_debug = true;
     info_tile_owner_label.setString("- Owner: ");
     info_tile_owner_label.setPosition(sf::Vector2f(info_headline.getPosition().x + 5.f, info_headline.getPosition().y + 40.f));
+    info_tile_owner.is_debug = true;
+    info_tile_owner.setString("None");
+    info_tile_owner.setPosition(sf::Vector2f(info_tile_owner_label.getPosition().x + 70.f, info_tile_owner_label.getPosition().y));
 
     Text info_tile_content_label;
     info_tile_content_label.is_debug = true;
@@ -198,7 +206,9 @@ namespace X11 {
 
     menu.texts.push_back(info_headline);
     menu.texts.push_back(info_tile_type_label);
+    menu.texts.push_back(info_tile_type);
     menu.texts.push_back(info_tile_owner_label);
+    menu.texts.push_back(info_tile_owner);
     menu.texts.push_back(info_tile_content_label);
   }
 
