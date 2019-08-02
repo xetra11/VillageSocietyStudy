@@ -8,6 +8,16 @@
 #ifndef VILSOC_HPP
 #define VILSOC_HPP
 
+#ifdef RUNNING_WINDOWS
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <Shlwapi.h>
+// windows stuff
+#elif defined RUNNING_LINUX
+#include <unistd.h>
+#include <dirent.h>
+#endif
+
 #include <SFML/Graphics.hpp>
 #include "config.hpp"
 #include "engine.hpp"
